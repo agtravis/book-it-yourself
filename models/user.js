@@ -10,6 +10,12 @@ const userSchema = new Schema({
   role: { type: Object },
   status: { type: String },
   date: { type: Date, default: Date.now },
+  posts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: `Classified`,
+    },
+  ],
 });
 
 const User = mongoose.model(`User`, userSchema);

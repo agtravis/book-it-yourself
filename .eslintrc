@@ -25,7 +25,8 @@
     "comma-dangle": [
       "error",
       {
-        "objects": "always-multiline"
+        "objects": "always-multiline",
+        "arrays": "always-multiline"
       }
     ],
     "comma-spacing": ["error", { "before": false, "after": true }],
