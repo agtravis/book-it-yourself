@@ -17,12 +17,17 @@
     "array-bracket-spacing": "error",
     "array-callback-return": "error",
     "arrow-body-style": ["error", "as-needed"],
-    "arrow-parens": ["error", "as-needed"],
+    "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
     "arrow-spacing": "error",
     "block-scoped-var": "error",
     "block-spacing": "error",
     "camelcase": "error",
-    "comma-dangle": ["error", "never"],
+    "comma-dangle": [
+      "error",
+      {
+        "objects": "always-multiline"
+      }
+    ],
     "comma-spacing": ["error", { "before": false, "after": true }],
     "curly": "error",
     "default-case": "error",

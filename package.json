@@ -2,10 +2,20 @@
   "name": "book-it-yourself",
   "version": "1.0.0",
   "description": "Community for DIY artists",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "seed": "node scripts/seedDB.js",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build",
     "lint": "eslint . \"**/*.js\""
+  },
+  "prettier": {
+    "arrowParens": "avoid"
   },
   "repository": {
     "type": "git",
@@ -16,8 +26,15 @@
   "bugs": {
     "url": "https://github.com/agtravis/book-it-yourself/issues"
   },
-  "homepage": "https://github.com/agtravis/book-it-yourself#readme",
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "eslint": "^6.8.0",
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "if-env": "^1.0.4",
+    "mongoose": "^5.9.7"
   }
 }
