@@ -1,9 +1,9 @@
 "use strict";
 
-const User = require(`./user.js`);
-const Classified = require(`./classified.js`);
+const User = require(`./userModel`);
+const Classified = require(`./classifiedModel`);
 
 module.exports = {
-  Classified,
   User,
+  Classified,
 };
