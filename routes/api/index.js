@@ -1,9 +1,11 @@
-'use strict';
+"use strict";
 
 const router = require(`express`).Router();
 const userRoutes = require(`./users`);
+const classifiedRoutes = require(`./classifieds`);
 
-// Book routes
+// table routes
 router.use(`/users`, userRoutes);
+router.use(`/classifieds`, classifiedRoutes);
 
 module.exports = router;
