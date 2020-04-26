@@ -4,13 +4,13 @@ const mongoose = require(`mongoose`);
 const Schema = mongoose.Schema;
 
 const classifiedSchema = new Schema({
-  type: { type: Object },
-  title: { type: String },
-  description: { type: String },
+  type: { type: String, required: true },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
   location: { type: String },
   startDate: { type: Date, default: Date.now },
   endDate: { type: Date },
-  complete: { type: Boolean },
+  complete: { type: Boolean, default: false },
   status: { type: String },
   postedDate: { type: Date, default: Date.now },
 });

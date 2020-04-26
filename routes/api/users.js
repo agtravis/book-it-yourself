@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const router = require(`express`).Router();
 const usersController = require(`../../controllers/usersController`);
@@ -12,5 +12,7 @@ router
   .get(usersController.findById)
   .put(usersController.update)
   .delete(usersController.remove);
+
+router.route(`/post/:id`).put(usersController.updateNewPost);
 
 module.exports = router;

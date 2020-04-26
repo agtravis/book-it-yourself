@@ -1,6 +1,7 @@
 "use strict";
 
 const db = require(`../models`);
+const mongoose = require(`mongoose`);
 
 const errorResponseCode = 422;
 
@@ -24,9 +25,21 @@ module.exports = {
       .catch(err => res.status(errorResponseCode).json(err));
   },
   update: (req, res) => {
-    db.User.findOneAndUpdate({ _id: req.params.id }, req.body, {
-      useFindAndModify: false,
-    })
+    db.User.updateOne(
+      { _id: mongoose.Types.ObjectId(req.params.id) },
+      req.body,
+      { useFindAndModify: false }
+    )
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(errorResponseCode).json(err));
+  },
+  updateNewPost: (req, res) => {
+    db.User.updateOne(
+      { _id: mongoose.Types.ObjectId(req.params.id) },
+      {
+        $push: { posts: req.body.id },
+      }
+    )
       .populate(`posts`)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(errorResponseCode).json(err));

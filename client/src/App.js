@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import API from "./utils/API";
 
+import MockUp from "./MockUp/MockUp";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,11 +27,7 @@ class App extends Component {
   };
 
   render() {
-    return (
-      <div>
-        <h1>something</h1>
-      </div>
-    );
+    return <MockUp users={this.state.users} getUsers={this.getUsers} />;
   }
 }
 

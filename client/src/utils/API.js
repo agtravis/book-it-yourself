@@ -16,4 +16,10 @@ export default {
   updateUser(id, userData) {
     return axios.put(`/api/users/${id}`, userData);
   },
+  updateUserNewPost(id, postId) {
+    return axios.put(`/api/users/post/${id}`, postId);
+  },
+  addPost(postData) {
+    return axios.post(`/api/classifieds`, postData);
+  },
 };
