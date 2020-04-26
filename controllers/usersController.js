@@ -14,6 +14,7 @@ module.exports = {
   },
   findById: (req, res) => {
     db.User.findById(req.params.id)
+      .populate(`posts`)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(errorResponseCode).json(err));
   },
@@ -26,11 +27,13 @@ module.exports = {
     db.User.findOneAndUpdate({ _id: req.params.id }, req.body, {
       useFindAndModify: false,
     })
+      .populate(`posts`)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(errorResponseCode).json(err));
   },
   remove: (req, res) => {
     db.User.findById({ _id: req.params.id })
+      .populate(`posts`)
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(errorResponseCode).json(err));
