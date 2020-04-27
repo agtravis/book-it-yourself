@@ -170,7 +170,21 @@ function AddPost(props) {
             {currentUser.posts.map((post, index) => {
               return (
                 <div key={index}>
-                  <h4>{post.title}</h4>
+                  <h4>
+                    {post.title} -{" "}
+                    <span
+                      style={{ cursor: "pointer", fontWeight: "bolder" }}
+                      onClick={() => {
+                        API.deletePost(post._id)
+                          .then(() => {
+                            getUser(currentUser._id);
+                          })
+                          .catch(err => console.error(err));
+                      }}
+                    >
+                      DELETE
+                    </span>
+                  </h4>
                   <p>{post.location}</p>
                   <p>{post.description}</p>
                   <p>
