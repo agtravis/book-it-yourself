@@ -6,6 +6,7 @@ function AddPost(props) {
   const [post, setPost] = useState({
     type: ``,
     title: ``,
+    author: ``,
     description: ``,
     location: ``,
     startDate: ``,
@@ -37,6 +38,9 @@ function AddPost(props) {
           onChange={event => {
             getUser(event.target.value);
           }}
+          onBlur={() => {
+            setPost({ ...post, author: currentUser._id });
+          }}
         >
           <option value="" id="default">
             Choose a user:
@@ -61,7 +65,8 @@ function AddPost(props) {
                 !post.description ||
                 !post.location ||
                 !post.startDate ||
-                !post.endDate
+                !post.endDate ||
+                !post.author
               ) {
                 alert(`Finish the form!`);
               } else {
@@ -73,6 +78,7 @@ function AddPost(props) {
                       .then(userDB => {
                         console.log(userDB);
                         setPost({
+                          ...post,
                           type: ``,
                           title: ``,
                           description: ``,

@@ -14,5 +14,6 @@ router
   .delete(usersController.remove);
 
 router.route(`/post/:id`).put(usersController.updateNewPost);
+router.route(`/pull/:id`).put(usersController.removePostFromUser);
 
 module.exports = router;

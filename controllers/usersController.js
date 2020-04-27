@@ -44,6 +44,17 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(errorResponseCode).json(err));
   },
+  removePostFromUser: (req, res) => {
+    db.User.updateOne(
+      { _id: mongoose.Types.ObjectId(req.params.id) },
+      {
+        $pull: { posts: mongoose.Types.ObjectId(req.body.id) },
+      }
+    )
+      .populate(`posts`)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(errorResponseCode).json(err));
+  },
   remove: (req, res) => {
     db.User.findById({ _id: req.params.id })
       .populate(`posts`)

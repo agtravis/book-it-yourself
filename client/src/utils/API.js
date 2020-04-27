@@ -19,7 +19,13 @@ export default {
   updateUserNewPost(id, postId) {
     return axios.put(`/api/users/post/${id}`, postId);
   },
+  updateRemoveUserPost(id, postId) {
+    return axios.put(`/api/users/pull/${id}`, postId);
+  },
   addPost(postData) {
     return axios.post(`/api/classifieds`, postData);
+  },
+  deletePost(id) {
+    return axios.delete(`/api/classifieds/${id}`);
   },
 };
