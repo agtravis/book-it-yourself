@@ -176,7 +176,11 @@ function AddPost(props) {
                       style={{ cursor: "pointer", fontWeight: "bolder" }}
                       onClick={() => {
                         API.deletePost(post._id)
-                          .then(() => {
+                          .then(data => {
+                            console.log(data.data._id);
+                            API.updateRemoveUserPost(currentUser._id, {
+                              id: data.data._id,
+                            });
                             getUser(currentUser._id);
                           })
                           .catch(err => console.error(err));
