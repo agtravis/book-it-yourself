@@ -177,7 +177,6 @@ function AddPost(props) {
                       onClick={() => {
                         API.deletePost(post._id)
                           .then(data => {
-                            console.log(data.data._id);
                             API.updateRemoveUserPost(currentUser._id, {
                               id: data.data._id,
                             });
