@@ -4,6 +4,9 @@
   "description": "Community for DIY artists",
   "main": "server.js",
   "scripts": {
+    "test": "jest --config ./jest.config.js --coverage",
+    "test:coverage": "jest --coverage",
+    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
@@ -27,8 +30,11 @@
     "url": "https://github.com/agtravis/book-it-yourself/issues"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
+    "@shelf/jest-mongodb": "^1.1.5",
     "concurrently": "^5.1.0",
+    "coveralls": "^3.1.0",
+    "eslint": "^6.8.0",
+    "jest": "^25.5.2",
     "nodemon": "^2.0.2"
   },
   "dependencies": {
