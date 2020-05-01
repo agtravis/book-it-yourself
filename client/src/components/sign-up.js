@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Redirect } from 'react-router-dom'
 
 class Signup extends Component {
 	constructor() {
@@ -32,7 +33,7 @@ class Signup extends Component {
 				console.log(response)
 				if (!response.data.errmsg) {
 					console.log('successful signup')
-					this.setState({ //redirect to login page
+					this.setState({
 						redirectTo: '/login'
 					})
 				} else {
@@ -45,25 +46,27 @@ class Signup extends Component {
 			})
 	}
 
-
 render() {
+	if (this.state.redirectTo) {
+		return <Redirect to={{ pathname: this.state.redirectTo }} />
+	}
 	return (
 		<div className="SignupForm">
-			<h4>Create an Account</h4>
+			<h4>Create Account</h4>
 			<form className="form-horizontal">
 				<div className="form-group">
+					<label for="exampleInputUsername1">Username: </label>
 					<input className="form-input"
 						type="text"
 						id="username"
 						name="username"
-						placeholder="username"
 						value={this.state.username}
 						onChange={this.handleChange}
 					/>
 				</div>
 				<div className="form-group">
+					<label for="exampleInputPassword1">Password: </label>
 					<input className="form-input"
-						placeholder="password"
 						type="password"
 						name="password"
 						value={this.state.password}
@@ -76,7 +79,7 @@ render() {
 						className="btn btn-primary col-1 col-mr-auto"
 						onClick={this.handleSubmit}
 						type="submit"
-					>Sign up</button>
+					>Submit</button>
 				</div>
 			</form>
 		</div>

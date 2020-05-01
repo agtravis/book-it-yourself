@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
+import logo from '../logo.svg';
 
 class Navbar extends Component {
     constructor() {
@@ -59,9 +60,12 @@ class Navbar extends Component {
                                 </section>
                             )}
                     </div>
+                    <div className="col-12 col-mr-auto">
+                    <div id="top-filler"></div>
+                        <img src={logo} className="App-logo" alt="logo" />
+                    </div>
                 </header>
             </div>
-
         );
 
     }

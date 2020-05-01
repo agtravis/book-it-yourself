@@ -60,18 +60,18 @@ class LoginForm extends Component {
                     <h4>Login Page</h4>
                     <form className="form-horizontal">
                         <div className="form-group">
+                            <label for="exampleInputUsername1">Username: </label>
                             <input className="form-input"
                                 type="text"
                                 id="username"
-                                name="username"
-                                placeholder="username"
+                                name="username"     
                                 value={this.state.username}
                                 onChange={this.handleChange}
                             />
                         </div>
                         <div className="form-group">
+                            <label for="exampleInputPassword1">Password: </label>
                             <input className="form-input"
-                                placeholder="password"
                                 type="password"
                                 name="password"
                                 value={this.state.password}
@@ -84,7 +84,7 @@ class LoginForm extends Component {
                                 className="btn btn-primary col-1 col-mr-auto"
                                
                                 onClick={this.handleSubmit}
-                                type="submit">Login</button>
+                                type="submit">Submit</button>
                         </div>
                     </form>
                 </div>
