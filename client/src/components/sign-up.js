@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import axios from 'axios'
-import { Redirect } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import axios from 'axios';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 
 class Signup extends Component {
 	constructor() {
@@ -51,41 +52,30 @@ render() {
 		return <Redirect to={{ pathname: this.state.redirectTo }} />
 	}
 	return (
-		<div className="SignupForm">
-			<h4>Create Account</h4>
-			<form className="form-horizontal">
-				<div className="form-group">
-					<label for="exampleInputUsername1">Username: </label>
-					<input className="form-input"
-						type="text"
-						id="username"
-						name="username"
-						value={this.state.username}
-						onChange={this.handleChange}
-					/>
-				</div>
-				<div className="form-group">
-					<label for="exampleInputPassword1">Password: </label>
-					<input className="form-input"
-						type="password"
-						name="password"
-						value={this.state.password}
-						onChange={this.handleChange}
-					/>
-				</div>
-				<div className="form-group ">
-					<div className="col-7"></div>
-					<button
-						className="btn btn-primary col-1 col-mr-auto"
-						onClick={this.handleSubmit}
-						type="submit"
-					>Submit</button>
-				</div>
-			</form>
-		</div>
-
+		<Form>
+			<h3>Create Account</h3>
+			<Form.Group as={Row} controlId="formPlaintextUsername" className="justify-content-center">
+				<Form.Label column sm="1">
+					Username
+				</Form.Label>
+				<Col sm="2">
+					<Form.Control type="text" id="username" name="username" value={this.state.username} onChange={this.handleChange}/>
+				</Col>
+			</Form.Group>
+			<Form.Group as={Row} controlId="formPlaintextPassword" className="justify-content-center">
+				<Form.Label column sm="1">
+					Password
+				</Form.Label>
+				<Col sm="2">
+					<Form.Control type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
+				</Col>
+			</Form.Group>
+			<Button variant="dark" type="submit" onClick={this.handleSubmit}>
+				Submit
+			</Button>
+		</Form>
 	)
 }
 }
 
-export default Signup
+export default Signup;

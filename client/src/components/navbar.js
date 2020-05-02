@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
-import logo from '../logo.svg';
+import { Nav, Navbar } from 'react-bootstrap';
 
-class Navbar extends Component {
+class NavigationBar extends Component {
     constructor() {
         super()
         this.logout = this.logout.bind(this)
@@ -32,43 +32,36 @@ class Navbar extends Component {
         console.log(this.props);
         
         return (
-            <div>
-                <header className="navbar App-header" id="nav-container">
-                    <div className="col-4" >
-                        <section className="navbar-section">
-                            <Link to="/" className="btn btn-link text-secondary">
-                                <span className="text-secondary">home</span>
-                            </Link>
-                        </section>
-                    </div>
-                    <div className="col-4"></div>
-                    <div className="col-4" >
+            <Navbar expand="lg">
+                <Navbar.Brand href="/">Homepage</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="ml-auto">
                         {loggedIn ? (
-                            <section className="navbar-section">
-                                <Link to="#" className="btn btn-link text-secondary" onClick={this.logout}>
-                                <span className="text-secondary">logout</span></Link>
-
-                            </section>
+                            <Nav.Item>
+                                <Nav.Link>
+                                    <Link to="#" onClick={this.logout}>logout</Link>
+                                </Nav.Link>
+                            </Nav.Item>
                         ) : (
-                                <section className="navbar-section">
-                                    <Link to="/login" className="btn btn-link text-secondary">
-                                        <span className="text-secondary">login</span>
-				                    </Link>
-                                    <Link to="/signup" className="btn btn-link">
-                                        <span className="text-secondary">sign up</span>
-				                    </Link>
-                                </section>
-                            )}
-                    </div>
-                    <div className="col-12 col-mr-auto">
-                    <div id="top-filler"></div>
-                        <img src={logo} className="App-logo" alt="logo" />
-                    </div>
-                </header>
-            </div>
+                            <React.Fragment>
+                                <Nav.Item>
+                                    <Nav.Link>
+                                        <Link to="/login">login</Link>
+                                    </Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link>
+                                        <Link to="/signup">signup</Link>
+                                    </Nav.Link>
+                                </Nav.Item>
+                            </React.Fragment>
+                        )}
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
         );
-
     }
 }
 
-export default Navbar;
+export default NavigationBar;
