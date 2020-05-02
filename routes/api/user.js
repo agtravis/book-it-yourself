@@ -5,7 +5,7 @@
 /* eslint-disable curly */
 /* eslint-disable no-shadow */
 /* eslint-disable object-shorthand */
-'use strict';
+"use strict";
 
 const express = require(`express`);
 const router = express.Router();
@@ -24,8 +24,7 @@ router.post(`/`, (req, res) => {
       res.json({
         error: `Sorry, already a user with the username: ${username}`,
       });
-    }
-    else {
+    } else {
       const newUser = new User({
         username: username,
         password: password,
@@ -50,6 +49,7 @@ router.post(
     console.log(`logged in`, req.user);
     var userInfo = {
       username: req.user.username,
+      id: req.user._id,
     };
     res.send(userInfo);
   }
@@ -57,10 +57,12 @@ router.post(
 
 router.get(`/`, (req, res, next) => {
   console.log(`===== user!!======`);
-  console.log(req.user);
+  // console.log(req.user);
   if (req.user) {
+    console.log(req.user);
     res.json({ user: req.user });
   } else {
+    console.log(`no user`);
     res.json({ user: null });
   }
 });

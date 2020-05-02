@@ -1,96 +1,117 @@
-import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
-import axios from 'axios'
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
+import { Form, Button, Row, Col } from "react-bootstrap";
+import Main from "../pages/Main";
 
 class LoginForm extends Component {
-    constructor() {
-        super()
-        this.state = {
-            username: '',
-            password: '',
-            redirectTo: null
+  constructor() {
+    super();
+    this.state = {
+      username: "",
+      password: "",
+      errorMessage: "",
+      redirectTo: null,
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    let err = "";
+    axios
+      .post("/api/user/login", {
+        username: this.state.username,
+        password: this.state.password,
+      })
+      .then(response => {
+        console.log("login response: ");
+        console.log(response);
+        if (response.status === 200) {
+          console.log(`user data incoming...`);
+          console.log(response.data);
+          this.props.updateUser({
+            loggedIn: true,
+            username: response.data.username,
+            id: response.data.id,
+          });
+          this.setState({
+            redirectTo: "/main",
+          });
         }
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
-  
-    }
+      })
+      .catch(error => {
+        console.log("login error: ");
+        console.log(error);
+        this.setState({ errormessage: err.message });
+      });
+  }
 
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
+  render() {
+    if (this.state.redirectTo) {
+      return (
+        <Redirect
+          to={{ pathname: this.state.redirectTo }}
+          render={() => <Main />}
+        />
+      );
+    } else {
+      return (
+        <Form>
+          <h3>Login Page</h3>
+          <Form.Group
+            as={Row}
+            controlId="formPlaintextUsername"
+            className="justify-content-center"
+          >
+            <Form.Label column sm="1">
+              Username
+            </Form.Label>
+            <Col sm="2">
+              <Form.Control
+                type="text"
+                id="username"
+                name="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+              />
+            </Col>
+          </Form.Group>
 
-    handleSubmit(event) {
-        event.preventDefault()
-        console.log('handleSubmit')
-
-        axios
-            .post('/user/login', {
-                username: this.state.username,
-                password: this.state.password
-            })
-            .then(response => {
-                console.log('login response: ')
-                console.log(response)
-                if (response.status === 200) {
-                    // update App.js state
-                    this.props.updateUser({
-                        loggedIn: true,
-                        username: response.data.username
-                    })
-                    // update the state to redirect to home
-                    this.setState({
-                        redirectTo: '/'
-                    })
-                }
-            }).catch(error => {
-                console.log('login error: ')
-                console.log(error);
-                
-            })
+          <Form.Group
+            as={Row}
+            controlId="formPlaintextPassword"
+            className="justify-content-center"
+          >
+            <Form.Label column sm="1">
+              Password
+            </Form.Label>
+            <Col sm="2">
+              <Form.Control
+                type="password"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+            </Col>
+          </Form.Group>
+          <Button variant="dark" type="submit" onClick={this.handleSubmit}>
+            Submit
+          </Button>
+          {this.state.errorMessage && (
+            <h3 className="error"> {this.state.errorMessage} </h3>
+          )}
+        </Form>
+      );
     }
-
-    render() {
-        if (this.state.redirectTo) {
-            return <Redirect to={{ pathname: this.state.redirectTo }} />
-        } else {
-            return (
-                <div>
-                    <h4>Login Page</h4>
-                    <form className="form-horizontal">
-                        <div className="form-group">
-                            <label for="exampleInputUsername1">Username: </label>
-                            <input className="form-input"
-                                type="text"
-                                id="username"
-                                name="username"     
-                                value={this.state.username}
-                                onChange={this.handleChange}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label for="exampleInputPassword1">Password: </label>
-                            <input className="form-input"
-                                type="password"
-                                name="password"
-                                value={this.state.password}
-                                onChange={this.handleChange}
-                            />
-                        </div>
-                        <div className="form-group ">
-                            <div className="col-7"></div>
-                            <button
-                                className="btn btn-primary col-1 col-mr-auto"
-                               
-                                onClick={this.handleSubmit}
-                                type="submit">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            )
-        }
-    }
+  }
 }
 
-export default LoginForm
+export default LoginForm;
