@@ -6,6 +6,7 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import LoginForm from "../components/login-form";
 import Signup from "../components/sign-up";
 import Logo from "../assets/images/logo.PNG";
+import Main from "../pages/Main"
 
 class Home extends Component {
   constructor() {
@@ -55,6 +56,8 @@ class Home extends Component {
   render() {
     return (
       <Router>
+        <Switch>
+        <Route exact path="/main" component={Main} />
         <div>
           <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
           {/* greet user if logged in: */}
@@ -64,17 +67,16 @@ class Home extends Component {
               <h1>Book-it-Yourself</h1>
               <Image src={Logo} fluid />
               <Jumbotron>
-                <Switch>
                   <Route
                     path="/login"
                     render={() => <LoginForm updateUser={this.updateUser} />}
                   />
                   <Route path="/signup" render={() => <Signup />} />
-                </Switch>
               </Jumbotron>
             </Container>
           </Jumbotron>
         </div>
+        </Switch>
       </Router>
     );
   }
