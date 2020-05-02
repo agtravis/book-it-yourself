@@ -13,6 +13,7 @@ class Home extends Component {
     this.state = {
       loggedIn: false,
       username: null,
+      id: null,
     };
 
     this.getUser = this.getUser.bind(this);
@@ -29,7 +30,7 @@ class Home extends Component {
   }
 
   getUser() {
-    axios.get("/user/").then(response => {
+    axios.get("/api/user/").then(response => {
       console.log("Get user response: ");
       console.log(response.data);
       if (response.data.user) {
@@ -38,12 +39,14 @@ class Home extends Component {
         this.setState({
           loggedIn: true,
           username: response.data.user.username,
+          id: response.data.user._id,
         });
       } else {
         console.log("Get user: no user");
         this.setState({
           loggedIn: false,
           username: null,
+          id: null,
         });
       }
     });
@@ -61,14 +64,13 @@ class Home extends Component {
               <h1>Book-it-Yourself</h1>
               <Image src={Logo} fluid />
               <Jumbotron>
-              <Switch>
-                  
-                <Route
-                  path="/login"
-                  render={() => <LoginForm updateUser={this.updateUser} />}
-                />
-                <Route path="/signup" render={() => <Signup />} />
-              </Switch>
+                <Switch>
+                  <Route
+                    path="/login"
+                    render={() => <LoginForm updateUser={this.updateUser} />}
+                  />
+                  <Route path="/signup" render={() => <Signup />} />
+                </Switch>
               </Jumbotron>
             </Container>
           </Jumbotron>
