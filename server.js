@@ -29,7 +29,7 @@
 //   console.log(`API Server up on http://localhost:${PORT}`)
 // );
 
-'use strict';
+"use strict";
 
 const express = require(`express`);
 const mongoose = require(`mongoose`);
@@ -43,7 +43,8 @@ const portNum = 3001;
 const PORT = process.env.PORT || portNum;
 
 // Route requires
-const user = require(`./routes/api/user`);
+// const user = require(`./routes/api/user`);
+const routes = require(`./routes`);
 
 // MIDDLEWARE
 app.use(morgan(`dev`));
@@ -73,9 +74,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session()); // calls the deserializeUser
 
-
 // Routes
-app.use(`/user`, user);
+// app.use(`/user`, user);
+app.use(routes);
 
 // Starting Server
 app.listen(PORT, () => {
