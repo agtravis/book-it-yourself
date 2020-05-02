@@ -13,7 +13,7 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-          <Nav />
+        <Nav />
         <Row>
           <Col sm={4}>
             <SideFeedComponent />

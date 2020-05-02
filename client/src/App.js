@@ -3,7 +3,7 @@ import Footer from "./components/Footer";
 import React from "react";
 import Main from "./pages/Main";
 import Index from "./pages/Index";
-import ErrorNotFound from "./components/errornotfound";
+import NotFound from "./pages/NotFound";
 
 class App extends React.Component {
   render() {
@@ -13,7 +13,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Index} />
             <Route exact path="/main" component={Main} />
-            <Route component={ErrorNotFound} />
+            <Route component={NotFound} />
           </Switch>
           <Footer />
         </div>

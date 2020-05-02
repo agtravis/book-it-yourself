@@ -5,16 +5,16 @@ import Logo from "../../assets/images/logo.PNG";
 function Footer() {
   return (
     <Navbar bg="dark">
-    <Navbar.Brand href="#home">
-            <img
-              src={Logo}
-              width="40"
-              height="25"
-              className="d-inline-block align-top"
-              alt="logo"
-            />
-        </Navbar.Brand>
-  </Navbar>
+      <Navbar.Brand href="/main">
+        <img
+          src={Logo}
+          width="40"
+          height="25"
+          className="d-inline-block align-top"
+          alt="logo"
+        />
+      </Navbar.Brand>
+    </Navbar>
   );
 }
 
