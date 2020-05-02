@@ -2,7 +2,7 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable arrow-parens */
 /* eslint-disable object-shorthand */
-'use strict';
+"use strict";
 
 const mongoose = require(`mongoose`);
 const Schema = mongoose.Schema;
@@ -10,10 +10,19 @@ const bcrypt = require(`bcryptjs`);
 mongoose.promise = Promise;
 
 const userSchema = new Schema({
-
-  username: { type: String, unique: false, required: false },
-  password: { type: String, unique: false, required: false },
-
+  username: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  email: { type: String },
+  location: { type: String },
+  role: { type: [String] },
+  status: { type: String, default: `` },
+  date: { type: Date, default: Date.now },
+  posts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: `Classified`,
+    },
+  ],
 });
 
 userSchema.methods = {
