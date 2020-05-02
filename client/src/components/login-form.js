@@ -9,6 +9,7 @@ class LoginForm extends Component {
         this.state = {
             username: '',
             password: '',
+            errorMessage: '',
             redirectTo: null
         }
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -24,30 +25,27 @@ class LoginForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault()
-        console.log('handleSubmit')
-
-        axios
-            .post('/user/login', {
+        let err = '';
+        axios.post('/user/login', {
                 username: this.state.username,
                 password: this.state.password
-            })
-            .then(response => {
-                console.log('login response: ')
-                console.log(response)
-                if (response.status === 200) {
-                    this.props.updateUser({
-                        loggedIn: true,
-                        username: response.data.username
-                    })
-                    this.setState({
-                        redirectTo: '/'
-                    })
-                }
-            }).catch(error => {
-                console.log('login error: ')
-                console.log(error);
-                
-            })
+            }).then(response => {
+                    console.log('login response: ')
+                    console.log(response)
+                    if (response.status === 200) {
+                        this.props.updateUser({
+                            loggedIn: true,
+                            username: response.data.username
+                        })
+                        this.setState({
+                            redirectTo: '/'
+                        })
+                    }
+                }).catch(error => {
+                    console.log('login error: ')
+                    console.log(error);
+                    this.setState({errormessage: err.message});
+                })
     }
 
     render() {
@@ -79,10 +77,13 @@ class LoginForm extends Component {
                     <Button variant="dark" type="submit" onClick={this.handleSubmit}>
                         Submit
                     </Button>
+                    { this.state.errorMessage &&
+                        <h3 className="error"> { this.state.errorMessage } </h3> }
                 </Form>
             )
         }
     }
 }
 
-export default LoginForm
+export default LoginForm;
+
