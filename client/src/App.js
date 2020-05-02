@@ -1,34 +1,25 @@
-import React, { Component } from "react";
-import "./App.css";
-import API from "./utils/API";
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import Nav from './components/Nav';
+import Footer from './components/Footer';
+import React from 'react';
+import Main from './pages/Main';
 
-import MockUp from "./MockUp/MockUp";
+//import Main from './pages/Main.js';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: [],
-    };
-  }
+class App extends React.Component {
 
-  componentDidMount() {
-    this.getUsers();
-  }
-
-  getUsers = () => {
-    API.getUsers()
-      .then(res => {
-        this.setState({ users: res.data });
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  };
-
-  render() {
-    return <MockUp users={this.state.users} getUsers={this.getUsers} />;
-  }
+    render() {
+        return(
+        <Router>
+            <div>
+                <Nav />
+                <Switch>
+                <Route exact path="/" component={Main} />
+                </Switch>
+                <Footer />
+            </div>
+        </Router>
+    );
 }
-
+}
 export default App;

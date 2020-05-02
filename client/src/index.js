@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+//import AppMock from './AppMock';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
+    {/*<AppMock />*/}
     <App />
+    
   </React.StrictMode>,
   document.getElementById('root')
 );
