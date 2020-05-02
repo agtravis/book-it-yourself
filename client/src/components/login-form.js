@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import Main from '../pages/Main'
+
 
 class LoginForm extends Component {
     constructor() {
@@ -38,7 +40,7 @@ class LoginForm extends Component {
                             username: response.data.username
                         })
                         this.setState({
-                            redirectTo: '/'
+                            redirectTo: '/main'
                         })
                     }
                 }).catch(error => {
@@ -50,13 +52,12 @@ class LoginForm extends Component {
 
     render() {
         if (this.state.redirectTo) {
-            return <Redirect to={{ pathname: this.state.redirectTo }} />
+
+            return <Redirect to={{ pathname: this.state.redirectTo }} render={() => <Main />} />
         } else {
             return (
                 <Form>
-                    <br></br>
                     <h3>Login Page</h3>
-                    <br></br>
                     <Form.Group as={Row} controlId="formPlaintextUsername" className="justify-content-center">
                         <Form.Label column sm="1">
                             Username

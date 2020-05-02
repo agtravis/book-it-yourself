@@ -53,9 +53,7 @@ render() {
 	}
 	return (
 		<Form>
-			<br></br>
 			<h3>Create Account</h3>
-			<br></br>
 			<Form.Group as={Row} controlId="formPlaintextUsername" className="justify-content-center">
 				<Form.Label column sm="1">
 					Username
@@ -64,7 +62,6 @@ render() {
 					<Form.Control type="text" id="username" name="username" value={this.state.username} onChange={this.handleChange}/>
 				</Col>
 			</Form.Group>
-
 			<Form.Group as={Row} controlId="formPlaintextPassword" className="justify-content-center">
 				<Form.Label column sm="1">
 					Password
