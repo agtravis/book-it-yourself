@@ -1,3 +1,5 @@
+/* eslint-disable arrow-parens */
+/* eslint-disable no-magic-numbers */
 /* eslint-disable no-unused-vars */
 /* eslint-disable vars-on-top */
 /* eslint-disable no-var */
@@ -11,6 +13,7 @@ const express = require(`express`);
 const router = express.Router();
 const User = require(`../../database/models/user`);
 const passport = require(`../../passport`);
+const mongoose = require(`mongoose`);
 
 router.post(`/`, (req, res) => {
   console.log(`user signup`);
@@ -74,6 +77,68 @@ router.post(`/logout`, (req, res) => {
   } else {
     res.send({ msg: `no user to log out` });
   }
+});
+
+// gets one user, fills posts array with posts
+// api/user/:id
+router.get(`/:id`, (req, res) => {
+  User.findById(req.params.id)
+    .populate(`posts`)
+    .sort({ date: -1 })
+    .then(dbUser => res.json(dbUser))
+    .catch(err => res.status(422).json(err));
+});
+
+// updates one user
+// api/user/:id
+router.put(`/:id`, (req, res) => {
+  User.updateOne({ _id: mongoose.Types.ObjectId(req.params.id) }, req.body, {
+    useFindAndModify: false,
+  })
+    .then(dbUser => res.json(dbUser))
+    .catch(err => res.json(err));
+});
+
+// deletes one user
+// api/user/:id
+router.delete(`/:id`, (req, res) => {
+  User.findById({ _id: mongoose.Types.ObjectId(req.params.id) })
+    .populate(`posts`)
+    .then(dbUser => dbUser.remove())
+    .then(dbUser => res.json(dbUser))
+    .catch(err => res.json(err));
+});
+
+// when a post is created, use this to push it to the array
+// the object passed looks like { id: [_id#] }
+// api/user/post/:id
+// the id in req.params is the user ID, the ID in the body is the post ID
+router.put(`/post/:id`, (req, res) => {
+  User.updateOne(
+    { _id: mongoose.Types.ObjectId(req.params.id) },
+    {
+      $push: { posts: req.body.id },
+    }
+  )
+    .populate(`posts`)
+    .then(dbUser => res.json(dbUser))
+    .catch(err => res.json(err));
+});
+
+// when a post is deleted, use this to pull it from the array
+// the object passed looks like { id: [_id#] }
+// api/user/pull/:id
+// the id in req.params is the user ID, the ID in the body is the post ID
+router.put(`/pull/:id`, (req, res) => {
+  User.updateOne(
+    { _id: mongoose.Types.ObjectId(req.params.id) },
+    {
+      $pull: { posts: mongoose.Types.ObjectId(req.body.id) },
+    }
+  )
+    .populate(`posts`)
+    .then(dbUser => res.json(dbUser))
+    .catch(err => res.json(err));
 });
 
 module.exports = router;
