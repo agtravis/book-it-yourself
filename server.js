@@ -43,7 +43,7 @@ const portNum = 3001;
 const PORT = process.env.PORT || portNum;
 
 // Route requires
-const user = require(`./routes/api/user`);
+// const user = require(`./routes/api/user`);
 const routes = require(`./routes`);
 
 // MIDDLEWARE
