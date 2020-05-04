@@ -1,12 +1,18 @@
 import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import "./style.css";
 import axios from "axios";
 import { Nav, Navbar } from "react-bootstrap";
+import Home from "../../pages/Index";
 
 class NavigationBar extends Component {
   constructor() {
     super();
+    this.state = {
+      username: "",
+      password: "",
+      redirectTo: null,
+    };
   }
 
   logout = event => {
@@ -33,10 +39,16 @@ class NavigationBar extends Component {
   }
 
   render() {
+    if (this.state.redirectTo) {
+      return (
+        <Redirect
+          to={{ pathname: this.state.redirectTo }}
+          render={() => <Home />}
+        />
+      );
+    } else {
     const loggedIn = this.props.loggedIn;
-    console.log("navbar render, props: ");
     console.log(this.props);
-
     return (
       <Navbar expand="lg">
         <Navbar.Brand href="/">Homepage</Navbar.Brand>
@@ -47,12 +59,12 @@ class NavigationBar extends Component {
               <React.Fragment>
                 <Nav.Item>
                   <Nav.Link>
-                    <Link to="/profile">profile</Link>
+                    <Link to="/main">feed</Link>
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link>
-                    <Link to="/main">main</Link>
+                    <Link to="/profile">profile</Link>
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
@@ -82,6 +94,7 @@ class NavigationBar extends Component {
       </Navbar>
     );
   }
+}
 }
 
 export default NavigationBar;

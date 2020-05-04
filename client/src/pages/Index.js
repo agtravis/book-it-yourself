@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Jumbotron, Container, Image } from "react-bootstrap";
-import Navbar from "../components/Nav";
-import axios from "axios";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Jumbotron, Container, Image } from "react-bootstrap";
+import axios from "axios";
+import Navbar from "../components/Nav";
 import LoginForm from "../components/LoginForm";
 import Signup from "../components/SignupForm";
 import Logo from "../assets/images/logo.PNG";

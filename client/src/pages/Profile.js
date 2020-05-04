@@ -3,7 +3,8 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { Jumbotron, Container, Image } from "react-bootstrap";
 import Navbar from "../components/Nav";
 import axios from "axios";
-import Main from "../pages/Main"
+import Main from "../pages/Main";
+import Home from "../pages/Index";
 
 class Profile extends Component {
   constructor() {
@@ -50,6 +51,7 @@ class Profile extends Component {
     return (
       <Router>
         <Switch>
+        <Route exact path="/" component={Home} />
         <Route exact path="/main" component={Main} />
         <div>
           <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
