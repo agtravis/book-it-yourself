@@ -72,10 +72,6 @@ class Profile extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/main" component={Main} />
           <div>
-            <Navbar
-              updateUser={this.updateUser}
-              loggedIn={this.state.loggedIn}
-            />
             {this.state.loggedIn && <p>Logged in as: {this.state.username}</p>}
             <Jumbotron fluid>
               <Container>
