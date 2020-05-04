@@ -11,15 +11,15 @@ class Signup extends Component {
       password: "",
       confirmPassword: "",
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
-  handleChange(event) {
+
+  handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value,
     });
   }
-  handleSubmit(event) {
+  
+  handleSubmit = event => {
     console.log("sign-up handleSubmit, username: ");
     console.log(this.state.username);
     event.preventDefault();

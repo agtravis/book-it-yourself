@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Jumbotron, Container, Image } from "react-bootstrap";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Nav";
 import axios from "axios";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
