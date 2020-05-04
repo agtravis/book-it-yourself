@@ -12,8 +12,9 @@ mongoose.promise = Promise;
 const userSchema = new Schema({
   username: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  email: { type: String },
-  location: { type: String },
+  email: { type: String, default: `` },
+  location: { type: String, default: `` },
+  telephone: { type: String, default: `` },
   role: { type: [String] },
   status: { type: String, default: `` },
   date: { type: Date, default: Date.now },
