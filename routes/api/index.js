@@ -37,4 +37,18 @@ router.get(`/usersposts`, (req, res) => {
     .catch(err => res.json(err));
 });
 
+// searches for a partial string in a username, returns any that match as an object req.body === { search: [string] }
+// api/users/user
+router.get(`/users/user`, (req, res) => {
+  User.find({
+    username: {
+      $regex: req.body.search,
+      $options: `i`,
+    },
+  })
+    .populate(`posts`)
+    .then(dbUser => res.json(dbUser))
+    .catch(err => res.json(err));
+});
+
 module.exports = router;
