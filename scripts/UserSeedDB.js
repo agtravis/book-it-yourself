@@ -18,7 +18,7 @@ const userSeed = [
   {
     _id: mongoose.Types.ObjectId(`5ea863ce84d81942203caba9`),
     username: `frantz`,
-    password: `frantz`,
+    password: `$2a$10$x4F.aZ9AdDnyL22vnuDdQOygL1UILWgJ5iPCf6hsU01tuKBlJvyq.`,
     email: `fake@notreal.com`,
     location: `New Jersey`,
     telephone: `(206) 555-1234`,
@@ -28,7 +28,7 @@ const userSeed = [
   {
     _id: mongoose.Types.ObjectId(`5ea863ce84d81942203cabaa`),
     username: `ryan`,
-    password: `ryan`,
+    password: `$2a$10$x4F.aZ9AdDnyL22vnuDdQOygL1UILWgJ5iPCf6hsU01tuKBlJvyq.`,
     email: `fake@notreal.com`,
     location: `Seattle`,
     telephone: `(206) 555-1234`,
@@ -38,7 +38,7 @@ const userSeed = [
   {
     _id: mongoose.Types.ObjectId(`5ea863ce84d81942203cabab`),
     username: `duc`,
-    password: `duc`,
+    password: `$2a$10$x4F.aZ9AdDnyL22vnuDdQOygL1UILWgJ5iPCf6hsU01tuKBlJvyq.`,
     email: `fake@notreal.com`,
     location: `Belgium`,
     telephone: `(206) 555-1234`,
@@ -48,7 +48,7 @@ const userSeed = [
   {
     _id: mongoose.Types.ObjectId(`5ea863ce84d81942203cabac`),
     username: `remy`,
-    password: `remy`,
+    password: `$2a$10$x4F.aZ9AdDnyL22vnuDdQOygL1UILWgJ5iPCf6hsU01tuKBlJvyq.`,
     email: `fake@notreal.com`,
     location: `Seattle`,
     telephone: `(206) 555-1234`,
@@ -58,7 +58,7 @@ const userSeed = [
   {
     _id: mongoose.Types.ObjectId(`5ea863ce84d81942203cabad`),
     username: `george`,
-    password: `george`,
+    password: `$2a$10$x4F.aZ9AdDnyL22vnuDdQOygL1UILWgJ5iPCf6hsU01tuKBlJvyq.`,
     email: `fake@notreal.com`,
     location: `England`,
     telephone: `(206) 555-1234`,
