@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import Cassette from "../img/cassette.png";
+import Cassette from "../assets/images/cassette.png";
+import Jumbotron from "react-bootstrap/Jumbotron"
 export default class ErrorNotFound extends Component {
   render() {
     return (
+      <Jumbotron fluid>
       <div id="error">
         <img src={Cassette} />
         <h1 className="notFoundTitle">Yo! That page can’t be found!</h1>
@@ -11,6 +13,7 @@ export default class ErrorNotFound extends Component {
           links in the menu or press back to go to the previous page.
         </p>
       </div>
+      </Jumbotron>
     );
   }
 }
