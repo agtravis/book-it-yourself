@@ -7,10 +7,9 @@ import { Nav, Navbar } from "react-bootstrap";
 class NavigationBar extends Component {
   constructor() {
     super();
-    this.logout = this.logout.bind(this);
   }
 
-  logout(event) {
+  logout = event => {
     event.preventDefault();
     console.log("logging out");
     axios
@@ -22,6 +21,9 @@ class NavigationBar extends Component {
             loggedIn: false,
             username: null,
             id: null,
+          });
+          this.setState({
+            redirectTo: "/",
           });
         }
       })
@@ -42,13 +44,25 @@ class NavigationBar extends Component {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
             {loggedIn ? (
-              <Nav.Item>
-                <Nav.Link>
-                  <Link to="#" onClick={this.logout}>
-                    logout
-                  </Link>
-                </Nav.Link>
-              </Nav.Item>
+              <React.Fragment>
+                <Nav.Item>
+                  <Nav.Link>
+                    <Link to="/profile">profile</Link>
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link>
+                    <Link to="/main">main</Link>
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link>
+                    <Link to="/" onClick={this.logout}>
+                      logout
+                    </Link>
+                  </Nav.Link>
+                </Nav.Item>
+              </React.Fragment>
             ) : (
               <React.Fragment>
                 <Nav.Item>

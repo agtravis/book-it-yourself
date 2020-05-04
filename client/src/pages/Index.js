@@ -6,7 +6,8 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
 import Signup from "../components/SignupForm";
 import Logo from "../assets/images/logo.PNG";
-import Main from "../pages/Main"
+import Main from "../pages/Main";
+import Profile from "../pages/Profile";
 
 class Home extends Component {
   constructor() {
@@ -16,21 +17,17 @@ class Home extends Component {
       username: null,
       id: null,
     };
-
-    this.getUser = this.getUser.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this.updateUser = this.updateUser.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.getUser();
   }
 
-  updateUser(userObject) {
+  updateUser = userObject => {
     this.setState(userObject);
   }
 
-  getUser() {
+  getUser = () => {
     axios.get("/api/user/").then(response => {
       console.log("Get user response: ");
       console.log(response.data);
@@ -58,9 +55,9 @@ class Home extends Component {
       <Router>
         <Switch>
         <Route exact path="/main" component={Main} />
+        <Route exact path="/profile" component={Profile} />
         <div>
           <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
-          {/* greet user if logged in: */}
           {this.state.loggedIn && <p>Logged in as: {this.state.username}</p>}
           <Jumbotron fluid>
             <Container>

@@ -4,6 +4,7 @@ import React from "react";
 import Main from "./pages/Main";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
 
 class App extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Index} />
             <Route exact path="/main" component={Main} />
+            <Route exact path="/profile" component={Profile} />
             <Route component={NotFound} />
           </Switch>
           <Footer />

@@ -1,12 +1,13 @@
 import React from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import FeedComponent from "../components/FeedComponent";
 import SideFeedComponent from "../components/SideFeedComponent";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Navbar from "../components/Nav";
-import LoginForm from "../components/LoginForm";
-import Signup from "../components/SignupForm";
+import Profile from "../pages/Profile";
+import Home from "../pages/Index";
 import axios from 'axios';
 
 class Main extends React.Component {
@@ -17,27 +18,21 @@ class Main extends React.Component {
           username: null,
           id: null,
         };
-    
-        this.getUser = this.getUser.bind(this);
-        this.componentDidMount = this.componentDidMount.bind(this);
-        this.updateUser = this.updateUser.bind(this);
       }
     
-      componentDidMount() {
+      componentDidMount = () => {
         this.getUser();
       }
     
-      updateUser(userObject) {
+      updateUser = userObject => {
         this.setState(userObject);
       }
     
-      getUser() {
+      getUser = () => {
         axios.get("/api/user/").then(response => {
-          console.log("Get user response: ");
           console.log(response.data);
           if (response.data.user) {
             console.log("Get User: There is a user saved in the server session: ");
-    
             this.setState({
               loggedIn: true,
               username: response.data.user.username,
@@ -56,14 +51,13 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div>
+      <Router>
+        <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/profile" component={Profile} />
+        <div>
         <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn}/>
-        {this.state.loggedIn && <p>Logged in as: {this.state.username}</p>}
-        <Route
-          path="/login"
-          render={() => <LoginForm updateUser={this.updateUser} />}
-        />
-        <Route path="/signup" render={() => <Signup />} />
+        {this.state.loggedIn && <p>Welcome {this.state.username} !</p>}
         <Row>
           <Col sm={4}>
             <SideFeedComponent />
@@ -73,7 +67,10 @@ class Main extends React.Component {
           </Col>
         </Row>
       </div>
+      </Switch>
+      </Router>
     );
   }
 }
+
 export default Main;

@@ -59,11 +59,10 @@ class LoginForm extends Component {
         />
       );
     } else {
-
        return (
           <div>
-            <h3>Login Page</h3>
             <Form>
+              <h3>Login</h3>
               <Form.Group
                 as={Row}
                 controlId="formPlaintextUsername"
