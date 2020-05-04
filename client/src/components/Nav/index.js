@@ -1,54 +1,100 @@
-import React from "react";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import Logo from "../../assets/images/logo.PNG";
-import Search from "../Search";
+import React, { Component } from "react";
+import { Redirect, Link } from "react-router-dom";
 import "./style.css";
+import axios from "axios";
+import { Nav, Navbar } from "react-bootstrap";
+import Home from "../../pages/Index";
 
-function Navigation() {
-  return (
-    <Navbar
-      collapseOnSelect
-      className="fixed-top"
-      expand="lg"
-      bg="dark"
-      variant="dark"
-    >
-      <Navbar.Brand>
-        <img
-          src={Logo}
-          width="75"
-          height="50"
-          className="d-inline-block align-top"
-          alt="logo"
+class NavigationBar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      username: "",
+      password: "",
+      redirectTo: null,
+    };
+  }
+
+  logout = event => {
+    event.preventDefault();
+    console.log("logging out");
+    axios
+      .post("/api/user/logout")
+      .then(response => {
+        console.log(response.data);
+        if (response.status === 200) {
+          this.props.updateUser({
+            loggedIn: false,
+            username: null,
+            id: null,
+          });
+          this.setState({
+            redirectTo: "/",
+          });
+        }
+      })
+      .catch(error => {
+        console.log("Logout error");
+      });
+  }
+
+  render() {
+    if (this.state.redirectTo) {
+      return (
+        <Redirect
+          to={{ pathname: this.state.redirectTo }}
+          render={() => <Home />}
         />
-      </Navbar.Brand>
-      <Navbar.Brand href="/">Book it Yourself</Navbar.Brand>
-
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse
-        className="justify-content-end"
-        id="responsive-navbar-nav"
-      >
-        <Nav.Link href="/addpost">Post</Nav.Link>
-        <Nav.Link href="/adduser">Sign Up</Nav.Link>
-        <Nav.Link href="/home">Feed</Nav.Link>
-        <Nav.Link className="d-block d-sm-none" href="/calendar">
-          Calendar
-        </Nav.Link>
-        <Nav.Link className="d-block d-sm-none" href="/maps">
-          Map
-        </Nav.Link>
-        <Nav.Link className="d-block d-sm-none" href="/search">
-          Search
-        </Nav.Link>
-      </Navbar.Collapse>
-
-      <div className=" d-none d-sm-block justify-content-end">
-        <Search />
-      </div>
-    </Navbar>
-  );
+      );
+    } else {
+    const loggedIn = this.props.loggedIn;
+    console.log(this.props);
+    return (
+      <Navbar expand="lg">
+        <Navbar.Brand href="/">Homepage</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ml-auto">
+            {loggedIn ? (
+              <React.Fragment>
+                <Nav.Item>
+                  <Nav.Link>
+                    <Link to="/main">feed</Link>
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link>
+                    <Link to="/profile">profile</Link>
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link>
+                    <Link to="/" onClick={this.logout}>
+                      logout
+                    </Link>
+                  </Nav.Link>
+                </Nav.Item>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <Nav.Item>
+                  <Nav.Link>
+                    <Link to="/login">login</Link>
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link>
+                    <Link to="/signup">signup</Link>
+                  </Nav.Link>
+                </Nav.Item>
+              </React.Fragment>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    );
+  }
+}
 }
 
-export default Navigation;
+export default NavigationBar;
