@@ -77,6 +77,9 @@ class NavigationBar extends Component {
           <Nav.Link>
             <Link to="/signup">Signup</Link>
           </Nav.Link>
+          <div className=" d-none d-sm-block justify-content-end">
+            <Search />
+          </div>
         </Navbar>
       </React.Fragment>
       );
