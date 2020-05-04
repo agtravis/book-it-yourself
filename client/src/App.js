@@ -4,7 +4,7 @@ import React from "react";
 import axios from "axios";
 import Login from "./components/LoginForm";
 import Main from "./pages/Main";
-import Home from "./pages/Index";
+import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import Nav from "./components/Nav";
