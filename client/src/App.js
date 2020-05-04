@@ -2,7 +2,7 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Footer from "./components/Footer";
 import React from "react";
 import Main from "./pages/Main";
-import Index from "./pages/Index";
+import Home from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 
@@ -12,7 +12,7 @@ class App extends React.Component {
       <Router>
         <div>
           <Switch>
-            <Route exact path="/" component={Index} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/main" component={Main} />
             <Route exact path="/profile" component={Profile} />
             <Route component={NotFound} />
