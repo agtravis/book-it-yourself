@@ -43,10 +43,42 @@ class NavigationBar extends Component {
   render() {
     if (this.state.redirectTo) {
       return (
-        <Redirect
-          to={{ pathname: this.state.redirectTo }}
-          render={() => <Home />}
-        />
+        <React.Fragment>
+          <Redirect
+            to={{ pathname: this.state.redirectTo }}
+            render={() => <Home />}
+          />
+          <Navbar
+          collapseOnSelect
+          className="fixed-top"
+          expand="lg"
+          bg="dark"
+          variant="dark"
+        >
+          <Navbar.Brand>
+            <img
+              src={Logo}
+              width="75"
+              height="50"
+              className="d-inline-block align-top"
+              alt="logo"
+            />
+          </Navbar.Brand>
+          <Navbar.Brand href="/">Book it Yourself</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse
+            className="justify-content-end"
+            id="responsive-navbar-nav"
+          >
+          </Navbar.Collapse>
+          <Nav.Link>
+            <Link to="/login">Login</Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link to="/signup">Signup</Link>
+          </Nav.Link>
+        </Navbar>
+      </React.Fragment>
       );
     } else {
       const loggedIn = this.props.loggedIn;
