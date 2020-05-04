@@ -3,8 +3,8 @@ import { Jumbotron, Container, Image } from "react-bootstrap";
 import Navbar from "../components/navbar";
 import axios from "axios";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import LoginForm from "../components/login-form";
-import Signup from "../components/sign-up";
+import LoginForm from "../components/LoginForm";
+import Signup from "../components/SignupForm";
 import Logo from "../assets/images/logo.PNG";
 import Main from "../pages/Main"
 
