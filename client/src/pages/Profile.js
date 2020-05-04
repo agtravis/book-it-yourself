@@ -6,6 +6,8 @@ import axios from "axios";
 import Main from "../pages/Main";
 import Home from "../pages/Index";
 import API from "../utils/API";
+import image from "../assets/images/userTest.png";
+import ProfileComponent from "../components/ProfileComponent";
 
 class Profile extends Component {
   constructor() {
@@ -72,10 +74,21 @@ class Profile extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/main" component={Main} />
           <div>
-            {this.state.loggedIn && <p>Logged in as: {this.state.username}</p>}
             <Jumbotron fluid>
               <Container>
-                <h1>My profile</h1>
+                {/* {this.state.user.username !== undefined ? ( */}
+                <div>
+                  <ProfileComponent
+                    username={this.state.user.username}
+                    location={this.state.user.location}
+                    email={this.state.user.email}
+                    telephone={this.state.user.telephone}
+                    status={this.state.user.status}
+                    role={this.state.user.role}
+                    posts={this.state.user.posts}
+                  />
+                </div>
+                {/* ) : null} */}
               </Container>
             </Jumbotron>
           </div>
