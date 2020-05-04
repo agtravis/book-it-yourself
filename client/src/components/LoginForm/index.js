@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+import { Redirect, Switch } from "react-router-dom";
 import axios from "axios";
 import Main from "../../pages/Main";
 import "./style.css";
@@ -11,7 +11,6 @@ class LoginForm extends Component {
     this.state = {
       username: "",
       password: "",
-      redirectTo: null,
     };
   }
 
@@ -19,7 +18,7 @@ class LoginForm extends Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-  }
+  };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -34,79 +33,60 @@ class LoginForm extends Component {
         if (response.status === 200) {
           console.log(`user data incoming...`);
           console.log(response.data);
-          this.props.updateUser({
-            loggedIn: true,
-            username: response.data.username,
-            id: response.data.id,
-          });
-          this.setState({
-            redirectTo: "/main",
-          });
+          window.location.replace("/feed");
         }
       })
       .catch(error => {
         console.log("login error: ");
         console.log(error);
       });
-  }
+  };
 
   render() {
-    if (this.state.redirectTo) {
-      return (
-        <Redirect
-          to={{ pathname: this.state.redirectTo }}
-          render={() => <Main />}
-        />
-      );
-    } else {
-       return (
-          <div>
-            <Form>
-              <h3>Login</h3>
-              <Form.Group
-                as={Row}
-                controlId="formPlaintextUsername"
-                className="justify-content-center"
-              >
-                <Form.Label column sm="1">
-                  Username
-                </Form.Label>
-                <Col sm="2">
-                  <Form.Control
-                    type="text"
-                    id="username"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.handleChange}
-                  />
-                </Col>
-              </Form.Group>
-  
-              <Form.Group
-                as={Row}
-                controlId="formPlaintextPassword"
-                className="justify-content-center"
-                value={this.state.password}
+    return (
+      <div>
+        <Form>
+          <h3>Login</h3>
+          <Form.Group
+            as={Row}
+            controlId="formPlaintextUsername"
+            className="justify-content-center"
+          >
+            <Form.Label column sm="1">
+              Username
+            </Form.Label>
+            <Col sm="2">
+              <Form.Control
+                type="text"
+                id="username"
+                name="username"
+                value={this.state.username}
                 onChange={this.handleChange}
-              >
-                <Form.Label column sm="1">
-                  Password
-                </Form.Label>
-                <Col sm="2">
-                  <Form.Control
-                    type="password"
-                    name="password"
-                  />
-                </Col>
-              </Form.Group>
-              <Button variant="dark" type="submit" onClick={this.handleSubmit}>
-                Submit
-              </Button>
-            </Form>
-          </div>
-       )
-    };
+              />
+            </Col>
+          </Form.Group>
+
+          <Form.Group
+            as={Row}
+            controlId="formPlaintextPassword"
+            className="justify-content-center"
+            value={this.state.password}
+            onChange={this.handleChange}
+          >
+            <Form.Label column sm="1">
+              Password
+            </Form.Label>
+            <Col sm="2">
+              <Form.Control type="password" name="password" />
+            </Col>
+          </Form.Group>
+          <Button variant="dark" type="submit" onClick={this.handleSubmit}>
+            Submit
+          </Button>
+        </Form>
+      </div>
+    );
   }
 }
-  
+
 export default LoginForm;
