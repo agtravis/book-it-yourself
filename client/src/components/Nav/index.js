@@ -8,13 +8,39 @@ import "./style.css";
 import Logo from "../../assets/images/logo.PNG";
 
 class NavigationBar extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      username: "",
-      password: "",
+      loggedIn: false,
+      username: null,
+      id: null,
     };
   }
+
+  componentDidMount() {
+    this.getUser();
+  }
+
+  getUser = () => {
+    axios.get("/api/user/").then(response => {
+      console.log(response.data);
+      if (response.data.user) {
+        console.log("Get User: There is a user saved in the server session: ");
+        this.setState({
+          loggedIn: true,
+          username: response.data.user.username,
+          id: response.data.user._id,
+        });
+      } else {
+        console.log("Get user: no user");
+        this.setState({
+          loggedIn: false,
+          username: null,
+          id: null,
+        });
+      }
+    });
+  };
 
   logout = event => {
     event.preventDefault();
@@ -33,32 +59,30 @@ class NavigationBar extends Component {
   };
 
   render() {
-    const loggedIn = this.props.loggedIn;
-    console.log(this.props);
-    return (
-      <Navbar
-        collapseOnSelect
-        // className="fixed-top"
-        expand="lg"
-        bg="dark"
-        variant="dark"
-      >
-        <Navbar.Brand>
-          <img
-            src={Logo}
-            width="75"
-            height="50"
-            className="d-inline-block align-top"
-            alt="logo"
-          />
-        </Navbar.Brand>
-        <Navbar.Brand href="/">Book it Yourself</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse
-          className="justify-content-end"
-          id="responsive-navbar-nav"
+    if (this.state.loggedIn) {
+      return (
+        <Navbar
+          collapseOnSelect
+          // className="fixed-top"
+          expand="lg"
+          bg="dark"
+          variant="dark"
         >
-          {loggedIn ? (
+          <Navbar.Brand>
+            <img
+              src={Logo}
+              width="75"
+              height="50"
+              className="d-inline-block align-top"
+              alt="logo"
+            />
+          </Navbar.Brand>
+          <Navbar.Brand href="/">Book it Yourself</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse
+            className="justify-content-end"
+            id="responsive-navbar-nav"
+          >
             <React.Fragment>
               <Nav.Link href="/profile">Profile</Nav.Link>
               <Nav.Link href="/feed">Feed</Nav.Link>
@@ -75,7 +99,37 @@ class NavigationBar extends Component {
                 Sign out
               </Nav.Link>
             </React.Fragment>
-          ) : (
+            }
+          </Navbar.Collapse>
+          <div className=" d-none d-sm-block justify-content-end">
+            <Search />
+          </div>
+        </Navbar>
+      );
+    } else {
+      return (
+        <Navbar
+          collapseOnSelect
+          // className="fixed-top"
+          expand="lg"
+          bg="dark"
+          variant="dark"
+        >
+          <Navbar.Brand>
+            <img
+              src={Logo}
+              width="75"
+              height="50"
+              className="d-inline-block align-top"
+              alt="logo"
+            />
+          </Navbar.Brand>
+          <Navbar.Brand href="/">Book it Yourself</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse
+            className="justify-content-end"
+            id="responsive-navbar-nav"
+          >
             <React.Fragment>
               <Nav.Link>
                 <Link to="/login">Login</Link>
@@ -85,13 +139,13 @@ class NavigationBar extends Component {
                 <Link to="/signup">Signup</Link>
               </Nav.Link>
             </React.Fragment>
-          )}
-        </Navbar.Collapse>
-        <div className=" d-none d-sm-block justify-content-end">
-          <Search />
-        </div>
-      </Navbar>
-    );
+          </Navbar.Collapse>
+          <div className=" d-none d-sm-block justify-content-end">
+            <Search />
+          </div>
+        </Navbar>
+      );
+    }
   }
 }
 

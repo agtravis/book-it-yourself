@@ -4,10 +4,12 @@ import { Redirect, Switch } from "react-router-dom";
 import axios from "axios";
 import Main from "../../pages/Main";
 import "./style.css";
+import Nav from "../Nav";
+import SideFeedComponent from "../SideFeedComponent";
 
 class LoginForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       username: "",
       password: "",
@@ -39,7 +41,6 @@ class LoginForm extends Component {
             loggedIn: true,
             redirect: `/feed`,
           });
-          // window.location.href = "/feed";
         }
       })
       .catch(error => {
@@ -54,45 +55,53 @@ class LoginForm extends Component {
     }
     return (
       <div>
-        <Form>
-          <h3>Login</h3>
-          <Form.Group
-            as={Row}
-            controlId="formPlaintextUsername"
-            className="justify-content-center"
-          >
-            <Form.Label column sm="1">
-              Username
-            </Form.Label>
-            <Col sm="2">
-              <Form.Control
-                type="text"
-                id="username"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleChange}
-              />
-            </Col>
-          </Form.Group>
+        <Nav />
+        <Row>
+          <Col sm={4}>
+            <SideFeedComponent />
+          </Col>
+          <Col sm={8} xs={12}>
+            <Form>
+              <h3>Login</h3>
+              <Form.Group
+                as={Row}
+                controlId="formPlaintextUsername"
+                className="justify-content-center"
+              >
+                <Form.Label column sm="1">
+                  Username
+                </Form.Label>
+                <Col sm="2">
+                  <Form.Control
+                    type="text"
+                    id="username"
+                    name="username"
+                    value={this.state.username}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Form.Group>
 
-          <Form.Group
-            as={Row}
-            controlId="formPlaintextPassword"
-            className="justify-content-center"
-            value={this.state.password}
-            onChange={this.handleChange}
-          >
-            <Form.Label column sm="1">
-              Password
-            </Form.Label>
-            <Col sm="2">
-              <Form.Control type="password" name="password" />
-            </Col>
-          </Form.Group>
-          <Button variant="dark" type="submit" onClick={this.handleSubmit}>
-            Submit
-          </Button>
-        </Form>
+              <Form.Group
+                as={Row}
+                controlId="formPlaintextPassword"
+                className="justify-content-center"
+                value={this.state.password}
+                onChange={this.handleChange}
+              >
+                <Form.Label column sm="1">
+                  Password
+                </Form.Label>
+                <Col sm="2">
+                  <Form.Control type="password" name="password" />
+                </Col>
+              </Form.Group>
+              <Button variant="dark" type="submit" onClick={this.handleSubmit}>
+                Submit
+              </Button>
+            </Form>
+          </Col>
+        </Row>
       </div>
     );
   }

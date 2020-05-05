@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Redirect, Route } from "react-router-dom";
 import axios from "axios";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import SideFeedComponent from "../SideFeedComponent";
+import Nav from "../Nav";
 
 class Signup extends Component {
   constructor() {
@@ -40,10 +42,6 @@ class Signup extends Component {
             loggedIn: true,
             redirect: `/login`,
           });
-          // window.location.href = "/login";
-          // this.setState({
-          //   redirectTo: "/login",
-          // });
         } else {
           console.log("username already taken");
         }
@@ -55,62 +53,62 @@ class Signup extends Component {
   };
 
   render() {
-    // if (this.state.loggedIn) {
-    //   // eslint-disable-line no-restricted-globals
-    //   let { from } = window.location.state || { from: { pathname: "/" } };
-
-    //   // window.history.replace(from);
-    //   // eslint-disable-line no-restricted-globals
-    //   window.history.replaceState(from, `/feed`);
-    //   return null;
-    // }
-
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
     }
 
     return (
-      <Form>
-        <h3>Create Account</h3>
-        <Form.Group
-          as={Row}
-          controlId="formPlaintextUsername"
-          className="justify-content-center"
-        >
-          <Form.Label column sm="1">
-            Username
-          </Form.Label>
-          <Col sm="2">
-            <Form.Control
-              type="text"
-              id="username"
-              name="username"
-              value={this.state.username}
-              onChange={this.handleChange}
-            />
+      <div>
+        <Nav />
+        <Row>
+          <Col sm={4}>
+            <SideFeedComponent />
           </Col>
-        </Form.Group>
-        <Form.Group
-          as={Row}
-          controlId="formPlaintextPassword"
-          className="justify-content-center"
-        >
-          <Form.Label column sm="1">
-            Password
-          </Form.Label>
-          <Col sm="2">
-            <Form.Control
-              type="password"
-              name="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
+          <Col sm={8} xs={12}>
+            <Form>
+              <h3>Create Account</h3>
+              <Form.Group
+                as={Row}
+                controlId="formPlaintextUsername"
+                className="justify-content-center"
+              >
+                <Form.Label column sm="1">
+                  Username
+                </Form.Label>
+                <Col sm="2">
+                  <Form.Control
+                    type="text"
+                    id="username"
+                    name="username"
+                    value={this.state.username}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group
+                as={Row}
+                controlId="formPlaintextPassword"
+                className="justify-content-center"
+              >
+                <Form.Label column sm="1">
+                  Password
+                </Form.Label>
+                <Col sm="2">
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Form.Group>
+              <Button variant="dark" type="submit" onClick={this.handleSubmit}>
+                Submit
+              </Button>
+            </Form>
           </Col>
-        </Form.Group>
-        <Button variant="dark" type="submit" onClick={this.handleSubmit}>
-          Submit
-        </Button>
-      </Form>
+        </Row>
+      </div>
 
       // (window.location.href = "/login")
       // this.props.router.push(`/login`)

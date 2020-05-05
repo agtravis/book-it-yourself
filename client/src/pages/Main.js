@@ -2,13 +2,11 @@ import React from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import FeedComponent from "../components/FeedComponent";
 import SideFeedComponent from "../components/SideFeedComponent";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Navbar from "../components/Nav";
+import Nav from "../components/Nav";
 import Profile from "../pages/Profile";
 import Home from "../pages/Index";
 import axios from "axios";
-import { Jumbotron } from "react-bootstrap";
+import { Jumbotron, Row, Col, Container } from "react-bootstrap";
 
 class Main extends React.Component {
   constructor() {
@@ -51,11 +49,19 @@ class Main extends React.Component {
 
   render() {
     return (
-      <Router>
-        <div>
-          {this.state.loggedIn && <p>Welcome {this.state.username} !</p>}
-        </div>
-      </Router>
+      <div>
+        <Nav />
+        <Row>
+          <Col sm={4}>
+            <SideFeedComponent />
+          </Col>
+          <Col sm={8} xs={12}>
+            <div>
+              {this.state.loggedIn && <p>Welcome {this.state.username} !</p>}
+            </div>
+          </Col>
+        </Row>
+      </div>
     );
   }
 }

@@ -8,14 +8,14 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import Nav from "./components/Nav";
-import FeedComponent from "./components/NameCard";
+import FeedComponent from "./components/FeedComponent";
 import SideFeedComponent from "./components/SideFeedComponent";
 import { Row, Col } from "react-bootstrap";
 import SignupForm from "./components/SignupForm";
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       loggedIn: false,
       username: null,
@@ -23,13 +23,9 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     this.getUser();
-  };
-
-  updateUser = userObject => {
-    this.setState(userObject);
-  };
+  }
 
   getUser = () => {
     axios.get("/api/user/").then(response => {
@@ -56,46 +52,16 @@ class App extends React.Component {
     return (
       <div>
         <Router>
-          <Nav
-            updateUser={this.updateUser}
-            loggedIn={this.state.loggedIn}
-            username={this.state.username}
-          />
-          <div>
-            <Row>
-              <Col sm={4}>
-                <SideFeedComponent />
-              </Col>
-              <Col sm={8} xs={12}>
-                <Switch>
-                  <Route
-                    exact
-                    path="/"
-                    component={Index}
-                    loggedIn={this.state.loggedIn}
-                    username={this.state.username}
-                  />
-                  <Route
-                    exact
-                    path="/login"
-                    component={Login}
-                    updateUser={this.updateUser}
-                  />
-                  <Route
-                    exact
-                    path="/signup"
-                    component={SignupForm}
-                    updateUser={this.updateUser}
-                  />
-                  <Route exact path="/main" component={Main} />
-                  <Route exact path="/profile" component={Profile} />
-                  <Route exact path="/feed" component={FeedComponent} />
-                  <Route component={NotFound} />
-                </Switch>
-              </Col>
-            </Row>
-            <Footer />
-          </div>
+          <Switch>
+            <Route exact path="/" component={Index} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={SignupForm} />
+            <Route exact path="/main" component={Main} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/feed" component={FeedComponent} />
+            <Route component={NotFound} />
+          </Switch>
+          <Footer />
         </Router>
       </div>
     );
