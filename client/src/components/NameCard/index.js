@@ -6,7 +6,7 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Image from "react-bootstrap/Image";
 import UserTest from "../../assets/images/userTest.png";
 
-function FeedComponent() {
+function FeedComponent(props) {
   return (
     <Jumbotron>
       <Card style={{ width: "auto" }}>
@@ -16,7 +16,7 @@ function FeedComponent() {
               <Image src={UserTest} style={{ maxWidth: 80 }} roundedCircle />
             </Col>
             <Col>
-              <h3>UserName</h3>
+              <h3>{props.username}</h3>
             </Col>
           </Row>
         </Card.Body>

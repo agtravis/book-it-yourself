@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import { Jumbotron, Container, Image } from "react-bootstrap";
-import Navbar from "../components/Nav";
+import { Row, Col, Jumbotron, Container, Image } from "react-bootstrap";
+import Nav from "../components/Nav";
 import axios from "axios";
 import Main from "../pages/Main";
 import Home from "../pages/Index";
 import API from "../utils/API";
 import image from "../assets/images/userTest.png";
 import ProfileComponent from "../components/ProfileComponent";
+import SideFeedComponent from "../components/SideFeedComponent";
 
 class Profile extends Component {
   constructor() {
@@ -69,11 +70,13 @@ class Profile extends Component {
 
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/main" component={Main} />
-          <div>
+      <div>
+        <Nav />
+        <Row>
+          <Col sm={4}>
+            <SideFeedComponent />
+          </Col>
+          <Col sm={8} xs={12}>
             <Jumbotron fluid>
               <Container>
                 {/* {this.state.user.username !== undefined ? ( */}
@@ -91,9 +94,9 @@ class Profile extends Component {
                 {/* ) : null} */}
               </Container>
             </Jumbotron>
-          </div>
-        </Switch>
-      </Router>
+          </Col>
+        </Row>
+      </div>
     );
   }
 }
