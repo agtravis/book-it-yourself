@@ -39,6 +39,7 @@ const dbConnection = require(`./database`);
 const MongoStore = require(`connect-mongo`)(session);
 const passport = require(`./passport`);
 const app = express();
+const path = require(`path`);
 const portNum = 3001;
 const PORT = process.env.PORT || portNum;
 
@@ -85,7 +86,7 @@ if (process.env.NODE_ENV === `production`) {
 }
 
 app.get(`*`, (req, res) => {
-  res.sendFile(`index.html`);
+  res.sendFile(path.join(__dirname, `index.html`));
 });
 
 // Starting Server
