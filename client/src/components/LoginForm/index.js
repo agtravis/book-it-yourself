@@ -12,6 +12,7 @@ class LoginForm extends Component {
       username: "",
       password: "",
       loggedIn: false,
+      redirect: null,
     };
   }
 
@@ -36,6 +37,7 @@ class LoginForm extends Component {
           console.log(response.data);
           this.setState({
             loggedIn: true,
+            redirect: `/feed`,
           });
           // window.location.href = "/feed";
         }
@@ -47,7 +49,10 @@ class LoginForm extends Component {
   };
 
   render() {
-    return this.state.loggedIn === false ? (
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
+    return (
       <div>
         <Form>
           <h3>Login</h3>
@@ -89,8 +94,6 @@ class LoginForm extends Component {
           </Button>
         </Form>
       </div>
-    ) : (
-      (window.location.href = "/main")
     );
   }
 }

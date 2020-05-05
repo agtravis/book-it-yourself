@@ -11,6 +11,7 @@ class Signup extends Component {
       password: "",
       confirmPassword: "",
       loggedIn: false,
+      redirect: null,
     };
   }
 
@@ -37,6 +38,7 @@ class Signup extends Component {
           console.log("successful signup");
           this.setState({
             loggedIn: true,
+            redirect: `/login`,
           });
           // window.location.href = "/login";
           // this.setState({
@@ -53,7 +55,21 @@ class Signup extends Component {
   };
 
   render() {
-    return this.state.loggedIn === false ? (
+    // if (this.state.loggedIn) {
+    //   // eslint-disable-line no-restricted-globals
+    //   let { from } = window.location.state || { from: { pathname: "/" } };
+
+    //   // window.history.replace(from);
+    //   // eslint-disable-line no-restricted-globals
+    //   window.history.replaceState(from, `/feed`);
+    //   return null;
+    // }
+
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
+
+    return (
       <Form>
         <h3>Create Account</h3>
         <Form.Group
@@ -95,8 +111,9 @@ class Signup extends Component {
           Submit
         </Button>
       </Form>
-    ) : (
-      (window.location.href = "/login")
+
+      // (window.location.href = "/login")
+      // this.props.router.push(`/login`)
     );
   }
 }
