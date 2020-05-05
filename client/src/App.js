@@ -11,6 +11,7 @@ import Nav from "./components/Nav";
 import FeedComponent from "./components/NameCard";
 import SideFeedComponent from "./components/SideFeedComponent";
 import { Row, Col } from "react-bootstrap";
+import SignupForm from "./components/SignupForm";
 
 class App extends React.Component {
   constructor() {
@@ -78,6 +79,12 @@ class App extends React.Component {
                     exact
                     path="/login"
                     component={Login}
+                    updateUser={this.updateUser}
+                  />
+                  <Route
+                    exact
+                    path="/signup"
+                    component={SignupForm}
                     updateUser={this.updateUser}
                   />
                   <Route exact path="/main" component={Main} />
