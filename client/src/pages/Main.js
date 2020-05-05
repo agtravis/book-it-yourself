@@ -50,7 +50,7 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <Nav />
+        <Nav updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
         <Row>
           <Col sm={4}>
             <SideFeedComponent />
@@ -58,6 +58,10 @@ class Main extends React.Component {
           <Col sm={8} xs={12}>
             <div>
               {this.state.loggedIn && <p>Welcome {this.state.username} !</p>}
+              <Switch>
+                <Route exact path="/profile" component={Profile} />
+                <Route exact path="/feed" component={FeedComponent} />
+              </Switch>
             </div>
           </Col>
         </Row>

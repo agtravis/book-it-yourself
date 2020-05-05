@@ -86,7 +86,7 @@ class NavigationBar extends Component {
             <React.Fragment>
               <Nav.Link href="/profile">Profile</Nav.Link>
               <Nav.Link href="/feed">Feed</Nav.Link>
-              <Nav.Link className="d-block d-sm-none" to="/search">
+              <Nav.Link className="d-block d-sm-none" href="/search">
                 Search
               </Nav.Link>
               <Nav.Link className="d-block d-sm-none" href="/calendar">

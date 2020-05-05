@@ -9,6 +9,7 @@ import Logo from "../assets/images/logo.PNG";
 import Main from "../pages/Main";
 import Profile from "../pages/Profile";
 import SideFeedComponent from "../components/SideFeedComponent";
+import FeedComponent from "../components/FeedComponent";
 
 class Home extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Nav />
+        <Nav updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
         <Row>
           <Col sm={4}>
             <SideFeedComponent />
@@ -59,6 +60,10 @@ class Home extends Component {
               ) : (
                 <p>nobody logged in</p>
               )}
+              <Switch>
+                <Route exact path="/profile" component={Profile} />
+                <Route exact path="/feed" component={FeedComponent} />
+              </Switch>
             </div>
           </Col>
         </Row>
