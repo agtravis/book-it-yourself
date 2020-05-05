@@ -102,21 +102,48 @@ class NavigationBar extends Component {
               >
                 Profile
               </Link>
-              <Nav.Link href="/feed">Feed</Nav.Link>
-              <Nav.Link className="d-block d-sm-none" href="/search">
+              {/* <Nav.Link href="/feed">Feed</Nav.Link> */}
+              <Link
+                onClick={() => {
+                  this.linkToPage(`/feed`);
+                }}
+              >
+                Feed
+              </Link>
+              {/* <Nav.Link className="d-block d-sm-none" href="/search">
                 Search
-              </Nav.Link>
-              <Nav.Link className="d-block d-sm-none" href="/calendar">
+              </Nav.Link> */}
+              <Link
+                onClick={() => {
+                  this.linkToPage(`/search`);
+                }}
+              >
+                Search
+              </Link>
+              {/* <Nav.Link className="d-block d-sm-none" href="/calendar">
                 Calendar
-              </Nav.Link>
-              <Nav.Link className="d-block d-sm-none" href="/map">
+              </Nav.Link> */}
+              <Link
+                onClick={() => {
+                  this.linkToPage(`/calendar`);
+                }}
+              >
+                Calendar
+              </Link>
+              {/* <Nav.Link className="d-block d-sm-none" href="/map">
                 Map
-              </Nav.Link>
+              </Nav.Link> */}
+              <Link
+                onClick={() => {
+                  this.linkToPage(`/map`);
+                }}
+              >
+                Map
+              </Link>
               <Nav.Link to="/" onClick={this.logout}>
                 Sign out
               </Nav.Link>
             </React.Fragment>
-            }
           </Navbar.Collapse>
           <div className=" d-none d-sm-block justify-content-end">
             <Search />
