@@ -11,6 +11,7 @@ class LoginForm extends Component {
     this.state = {
       username: "",
       password: "",
+      loggedIn: false,
     };
   }
 
@@ -33,7 +34,10 @@ class LoginForm extends Component {
         if (response.status === 200) {
           console.log(`user data incoming...`);
           console.log(response.data);
-          window.location.href = "/feed";
+          this.setState({
+            loggedIn: true,
+          });
+          // window.location.href = "/feed";
         }
       })
       .catch(error => {
@@ -43,7 +47,7 @@ class LoginForm extends Component {
   };
 
   render() {
-    return (
+    return this.state.loggedIn === false ? (
       <div>
         <Form>
           <h3>Login</h3>
@@ -85,6 +89,8 @@ class LoginForm extends Component {
           </Button>
         </Form>
       </div>
+    ) : (
+      (window.location.href = "/main")
     );
   }
 }
