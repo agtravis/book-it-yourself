@@ -12,7 +12,7 @@ import FeedComponent from "./components/FeedComponent";
 import SideFeedComponent from "./components/SideFeedComponent";
 import { Row, Col } from "react-bootstrap";
 import SignupForm from "./components/SignupForm";
-
+import Search from "./components/Search";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -52,6 +52,7 @@ class App extends React.Component {
     return (
       <div>
         <Router>
+          <Route exact path="/search" component={Search} />
           <Switch>
             <Route exact path="/" component={Index} />
             <Route exact path="/login" component={Login} />
@@ -61,6 +62,7 @@ class App extends React.Component {
             <Route exact path="/feed" component={FeedComponent} />
             <Route component={NotFound} />
           </Switch>
+
           <Footer />
         </Router>
       </div>
