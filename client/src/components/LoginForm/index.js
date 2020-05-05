@@ -33,7 +33,7 @@ class LoginForm extends Component {
         if (response.status === 200) {
           console.log(`user data incoming...`);
           console.log(response.data);
-          window.location = "/feed";
+          window.location.href = "/feed";
         }
       })
       .catch(error => {

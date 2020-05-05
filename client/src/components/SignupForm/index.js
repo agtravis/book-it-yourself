@@ -35,7 +35,7 @@ class Signup extends Component {
         if (!response.data.errmsg) {
           console.log("successful signup");
 
-          window.location = "/login";
+          window.location.href = "/login";
           // this.setState({
           //   redirectTo: "/login",
           // });
