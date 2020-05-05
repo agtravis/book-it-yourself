@@ -17,8 +17,8 @@ class Signup extends Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-  }
-  
+  };
+
   handleSubmit = event => {
     console.log("sign-up handleSubmit, username: ");
     console.log(this.state.username);
@@ -34,9 +34,11 @@ class Signup extends Component {
         console.log(response);
         if (!response.data.errmsg) {
           console.log("successful signup");
-          this.setState({
-            redirectTo: "/login",
-          });
+
+          window.location = "/login";
+          // this.setState({
+          //   redirectTo: "/login",
+          // });
         } else {
           console.log("username already taken");
         }
@@ -45,12 +47,9 @@ class Signup extends Component {
         console.log("signup error: ");
         console.log(error);
       });
-  }
+  };
 
   render() {
-    if (this.state.redirectTo) {
-      return <Redirect to={{ pathname: this.state.redirectTo }} />;
-    }
     return (
       <Form>
         <h3>Create Account</h3>
