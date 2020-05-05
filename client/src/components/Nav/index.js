@@ -14,6 +14,7 @@ class NavigationBar extends Component {
       loggedIn: false,
       username: null,
       id: null,
+      redirect: null,
     };
   }
 
@@ -58,7 +59,16 @@ class NavigationBar extends Component {
       });
   };
 
+  linkToPage = path => {
+    this.setState({
+      redirect: path,
+    });
+  };
+
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
     if (this.state.loggedIn) {
       return (
         <Navbar
@@ -84,7 +94,14 @@ class NavigationBar extends Component {
             id="responsive-navbar-nav"
           >
             <React.Fragment>
-              <Nav.Link href="/profile">Profile</Nav.Link>
+              {/* <Nav.Link href="/profile">Profile</Nav.Link> */}
+              <Link
+                onClick={() => {
+                  this.linkToPage(`/profile`);
+                }}
+              >
+                Profile
+              </Link>
               <Nav.Link href="/feed">Feed</Nav.Link>
               <Nav.Link className="d-block d-sm-none" href="/search">
                 Search
