@@ -60,10 +60,12 @@ class Home extends Component {
               ) : (
                 <p>nobody logged in</p>
               )}
+              <Router>
               <Switch>
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/feed" component={FeedComponent} />
               </Switch>
+              </Router>
             </div>
           </Col>
         </Row>
