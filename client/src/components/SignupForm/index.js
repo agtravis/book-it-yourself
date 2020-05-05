@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import axios from "axios";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
@@ -10,6 +10,7 @@ class Signup extends Component {
       username: "",
       password: "",
       confirmPassword: "",
+      loggedIn: false,
     };
   }
 
@@ -34,8 +35,10 @@ class Signup extends Component {
         console.log(response);
         if (!response.data.errmsg) {
           console.log("successful signup");
-
-          window.location.href = "/login";
+          this.setState({
+            loggedIn: true,
+          });
+          // window.location.href = "/login";
           // this.setState({
           //   redirectTo: "/login",
           // });
@@ -50,7 +53,7 @@ class Signup extends Component {
   };
 
   render() {
-    return (
+    return this.state.loggedIn === false ? (
       <Form>
         <h3>Create Account</h3>
         <Form.Group
@@ -92,6 +95,8 @@ class Signup extends Component {
           Submit
         </Button>
       </Form>
+    ) : (
+      (window.location.href = "/login")
     );
   }
 }
