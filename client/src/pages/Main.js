@@ -58,10 +58,12 @@ class Main extends React.Component {
           <Col sm={8} xs={12}>
             <div>
               {this.state.loggedIn && <p>Welcome {this.state.username} !</p>}
+              <Router>
               <Switch>
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/feed" component={FeedComponent} />
               </Switch>
+              </Router>
             </div>
           </Col>
         </Row>
