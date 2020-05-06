@@ -4,9 +4,13 @@
 
 a, .navbar-brand, .navbar-nav .nav-link {
    color: #bbb;
+   padding-left: 5px;
+   padding-right: 5px;
+   margin-left: 5px;
+   margin-right: 5px;
 }
- 
+
 .navbar {
    margin-top: auto;
-   background-color: #222;   
+   background-color: #222;
 }
