@@ -13,13 +13,39 @@ import SideFeedComponent from "../components/SideFeedComponent";
 class Search extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      users: [],
+    };
   }
 
-  render(props) {
+  componentDidMount() {
+    this.setSearchTerm();
+  }
+
+  setSearchTerm = search => {
+    if (search) {
+      API.searchUser(search)
+        .then(response => {
+          console.log(response.data);
+          this.setState({ users: response.data });
+        })
+        .catch(err => console.error(err));
+    } else {
+      API.searchUser(this.props.location.state.searchTerm)
+        .then(response => {
+          console.log(response.data);
+          this.setState({ users: response.data });
+        })
+        .catch(err => console.error(err));
+    }
+  };
+
+  render() {
+    // console.log(this.props.location.pathname);
+
     return (
       <div>
-        <Nav />
+        <Nav setSearchTerm={this.setSearchTerm} />
         <Row>
           <Col sm={4}>
             <SideFeedComponent />
@@ -27,19 +53,9 @@ class Search extends Component {
           <Col sm={8} xs={12}>
             <Jumbotron fluid>
               <p>search page</p>
-              {/* <Container>
-                <div>
-                  <ProfileComponent
-                    username={this.state.user.username}
-                    location={this.state.user.location}
-                    email={this.state.user.email}
-                    telephone={this.state.user.telephone}
-                    status={this.state.user.status}
-                    role={this.state.user.role}
-                    posts={this.state.user.posts}
-                  />
-                </div>
-              </Container> */}
+              {this.state.users.length > 0
+                ? this.state.users.map(user => <p>{user.username}</p>)
+                : null}
             </Jumbotron>
           </Col>
         </Row>
