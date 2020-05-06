@@ -14,6 +14,7 @@ import { Row, Col } from "react-bootstrap";
 import SignupForm from "./components/SignupForm";
 import Search from "./pages/Search";
 import API from "./utils/API";
+import UserDetails from "./pages/UserDetails";
 
 class App extends React.Component {
   constructor(props) {
@@ -65,6 +66,7 @@ class App extends React.Component {
             <Route exact path="/signup" component={SignupForm} />
             <Route exact path="/main" component={Main} />
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/userdetails" component={UserDetails} />
             <Route
               exact
               path="/search"
