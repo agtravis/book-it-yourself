@@ -52,7 +52,6 @@ class App extends React.Component {
     return (
       <div>
         <Router>
-          <Route exact path="/search" component={Search} />
           <Switch>
             <Route exact path="/" component={Index} />
             <Route exact path="/login" component={Login} />
