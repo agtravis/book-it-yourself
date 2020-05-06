@@ -70,6 +70,7 @@ class NavigationBar extends Component {
     if (this.state.redirect) {
       const redir = this.state.redirect;
       if (this.state.redirect === "/search") {
+        this.setState({ redirect: null });
         return (
           <Redirect
             to={{

@@ -5,7 +5,7 @@ import Logo from "../../assets/images/logo.PNG";
 function Footer() {
   return (
     <Navbar bg="dark">
-      <Navbar.Brand href="/main">
+      <Navbar.Brand>
         <img
           src={Logo}
           width="40"
