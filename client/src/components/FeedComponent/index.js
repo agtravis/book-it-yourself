@@ -5,18 +5,56 @@ import FeedCard from "../FeedCard";
 import Nav from "../Nav";
 import SideFeedComponent from "../SideFeedComponent";
 import axios from "axios";
+import API from "../../utils/API";
 
 class FeedComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: `bruce`,
+      id: ``,
+      posts: [],
+      filteredPosts: [],
+      postTypes: [
+        { filterTerm: `artistNeeded`, displayTerm: `Artist Needed` },
+        { filterTerm: `showNeeded`, displayTerm: `Show Needed` },
+      ],
     };
   }
 
   componentDidMount() {
     this.getUser();
+    this.getPosts();
   }
+
+  filterByType = type => {
+    const filtered = this.state.posts.filter(post => post.type === type);
+    this.setState({ filteredPosts: filtered });
+  };
+
+  resetPosts = () => {
+    this.setState({ filteredPosts: this.state.posts });
+  };
+
+  //   author: "5ea863ce84d81942203caba9"
+  // complete: false
+  // description: "Looking for a show, any ideas please get in touch!"
+  // endDate: "2020-01-01T00:00:00.000Z"
+  // location: "Seattle"
+  // postedDate: "2020-05-06T20:21:49.558Z"
+  // startDate: "2019-01-01T00:00:00.000Z"
+  // title: "Looking for a show"
+  // type: "artistNeeded"
+  // _id: "5ea866f6298ddd2a5c1de8fc"
+
+  getPosts = () => {
+    API.getPosts()
+      .then(response => {
+        console.log(response.data);
+        this.setState({ posts: response.data, filteredPosts: response.data });
+      })
+      .catch(err => console.error(err));
+  };
 
   getUser = () => {
     axios.get("/api/user/").then(response => {
@@ -48,12 +86,48 @@ class FeedComponent extends Component {
           <Col sm={8} xs={12}>
             <Jumbotron fluid>
               <Container>
-                <p>{this.state.username} - username</p>
-                <NameCard username={this.state.username} />
-                <FeedCard />
-                <FeedCard />
-                <FeedCard />
-                <FeedCard />
+                <h1>Posts</h1>
+                <h3>Filter:</h3>
+                <form id="select-post-type">
+                  <label htmlFor="post-types">What kind of post?</label>
+                  <select
+                    id="post-type"
+                    name="post-type-list"
+                    onChange={event => {
+                      if (event.target.value === ``) {
+                        this.resetPosts();
+                      } else {
+                        this.filterByType(event.target.value);
+                      }
+                    }}
+                  >
+                    <option value="" id="default">
+                      No Filter
+                    </option>
+                    {this.state.postTypes.map((postType, index) => {
+                      return (
+                        <option key={index} value={postType.filterTerm}>
+                          {postType.displayTerm}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </form>
+
+                {this.state.filteredPosts.length > 0
+                  ? this.state.filteredPosts.map((post, index) => {
+                      return (
+                        <FeedCard
+                          key={index}
+                          title={post.title}
+                          location={post.location}
+                          startDate={post.startDate}
+                          endDate={post.endDate}
+                          description={post.description}
+                        />
+                      );
+                    })
+                  : null}
               </Container>
             </Jumbotron>
           </Col>
