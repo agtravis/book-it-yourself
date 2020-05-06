@@ -11,6 +11,7 @@ class Signup extends Component {
     this.state = {
       username: "",
       password: "",
+      checkboxChecked: false,
       confirmPassword: "",
       loggedIn: false,
       redirect: null,
@@ -20,6 +21,7 @@ class Signup extends Component {
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value,
+       checkboxChecked: event.target.checked,
     });
   };
 
@@ -33,6 +35,10 @@ class Signup extends Component {
       .post("/api/user/", {
         username: this.state.username,
         password: this.state.password,
+        location: this.state.location,
+        telephone: this.state.telephone,
+        email: this.state.email,
+        role: this.state.role,
       })
       .then(response => {
         console.log(response);
@@ -102,6 +108,79 @@ class Signup extends Component {
                   />
                 </Col>
               </Form.Group>
+              <Form.Group
+                as={Row}
+                controlId="formPlaintext"
+                className="justify-content-center"
+              >
+                <Form.Label column sm="1">
+                  City
+                </Form.Label>
+                <Col sm="2">
+                  <Form.Control
+                    type="text"
+                    id="location"
+                    name="location"
+                    value={this.state.location}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group
+                as={Row}
+                controlId="formPlaintextTelephone"
+                className="justify-content-center"
+              >
+                <Form.Label column sm="1">
+                  Phone
+                </Form.Label>
+                <Col sm="2">
+                  <Form.Control
+                    type="text"
+                    id="telephone"
+                    name="telephone"
+                    value={this.state.telephone}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group
+                as={Row}
+                controlId="formBasicEmail"
+                className="justify-content-center"
+              >
+                <Form.Label column sm="1">
+                  Email
+                </Form.Label>
+                <Col sm="2">
+                  <Form.Control
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group
+                as={Row}
+                controlId="formBasicEmail"
+                className="justify-content-center"
+              >
+                <Form.Label column sm="1">
+                  Role
+                </Form.Label>
+                <Col sm="2">
+                  <Form.Control
+                    type="text"
+                    id="role"
+                    name="role"
+                    value={this.state.role}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </Form.Group>
+
               <Button variant="dark" type="submit" onClick={this.handleSubmit}>
                 Submit
               </Button>
