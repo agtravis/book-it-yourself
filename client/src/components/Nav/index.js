@@ -59,7 +59,7 @@ class NavigationBar extends Component {
       });
   };
 
-  linkToPage = path => {
+  linkToPage = (path, blank) => {
     this.setState({
       redirect: path,
     });
@@ -67,7 +67,22 @@ class NavigationBar extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
+      const redir = this.state.redirect;
+      if (this.state.redirect === "/search") {
+        this.setState({ redirect: null });
+        return (
+          <Redirect
+            to={{
+              pathname: redir,
+              state: {
+                searchTerm: "search for users",
+              },
+            }}
+          />
+        );
+      }
+      this.setState({ redirect: null });
+      return <Redirect to={redir} />;
     }
     if (this.state.loggedIn) {
       return (
@@ -115,7 +130,7 @@ class NavigationBar extends Component {
               </Nav.Link> */}
               <Link
                 onClick={() => {
-                  this.linkToPage(`/search`);
+                  this.linkToPage(`/search`, "");
                 }}
               >
                 Search
