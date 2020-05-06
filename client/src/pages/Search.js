@@ -16,7 +16,21 @@ class Search extends Component {
     this.state = {};
   }
 
-  render(props) {
+  componentDidMount() {
+    this.setSearchTerm();
+  }
+
+  setSearchTerm = () => {
+    API.searchUser(this.props.location.state.searchTerm)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(err => console.error(err));
+  };
+
+  render() {
+    // console.log(this.props.location.pathname);
+
     return (
       <div>
         <Nav />
@@ -27,19 +41,6 @@ class Search extends Component {
           <Col sm={8} xs={12}>
             <Jumbotron fluid>
               <p>search page</p>
-              {/* <Container>
-                <div>
-                  <ProfileComponent
-                    username={this.state.user.username}
-                    location={this.state.user.location}
-                    email={this.state.user.email}
-                    telephone={this.state.user.telephone}
-                    status={this.state.user.status}
-                    role={this.state.user.role}
-                    posts={this.state.user.posts}
-                  />
-                </div>
-              </Container> */}
             </Jumbotron>
           </Col>
         </Row>

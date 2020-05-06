@@ -19,21 +19,20 @@ class Search extends Component {
     this.setState({ searchTerm: event.target.value });
   };
 
-  handleSubmit = event => {
-    console.log(this.state.searchTerm);
-    API.searchUser(this.state.searchTerm)
-      .then(response => {
-        console.log(response.data);
-        // this.setState({ users: response.data, redirect: `/search` });
-      })
-      .catch(err => console.error(err));
-  };
-
   render() {
     if (this.state.redirect) {
       const redir = this.state.redirect;
       this.setState({ redirect: null });
-      return <Redirect to={redir} users={this.state.users} test={`test`} />;
+      return (
+        <Redirect
+          to={{
+            pathname: redir,
+            state: {
+              searchTerm: this.state.searchTerm,
+            },
+          }}
+        />
+      );
     }
     return (
       <InputGroup className="mb-3">
@@ -48,7 +47,7 @@ class Search extends Component {
           <Button
             variant="outline-info"
             size="sm"
-            onClick={event => this.handleSubmit()}
+            onClick={() => this.setState({ redirect: `/search` })}
           >
             Search
           </Button>

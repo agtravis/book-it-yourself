@@ -149,7 +149,7 @@ class NavigationBar extends Component {
             </React.Fragment>
           </Navbar.Collapse>
           <div className=" d-none d-sm-block justify-content-end">
-            <Search />
+            <Search searchTermChange={this.props.searchTermChange} />
           </div>
         </Navbar>
       );
