@@ -18,7 +18,7 @@ const mongoose = require(`mongoose`);
 router.post(`/`, (req, res) => {
   console.log(`user signup`);
 
-  const { username, password } = req.body;
+  const { username, password, location, role, telephone, email } = req.body;
   // ADD VALIDATION
   User.findOne({ username: username }, (err, user) => {
     if (err) {
@@ -31,6 +31,10 @@ router.post(`/`, (req, res) => {
       const newUser = new User({
         username: username,
         password: password,
+        location: location,
+        telephone: telephone,
+        email: email,
+        role: role,
       });
       newUser.save((err, savedUser) => {
         if (err) return res.json(err);
