@@ -19,6 +19,7 @@ class FeedComponent extends Component {
         { filterTerm: `artistNeeded`, displayTerm: `Artist Needed` },
         { filterTerm: `showNeeded`, displayTerm: `Show Needed` },
       ],
+      locationSearch: ``,
     };
   }
 
@@ -29,6 +30,13 @@ class FeedComponent extends Component {
 
   filterByType = type => {
     const filtered = this.state.posts.filter(post => post.type === type);
+    this.setState({ filteredPosts: filtered });
+  };
+
+  filterByLocation = location => {
+    const filtered = this.state.posts.filter(
+      post => post.location.toLowerCase().indexOf(location.toLowerCase()) !== -1
+    );
     this.setState({ filteredPosts: filtered });
   };
 
@@ -88,6 +96,31 @@ class FeedComponent extends Component {
               <Container>
                 <h1>Posts</h1>
                 <h3>Filter:</h3>
+                <form
+                  id="location-search"
+                  onSubmit={event => {
+                    event.preventDefault();
+                    const location = this.state.locationSearch;
+                    this.setState({ locationSearch: `` });
+                    if (location === ``) {
+                      this.resetPosts();
+                    } else {
+                      this.filterByLocation(location);
+                    }
+                  }}
+                >
+                  <label htmlFor="post-location">
+                    For where are you searching?
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Search for a location"
+                    onChange={event => {
+                      this.setState({ locationSearch: event.target.value });
+                    }}
+                  />
+                  <button type="submit">Search</button>
+                </form>
                 <form id="select-post-type">
                   <label htmlFor="post-types">What kind of post?</label>
                   <select

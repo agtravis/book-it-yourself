@@ -14,8 +14,11 @@ function FeedCard(props) {
           <h1>{props.title}</h1>
           <p>Location: {props.location}.</p>
           <p>
-            When: {Date(props.startDate)}
-            {props.endDate !== `` ? ` until ${Date(props.endDate)}` : null}.
+            When: {new Date(props.startDate).toString()}
+            {props.endDate !== ``
+              ? ` until ${new Date(props.endDate).toString()}`
+              : null}
+            .
           </p>
           <p>Description: {props.description}</p>
 
