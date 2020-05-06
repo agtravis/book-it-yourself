@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import { Row, Col, Jumbotron, Container, Image } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
+import { Row, Col, Jumbotron, Button, Container, Image } from "react-bootstrap";
 import Nav from "../components/Nav";
 import axios from "axios";
 import Main from "../pages/Main";
@@ -15,12 +15,21 @@ class Search extends Component {
     super(props);
     this.state = {
       users: [],
+      redirect: null,
+      username: null,
+      userID: null,
     };
   }
 
   componentDidMount() {
     this.setSearchTerm();
   }
+  handleUserChoice = chosenUser => {
+    this.setState({
+      redirect: `/userdetails`,
+      userID: chosenUser,
+    });
+  };
 
   setSearchTerm = search => {
     if (search) {
@@ -42,6 +51,20 @@ class Search extends Component {
 
   render() {
     // console.log(this.props.location.pathname);
+    if (this.state.redirect) {
+      const redir = this.state.redirect;
+      this.setState({ redirect: null });
+      return (
+        <Redirect
+          to={{
+            pathname: redir,
+            state: {
+              userID: this.state.userID,
+            },
+          }}
+        />
+      );
+    }
 
     return (
       <div>
@@ -54,7 +77,16 @@ class Search extends Component {
             <Jumbotron fluid>
               <p>search page</p>
               {this.state.users.length > 0
-                ? this.state.users.map(user => <p>{user.username}</p>)
+                ? this.state.users.map(user => (
+                    <p
+                      id={user._id}
+                      onClick={event => {
+                        this.handleUserChoice(event.target.id);
+                      }}
+                    >
+                      {user.username}
+                    </p>
+                  ))
                 : null}
             </Jumbotron>
           </Col>
