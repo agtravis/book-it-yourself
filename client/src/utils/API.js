@@ -11,7 +11,7 @@ export default {
     return axios.get(`/api/user/${id}`);
   },
   searchUser(searchString) {
-    return axios.get(`/api/users/user`, searchString);
+    return axios.post(`/api/users/user`, { search: searchString });
   },
   deleteUser(id) {
     return axios.delete(`/api/user/${id}`);

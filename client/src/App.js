@@ -12,6 +12,8 @@ import FeedComponent from "./components/FeedComponent";
 import SideFeedComponent from "./components/SideFeedComponent";
 import { Row, Col } from "react-bootstrap";
 import SignupForm from "./components/SignupForm";
+import Search from "./pages/Search";
+import API from "./utils/API";
 
 class App extends React.Component {
   constructor(props) {
@@ -58,6 +60,7 @@ class App extends React.Component {
             <Route exact path="/signup" component={SignupForm} />
             <Route exact path="/main" component={Main} />
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/search" component={Search} />
             <Route exact path="/feed" component={FeedComponent} />
             <Route component={NotFound} />
           </Switch>
