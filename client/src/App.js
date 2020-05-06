@@ -12,7 +12,7 @@ import FeedComponent from "./components/FeedComponent";
 import SideFeedComponent from "./components/SideFeedComponent";
 import { Row, Col } from "react-bootstrap";
 import SignupForm from "./components/SignupForm";
-import Search from "./components/Search";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -61,7 +61,6 @@ class App extends React.Component {
             <Route exact path="/feed" component={FeedComponent} />
             <Route component={NotFound} />
           </Switch>
-
           <Footer />
         </Router>
       </div>
