@@ -11,7 +11,7 @@ class Signup extends Component {
     this.state = {
       username: "",
       password: "",
-      checkboxChecked: false,
+      role: "artist",
       confirmPassword: "",
       loggedIn: false,
       redirect: null,
@@ -21,14 +21,15 @@ class Signup extends Component {
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value,
-       checkboxChecked: event.target.checked,
+      role: event.target.value,
     });
   };
-
+  
   handleSubmit = event => {
+    event.preventDefault();
     console.log("sign-up handleSubmit, username: ");
     console.log(this.state.username);
-    event.preventDefault();
+    console.log(this.state);
 
     //request to server to add a new username/password
     axios
@@ -171,13 +172,27 @@ class Signup extends Component {
                   Role
                 </Form.Label>
                 <Col sm="2">
-                  <Form.Control
-                    type="text"
-                    id="role"
-                    name="role"
-                    value={this.state.role}
-                    onChange={this.handleChange}
-                  />
+                <Form.Check
+                  type="radio"
+                  value="artist"
+                  label="artist"
+                  checked={this.state.role === "artist"}
+                  onChange={this.handleChange}
+                />
+                <Form.Check
+                  type="radio"
+                  value="promoter"
+                  label="promoter"
+                  checked={this.state.role === "promoter"}
+                  onChange={this.handleChange}
+                />
+                <Form.Check
+                  type="radio"
+                  value="both"
+                  label="both"
+                  checked={this.state.role === "both"}
+                  onChange={this.handleChange}
+                />
                 </Col>
               </Form.Group>
 
