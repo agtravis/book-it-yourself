@@ -40,7 +40,18 @@ class Search extends Component {
           size="sm"
           placeholder="Search Users"
           className="mr-sm-2"
-          onChange={event => this.handleSearchTermChange(event)}
+          onChange={event => {
+            this.handleSearchTermChange(event);
+          }}
+          onKeyUp={event => {
+            if (event.keyCode === 13) {
+              if (window.location.pathname === `/search`) {
+                this.props.setSearchTerm(this.state.searchTerm);
+              } else {
+                this.setState({ redirect: `/search` });
+              }
+            }
+          }}
         />
         <InputGroup.Append>
           <Button
