@@ -6,6 +6,7 @@ import Home from "../../pages/Index";
 import Search from "../Search";
 import "./style.css";
 import Logo from "../../assets/images/logo.PNG";
+import API from "../../utils/API";
 
 class NavigationBar extends Component {
   constructor(props) {

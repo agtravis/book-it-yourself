@@ -39,7 +39,9 @@ router.get(`/usersposts`, (req, res) => {
 
 // searches for a partial string in a username, returns any that match as an object req.body === { search: [string] }
 // api/users/user
-router.get(`/users/user`, (req, res) => {
+router.post(`/users/user`, (req, res) => {
+  console.log(`back end req.body`);
+  console.log(req.body);
   User.find({
     username: {
       $regex: req.body.search,
