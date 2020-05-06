@@ -13,19 +13,31 @@ import SideFeedComponent from "../components/SideFeedComponent";
 class Search extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      users: [],
+    };
   }
 
   componentDidMount() {
     this.setSearchTerm();
   }
 
-  setSearchTerm = () => {
-    API.searchUser(this.props.location.state.searchTerm)
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(err => console.error(err));
+  setSearchTerm = search => {
+    if (search) {
+      API.searchUser(search)
+        .then(response => {
+          console.log(response.data);
+          this.setState({ users: response.data });
+        })
+        .catch(err => console.error(err));
+    } else {
+      API.searchUser(this.props.location.state.searchTerm)
+        .then(response => {
+          console.log(response.data);
+          this.setState({ users: response.data });
+        })
+        .catch(err => console.error(err));
+    }
   };
 
   render() {
@@ -33,7 +45,7 @@ class Search extends Component {
 
     return (
       <div>
-        <Nav />
+        <Nav setSearchTerm={this.setSearchTerm} />
         <Row>
           <Col sm={4}>
             <SideFeedComponent />
@@ -41,6 +53,9 @@ class Search extends Component {
           <Col sm={8} xs={12}>
             <Jumbotron fluid>
               <p>search page</p>
+              {this.state.users.length > 0
+                ? this.state.users.map(user => <p>{user.username}</p>)
+                : null}
             </Jumbotron>
           </Col>
         </Row>

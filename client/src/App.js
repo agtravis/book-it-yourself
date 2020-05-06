@@ -69,7 +69,7 @@ class App extends React.Component {
               exact
               path="/search"
               component={Search}
-              searchTermChange={this.searchTermChange}
+              // searchTermChange={this.searchTermChange}
             />
             <Route exact path="/feed" component={FeedComponent} />
             <Route component={NotFound} />

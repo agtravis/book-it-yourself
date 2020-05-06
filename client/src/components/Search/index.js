@@ -10,7 +10,6 @@ class Search extends Component {
     super(props);
     this.state = {
       searchTerm: ``,
-      users: [],
       redirect: null,
     };
   }
@@ -47,7 +46,14 @@ class Search extends Component {
           <Button
             variant="outline-info"
             size="sm"
-            onClick={() => this.setState({ redirect: `/search` })}
+            onClick={() => {
+              if (window.location.pathname === `/search`) {
+                console.log(`matches`);
+                this.props.setSearchTerm(this.state.searchTerm);
+              } else {
+                this.setState({ redirect: `/search` });
+              }
+            }}
           >
             Search
           </Button>
