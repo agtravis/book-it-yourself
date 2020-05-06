@@ -6,7 +6,6 @@ import Home from "../../pages/Index";
 import Search from "../Search";
 import "./style.css";
 import Logo from "../../assets/images/logo.PNG";
-import API from "../../utils/API";
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -68,9 +67,7 @@ class NavigationBar extends Component {
 
   render() {
     if (this.state.redirect) {
-      const redir = this.state.redirect;
-      this.setState({ redirect: null });
-      return <Redirect to={redir} />;
+      return <Redirect to={this.state.redirect} />;
     }
     if (this.state.loggedIn) {
       return (
@@ -149,7 +146,7 @@ class NavigationBar extends Component {
             </React.Fragment>
           </Navbar.Collapse>
           <div className=" d-none d-sm-block justify-content-end">
-            <Search setSearchTerm={this.props.setSearchTerm} />
+            <Search />
           </div>
         </Navbar>
       );
@@ -188,7 +185,7 @@ class NavigationBar extends Component {
             </React.Fragment>
           </Navbar.Collapse>
           <div className=" d-none d-sm-block justify-content-end">
-            <Search setSearchTerm={this.props.setSearchTerm} />
+            <Search />
           </div>
         </Navbar>
       );
