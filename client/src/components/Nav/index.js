@@ -67,7 +67,9 @@ class NavigationBar extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
+      const redir = this.state.redirect;
+      this.setState({ redirect: null });
+      return <Redirect to={redir} />;
     }
     if (this.state.loggedIn) {
       return (
