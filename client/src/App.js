@@ -23,17 +23,12 @@ class App extends React.Component {
       loggedIn: false,
       username: null,
       id: null,
-      searchTerm: ``,
     };
   }
 
   componentDidMount() {
     this.getUser();
   }
-
-  searchTermChange = searchString => {
-    this.setState({ searchTerm: searchString });
-  };
 
   getUser = () => {
     axios.get("/api/user/").then(response => {
@@ -67,12 +62,7 @@ class App extends React.Component {
             <Route exact path="/main" component={Main} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/userdetails" component={UserDetails} />
-            <Route
-              exact
-              path="/search"
-              component={Search}
-              // searchTermChange={this.searchTermChange}
-            />
+            <Route exact path="/search" component={Search} />
             <Route exact path="/feed" component={FeedComponent} />
             <Route component={NotFound} />
           </Switch>

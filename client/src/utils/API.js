@@ -16,10 +16,9 @@ export default {
   deleteUser(id) {
     return axios.delete(`/api/user/${id}`);
   },
-  // removed this route because being routed to via passport
-  // saveUser(userData) {
-  //   return axios.post(`/api/users`, userData);
-  // },
+  getPosts() {
+    return axios.get(`/api/classifieds`);
+  },
   updateUser(id, userData) {
     return axios.put(`/api/user/${id}`, userData);
   },

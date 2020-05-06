@@ -1,28 +1,36 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-import TestPhoto from "../../assets/images/test.png";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Jumbotron from "react-bootstrap/Jumbotron";
+import Image from "react-bootstrap/Image";
+import UserTest from "../../assets/images/userTest.png";
 
-function FeedComponent() {
+function FeedCard(props) {
   return (
-    <Card style={{ width: "auto" }}>
-      <Card.Img variant="top" src={TestPhoto} />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content. Some quick example text to build on the
-          card title and make up the bulk of the card's content. Some quick
-          example text to build on the card title and make up the bulk of the
-          card's content. Some quick example text to build on the card title and
-          make up the bulk of the card's content. Some quick example text to
-          build on the card title and make up the bulk of the card's content.
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content. Some quick example text to build on the
-          card title and make up the bulk of the card's content.
-        </Card.Text>
-      </Card.Body>
-    </Card>
+    <Jumbotron>
+      <Card style={{ width: "auto" }}>
+        <Card.Body>
+          <h1>{props.title}</h1>
+          <p>Location: {props.location}.</p>
+          <p>
+            When: {Date(props.startDate)}
+            {props.endDate !== `` ? ` until ${Date(props.endDate)}` : null}.
+          </p>
+          <p>Description: {props.description}</p>
+
+          {/* <Row>
+            <Col md={"2"}>
+              <Image src={UserTest} style={{ maxWidth: 80 }} roundedCircle />
+            </Col>
+            <Col>
+              <h3>{props.username}</h3>
+            </Col>
+          </Row> */}
+        </Card.Body>
+      </Card>
+    </Jumbotron>
   );
 }
 
-export default FeedComponent;
+export default FeedCard;

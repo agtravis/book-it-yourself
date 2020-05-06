@@ -11,7 +11,7 @@ class Signup extends Component {
     this.state = {
       username: "",
       password: "",
-      role: "artist",
+      role: [],
       confirmPassword: "",
       loggedIn: false,
       redirect: null,
@@ -21,10 +21,23 @@ class Signup extends Component {
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value,
-      role: event.target.value,
     });
   };
-  
+
+  handleCheck = (event, roleName) => {
+    if (event.target.checked) {
+      this.setState({
+        role: [...this.state.role, roleName],
+      });
+    } else {
+      if (this.state.role.includes(roleName)) {
+        const newRoles = [...this.state.role];
+        newRoles.splice(newRoles.indexOf(roleName), 1);
+        this.setState({ role: newRoles });
+      }
+    }
+  };
+
   handleSubmit = event => {
     event.preventDefault();
     console.log("sign-up handleSubmit, username: ");
@@ -172,27 +185,18 @@ class Signup extends Component {
                   Role
                 </Form.Label>
                 <Col sm="2">
-                <Form.Check
-                  type="radio"
-                  value="artist"
-                  label="artist"
-                  checked={this.state.role === "artist"}
-                  onChange={this.handleChange}
-                />
-                <Form.Check
-                  type="radio"
-                  value="promoter"
-                  label="promoter"
-                  checked={this.state.role === "promoter"}
-                  onChange={this.handleChange}
-                />
-                <Form.Check
-                  type="radio"
-                  value="both"
-                  label="both"
-                  checked={this.state.role === "both"}
-                  onChange={this.handleChange}
-                />
+                  <Form.Check
+                    type="checkbox"
+                    value="artist"
+                    label="artist"
+                    onChange={event => this.handleCheck(event, `artist`)}
+                  />
+                  <Form.Check
+                    type="checkbox"
+                    value="promoter"
+                    label="promoter"
+                    onChange={event => this.handleCheck(event, `promoter`)}
+                  />
                 </Col>
               </Form.Group>
 
@@ -203,9 +207,6 @@ class Signup extends Component {
           </Col>
         </Row>
       </div>
-
-      // (window.location.href = "/login")
-      // this.props.router.push(`/login`)
     );
   }
 }
