@@ -197,13 +197,17 @@ class NavigationBar extends Component {
               <Nav.Link>
                 <Link to="/login">Login</Link>
               </Nav.Link>
-
               <Nav.Link>
                 <Link to="/signup">Signup</Link>
               </Nav.Link>
+              <Nav.Link>
+                <Link to="/mobilesearch" className="d-block d-sm-none">
+                  Search
+                </Link>
+              </Nav.Link>
             </React.Fragment>
           </Navbar.Collapse>
-          <div className=" justify-content-end">
+          <div className=" d-none d-sm-block justify-content-end">
             <Search setSearchTerm={this.props.setSearchTerm} />
           </div>
         </Navbar>
