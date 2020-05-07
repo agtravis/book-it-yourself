@@ -2,14 +2,33 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import API from "../../utils/API";
+import { Redirect } from "react-router-dom";
 
 class FeedCard extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      redirect: null,
+      id: ``,
+    };
   }
 
   render() {
+    if (this.state.redirect) {
+      const redir = this.state.redirect;
+      this.setState({ redirect: null });
+      return (
+        <Redirect
+          to={{
+            pathname: redir,
+            state: {
+              userID: this.state.id,
+            },
+          }}
+        />
+      );
+    }
+
     const startDate = new Date(this.props.startDate);
     const endDate = new Date(this.props.endDate);
 
@@ -18,6 +37,16 @@ class FeedCard extends Component {
         <Card style={{ width: "auto" }}>
           <Card.Body>
             <h1>{this.props.title}</h1>
+            <button
+              onClick={() => {
+                this.setState({
+                  redirect: `/userdetails`,
+                  id: this.props.author,
+                });
+              }}
+            >
+              CONTACT POSTER
+            </button>
             {this.props.delete ? (
               <button
                 onClick={() =>

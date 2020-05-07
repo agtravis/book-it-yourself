@@ -28,7 +28,10 @@ class ProfileComponent extends Component {
         <hr></hr>
         <Image className="pic" src={image} alt="profile pic" />
         <br></br>
-        <p className="username">Welcome, {this.props.username}</p>
+        <p className="username">
+          {this.props.userId ? `Welcome, ` : null}
+          {this.props.username}
+        </p>
 
         <div className="shade w-75">
           <div className="info">

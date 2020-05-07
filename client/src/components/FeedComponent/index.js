@@ -161,6 +161,7 @@ class FeedComponent extends Component {
                   ? this.state.filteredPosts.map((post, index) => {
                       return (
                         <FeedCard
+                          author={post.author}
                           key={index}
                           title={post.title}
                           location={post.location}
