@@ -21,8 +21,47 @@ class Profile extends Component {
     this.getUser();
   };
 
+  deletePost = (id, author) => {
+    API.deletePost(id)
+      .then(data => {
+        API.updateRemoveUserPost(author, {
+          id: data.data._id,
+        })
+          .then(data => {
+            console.log(data);
+            this.getUser();
+          })
+          .catch(err => console.error(err));
+      })
+      .catch(err => console.error(err));
+  };
+
+  togglePostStatus = (id, status) => {
+    let newStatus;
+    if (status === `open`) {
+      newStatus = true;
+    } else if (status === `closed`) {
+      newStatus = false;
+    }
+    API.updatePost(id, { complete: newStatus })
+      .then(data => {
+        console.log(data);
+        this.getUser();
+      })
+      .catch(err => console.error(err));
+  };
+
   updateUser = userObject => {
     this.setState(userObject);
+  };
+
+  editStatus = (id, status) => {
+    API.updateUser(id, { status: status })
+      .then(data => {
+        console.log(data);
+        this.getUser();
+      })
+      .catch(err => console.error(err));
   };
 
   getUser = () => {
@@ -79,6 +118,9 @@ class Profile extends Component {
               <Container>
                 <div>
                   <ProfileComponent
+                    deletePost={this.deletePost}
+                    togglePostStatus={this.togglePostStatus}
+                    editStatus={this.editStatus}
                     userId={this.state.user.id}
                     username={this.state.user.username}
                     location={this.state.user.location}

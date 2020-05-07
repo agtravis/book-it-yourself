@@ -45,24 +45,17 @@ class FeedComponent extends Component {
     this.setState({ filteredPosts: this.state.posts });
   };
 
-  //   author: "5ea863ce84d81942203caba9"
-  // complete: false
-  // description: "Looking for a show, any ideas please get in touch!"
-  // endDate: "2020-01-01T00:00:00.000Z"
-  // location: "Seattle"
-  // postedDate: "2020-05-06T20:21:49.558Z"
-  // startDate: "2019-01-01T00:00:00.000Z"
-  // title: "Looking for a show"
-  // type: "artistNeeded"
-  // _id: "5ea866f6298ddd2a5c1de8fc"
-
   getPosts = () => {
     API.getPosts()
       .then(response => {
         console.log(response.data);
-        const sortedPosts = response.data.sort((a, b) =>
-          b.startDate > a.startDate ? 1 : -1
-        );
+        const sortedPosts = response.data
+          .filter(
+            post =>
+              post.complete === false && new Date(post.endDate) > new Date()
+          )
+          .sort((a, b) => (b.startDate > a.startDate ? 1 : -1));
+
         this.setState({ posts: sortedPosts, filteredPosts: sortedPosts });
       })
       .catch(err => console.error(err));
@@ -168,6 +161,7 @@ class FeedComponent extends Component {
                   ? this.state.filteredPosts.map((post, index) => {
                       return (
                         <FeedCard
+                          author={post.author}
                           key={index}
                           title={post.title}
                           location={post.location}
