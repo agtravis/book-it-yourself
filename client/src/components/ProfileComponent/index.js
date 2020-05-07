@@ -3,6 +3,7 @@ import { Image } from "react-bootstrap";
 import "./style.css";
 import image from "../../assets/images/userTest.png";
 import { Link, Redirect } from "react-router-dom";
+import FeedCard from "../FeedCard";
 
 class ProfileComponent extends Component {
   constructor(props) {
@@ -70,14 +71,43 @@ class ProfileComponent extends Component {
           </Link>
         ) : null}
         <div className="shade w-75">
-          <p>This is a sample post</p>
-          {/* {props.posts !== undefined ? (
-        <ul>
-          {props.posts.map(post => (
-            <li>{post.description}</li>
-          ))}
-        </ul>
-      ) : null} */}
+          {this.props.posts !== undefined &&
+          this.props.posts.length > 0 &&
+          this.props.userId ? (
+            this.props.posts.map((post, index) => {
+              return (
+                <FeedCard
+                  key={index}
+                  delete={true}
+                  title={post.title}
+                  location={post.location}
+                  startDate={post.startDate}
+                  endDate={post.endDate}
+                  description={post.description}
+                />
+              );
+            })
+          ) : this.props.posts !== undefined &&
+            this.props.posts.length > 0 &&
+            !this.props.userId ? (
+            this.props.posts
+              .sort((a, b) => (b.startDate > a.startDate ? 1 : -1))
+              .map((post, index) => {
+                return (
+                  <FeedCard
+                    key={index}
+                    delete={false}
+                    title={post.title}
+                    location={post.location}
+                    startDate={post.startDate}
+                    endDate={post.endDate}
+                    description={post.description}
+                  />
+                );
+              })
+          ) : (
+            <p>No posts yet!</p>
+          )}
         </div>
       </div>
     );
