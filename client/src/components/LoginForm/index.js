@@ -27,7 +27,7 @@ class LoginForm extends Component {
     event.preventDefault();
     axios
       .post("/api/user/login", {
-        username: this.state.username,
+        username: this.state.username.toLowerCase(),
         password: this.state.password,
       })
       .then(response => {
