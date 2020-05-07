@@ -24,9 +24,18 @@ class FeedCard extends Component {
                 DELETE
               </button>
             ) : null}
-            {this.props.complete !== `negative` ? (
+            {this.props.delete && this.props.complete !== `negative` ? (
               <div>
-                <button>TOGGLE STATUS</button>
+                <button
+                  onClick={() =>
+                    this.props.togglePostStatus(
+                      this.props.id,
+                      this.props.complete
+                    )
+                  }
+                >
+                  TOGGLE STATUS
+                </button>
                 <p>Status: {this.props.complete}</p>
               </div>
             ) : null}

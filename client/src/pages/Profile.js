@@ -36,6 +36,21 @@ class Profile extends Component {
       .catch(err => console.error(err));
   };
 
+  togglePostStatus = (id, status) => {
+    let newStatus;
+    if (status === `open`) {
+      newStatus = true;
+    } else if (status === `closed`) {
+      newStatus = false;
+    }
+    API.updatePost(id, { complete: newStatus })
+      .then(data => {
+        console.log(data);
+        this.getUser();
+      })
+      .catch(err => console.error(err));
+  };
+
   updateUser = userObject => {
     this.setState(userObject);
   };
@@ -95,6 +110,7 @@ class Profile extends Component {
                 <div>
                   <ProfileComponent
                     deletePost={this.deletePost}
+                    togglePostStatus={this.togglePostStatus}
                     userId={this.state.user.id}
                     username={this.state.user.username}
                     location={this.state.user.location}

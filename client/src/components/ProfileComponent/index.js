@@ -95,6 +95,7 @@ class ProfileComponent extends Component {
                   id={post._id}
                   author={post.author}
                   deletePost={this.props.deletePost}
+                  togglePostStatus={this.props.togglePostStatus}
                   delete={true}
                   complete={post.complete ? `closed` : `open`}
                   title={post.title}

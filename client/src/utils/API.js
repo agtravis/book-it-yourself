@@ -34,4 +34,7 @@ export default {
   deletePost(id) {
     return axios.delete(`/api/classifieds/${id}`);
   },
+  updatePost(id, postData) {
+    return axios.put(`/api/classifieds/${id}`, postData);
+  },
 };
