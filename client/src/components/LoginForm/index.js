@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Jumbotron, Container } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "./style.css";
@@ -14,6 +14,7 @@ class LoginForm extends Component {
       password: "",
       loggedIn: false,
       redirect: null,
+      loginError: "",
     };
   }
 
@@ -23,28 +24,52 @@ class LoginForm extends Component {
     });
   };
 
+  validate = (NoMatch) => {
+    let loginError = "";
+
+    if (NoMatch) {
+      loginError = "invalid credentials";
+    }
+
+    if (loginError) {
+      this.setState({ loginError });
+      return false;
+    }
+
+    return true;
+  };
+
   handleSubmit = event => {
     event.preventDefault();
+    let NoMatch = true;
     axios
-      .post("/api/user/login", {
-        username: this.state.username.toLowerCase(),
-        password: this.state.password,
-      })
+      .get("/api/users/", {})
       .then(response => {
-        console.log("login response: ");
-        console.log(response);
-        if (response.status === 200) {
-          console.log(`user data incoming...`);
-          console.log(response.data);
-          this.setState({
-            loggedIn: true,
-            redirect: `/feed`,
-          });
+        for (let i = 0; i < response.data.length; ++i) {
+          if (this.state.username === response.data[i].username) {
+            NoMatch = false; 
+          }
         }
+        if (this.validate(NoMatch) && !NoMatch) {
+          axios
+            .post("/api/user/login", {
+              username: this.state.username.toLowerCase(),
+              password: this.state.password,
+            })
+            .then(response => {
+              if (response.status === 200) {
+                console.log(response.data);
+                this.setState({
+                  loggedIn: true,
+                  redirect: `/feed`,
+                });
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        };
       })
-      .catch(error => {
-        alert("wrong credentials");
-      });
   };
 
   render() {
@@ -61,48 +86,43 @@ class LoginForm extends Component {
             </div>
           </Col>
           <Col xl={8}>
-            <Form>
-              <h3>Login</h3>
-              <Form.Group
-                as={Row}
-                controlId="formPlaintextUsername"
-                className="justify-content-center"
-              >
-                <Form.Label column sm="1">
-                  Username
-                </Form.Label>
-                <Col sm="2">
-                  <Form.Control
-                    type="text"
-                    id="username"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.handleChange}
-                  />
-                </Col>
-              </Form.Group>
+            <Jumbotron>
+              <Container>
+                <Form>
+                  <h4>Login</h4>
+                  <Form.Group>
+                    <Form.Label>
+                      Username
+                    </Form.Label>
+                      <Form.Control
+                        type="text"
+                        id="username"
+                        name="username"
+                        value={this.state.username}
+                        onChange={this.handleChange}
+                      />
+                  </Form.Group>
 
-              <Form.Group
-                as={Row}
-                controlId="formPlaintextPassword"
-                className="justify-content-center"
-              >
-                <Form.Label column sm="1">
-                  Password
-                </Form.Label>
-                <Col sm="2">
-                  <Form.Control 
-                    type="password" 
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.handleChange} 
-                    />
-                </Col>
-              </Form.Group>
-              <Button variant="dark" type="submit" onClick={this.handleSubmit}>
-                Submit
-              </Button>
-            </Form>
+                  <Form.Group>
+                    <Form.Label>
+                      Password
+                    </Form.Label>
+                      <Form.Control 
+                        type="password" 
+                        name="password"
+                        value={this.state.password}
+                        onChange={this.handleChange} 
+                      />
+                      <div style={{ fontSize: 10, color: "red" }}>
+                        {this.state.loginError}
+                      </div>
+                  </Form.Group>
+                  <Button variant="dark" type="submit" onClick={this.handleSubmit}>
+                    Submit
+                  </Button>
+                </Form>
+              </Container>
+            </Jumbotron>
           </Col>
         </Row>
       </div>
