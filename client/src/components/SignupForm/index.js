@@ -100,12 +100,9 @@ class Signup extends Component {
     event.preventDefault();
     let userExists = false;
     axios
-      .get("/api/users/", {
-      
-      })
+      .get("/api/users/", {})
       .then(response => {
         for (let i = 0; i < response.data.length; ++i) {
-          console.log(response.data[i].username);
           if (this.state.username === response.data[i].username) {
             // eslint-disable-next-line no-unused-expressions
             userExists = true;
@@ -114,11 +111,11 @@ class Signup extends Component {
         if (this.validate(userExists) && !userExists) {
         axios
           .post("/api/user/", {
-            username: this.state.username,
+            username: this.state.username.toLowerCase(),
             password: this.state.password,
-            location: this.state.location,
+            location: this.state.location.toLowerCase(),
             telephone: this.state.telephone,
-            email: this.state.email,
+            email: this.state.email.toLowerCase(),
             role: this.state.role,
           })
           .then(response => {
@@ -131,7 +128,6 @@ class Signup extends Component {
             }
           })
           .catch(error => {
-            console.log("signup error: ");
             console.log(error);
           });
         }
