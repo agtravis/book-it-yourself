@@ -43,8 +43,7 @@ class LoginForm extends Component {
         }
       })
       .catch(error => {
-        console.log("login error: ");
-        console.log(error);
+        alert("wrong credentials");
       });
   };
 
@@ -87,14 +86,17 @@ class LoginForm extends Component {
                 as={Row}
                 controlId="formPlaintextPassword"
                 className="justify-content-center"
-                value={this.state.password}
-                onChange={this.handleChange}
               >
                 <Form.Label column sm="1">
                   Password
                 </Form.Label>
                 <Col sm="2">
-                  <Form.Control type="password" name="password" />
+                  <Form.Control 
+                    type="password" 
+                    name="password"
+                    value={this.state.password}
+                    onChange={this.handleChange} 
+                    />
                 </Col>
               </Form.Group>
               <Button variant="dark" type="submit" onClick={this.handleSubmit}>
