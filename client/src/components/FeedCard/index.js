@@ -10,6 +10,9 @@ class FeedCard extends Component {
   }
 
   render() {
+    const startDate = new Date(this.props.startDate);
+    const endDate = new Date(this.props.endDate);
+
     return (
       <Jumbotron>
         <Card style={{ width: "auto" }}>
@@ -41,9 +44,14 @@ class FeedCard extends Component {
             ) : null}
             <p>Location: {this.props.location}.</p>
             <p>
-              When: {new Date(this.props.startDate).toString()}
+              When:{" "}
+              {`${
+                startDate.getMonth() + 1
+              }/${startDate.getDate()}/${startDate.getFullYear()}`}
               {this.props.endDate !== ``
-                ? ` until ${new Date(this.props.endDate).toString()}`
+                ? ` until ${`${
+                    endDate.getMonth() + 1
+                  }/${endDate.getDate()}/${endDate.getFullYear()}`}`
                 : null}
               .
             </p>

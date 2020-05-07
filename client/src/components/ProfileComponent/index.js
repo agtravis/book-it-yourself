@@ -14,18 +14,6 @@ class ProfileComponent extends Component {
     };
   }
 
-  // deletePost = (id, author) => {
-  //   API.deletePost(id)
-  //     .then(data => {
-  //       API.updateRemoveUserPost(author, {
-  //         id: data.data._id,
-  //       })
-  //         .then(data => console.log(data))
-  //         .catch(err => console.error(err));
-  //     })
-  //     .catch(err => console.error(err));
-  // };
-
   render() {
     if (this.state.redirect) {
       const redir = this.state.redirect;
@@ -89,6 +77,7 @@ class ProfileComponent extends Component {
           this.props.posts.length > 0 &&
           this.props.userId ? (
             this.props.posts.map((post, index) => {
+              // props if user in session profile
               return (
                 <FeedCard
                   key={index}
@@ -112,6 +101,7 @@ class ProfileComponent extends Component {
             this.props.posts
               .sort((a, b) => (b.startDate > a.startDate ? 1 : -1))
               .map((post, index) => {
+                // props for generic profile
                 return (
                   <FeedCard
                     key={index}
