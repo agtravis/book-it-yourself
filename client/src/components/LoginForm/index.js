@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { Redirect, Switch } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
-import Main from "../../pages/Main";
 import "./style.css";
 import Nav from "../Nav";
 import SideFeedComponent from "../SideFeedComponent";
@@ -57,10 +56,12 @@ class LoginForm extends Component {
       <div>
         <Nav />
         <Row>
-          <Col sm={4}>
-            <SideFeedComponent />
+          <Col xl={4}>
+            <div className="d-none d-xl-block">
+              <SideFeedComponent />
+            </div>
           </Col>
-          <Col sm={8} xs={12}>
+          <Col xl={8}>
             <Form>
               <h3>Login</h3>
               <Form.Group

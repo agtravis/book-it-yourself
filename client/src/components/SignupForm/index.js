@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import SideFeedComponent from "../SideFeedComponent";
@@ -81,10 +81,12 @@ class Signup extends Component {
       <div>
         <Nav />
         <Row>
-          <Col sm={4}>
-            <SideFeedComponent />
+          <Col xl={4}>
+            <div className="d-none d-xl-block">
+              <SideFeedComponent />
+            </div>
           </Col>
-          <Col sm={8} xs={12}>
+          <Col xl={8}>
             <Form>
               <h3>Create Account</h3>
               <Form.Group

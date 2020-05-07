@@ -1,10 +1,6 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import Image from "react-bootstrap/Image";
-import UserTest from "../../assets/images/userTest.png";
 
 function FeedCard(props) {
   return (

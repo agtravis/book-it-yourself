@@ -24,3 +24,5 @@ function FeedComponent() {
     </Card>
   );
 }
+
+export default FeedComponent

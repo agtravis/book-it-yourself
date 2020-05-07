@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Jumbotron, Row, Col, Container } from "react-bootstrap";
-import NameCard from "../NameCard";
 import FeedCard from "../FeedCard";
 import Nav from "../Nav";
 import SideFeedComponent from "../SideFeedComponent";
@@ -88,10 +87,12 @@ class FeedComponent extends Component {
       <div>
         <Nav />
         <Row>
-          <Col sm={4}>
-            <SideFeedComponent />
+          <Col xl={4}>
+            <div className="d-none d-xl-block">
+              <SideFeedComponent />
+            </div>
           </Col>
-          <Col sm={8} xs={12}>
+          <Col xl={8}>
             <Jumbotron fluid>
               <Container>
                 <h1>Posts</h1>
