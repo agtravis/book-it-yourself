@@ -77,9 +77,9 @@ class Profile extends Component {
           <Col xl={8}>
             <Jumbotron fluid>
               <Container>
-                {/* {this.state.user.username !== undefined ? ( */}
                 <div>
                   <ProfileComponent
+                    userId={this.state.user.id}
                     username={this.state.user.username}
                     location={this.state.user.location}
                     email={this.state.user.email}
@@ -89,7 +89,6 @@ class Profile extends Component {
                     posts={this.state.user.posts}
                   />
                 </div>
-                {/* ) : null} */}
               </Container>
             </Jumbotron>
           </Col>

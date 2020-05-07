@@ -5,6 +5,7 @@ import Nav from "../Nav";
 import SideFeedComponent from "../SideFeedComponent";
 import axios from "axios";
 import API from "../../utils/API";
+import { Link, Redirect } from "react-router-dom";
 
 class FeedComponent extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class FeedComponent extends Component {
         { filterTerm: `showNeeded`, displayTerm: `Show Needed` },
       ],
       locationSearch: ``,
+      redirect: null,
     };
   }
 
@@ -58,7 +60,10 @@ class FeedComponent extends Component {
     API.getPosts()
       .then(response => {
         console.log(response.data);
-        this.setState({ posts: response.data, filteredPosts: response.data });
+        const sortedPosts = response.data.sort((a, b) =>
+          b.startDate > a.startDate ? 1 : -1
+        );
+        this.setState({ posts: sortedPosts, filteredPosts: sortedPosts });
       })
       .catch(err => console.error(err));
   };
@@ -83,6 +88,11 @@ class FeedComponent extends Component {
   };
 
   render() {
+    if (this.state.redirect) {
+      const redir = this.state.redirect;
+      this.setState({ redirect: null });
+      return <Redirect to={redir} />;
+    }
     return (
       <div>
         <Nav />
@@ -95,7 +105,14 @@ class FeedComponent extends Component {
           <Col xl={8}>
             <Jumbotron fluid>
               <Container>
-                <h1>Posts</h1>
+                <h1>Posts</h1>{" "}
+                <Link
+                  onClick={() => {
+                    this.setState({ redirect: `/post` });
+                  }}
+                >
+                  Make a post
+                </Link>
                 <h3>Filter:</h3>
                 <form
                   id="location-search"
@@ -147,7 +164,6 @@ class FeedComponent extends Component {
                     })}
                   </select>
                 </form>
-
                 {this.state.filteredPosts.length > 0
                   ? this.state.filteredPosts.map((post, index) => {
                       return (
