@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
-import {  Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import Search from "../Search";
 import "./style.css";
 import Logo from "../../assets/images/logo.PNG";
@@ -108,7 +108,6 @@ class NavigationBar extends Component {
             id="responsive-navbar-nav"
           >
             <React.Fragment>
-              {/* <Nav.Link href="/profile">Profile</Nav.Link> */}
               <Link
                 className="d-block"
                 onClick={() => {
@@ -117,7 +116,6 @@ class NavigationBar extends Component {
               >
                 Profile
               </Link>
-              {/* <Nav.Link href="/feed">Feed</Nav.Link> */}
               <Link
                 className="d-block"
                 onClick={() => {
@@ -126,9 +124,6 @@ class NavigationBar extends Component {
               >
                 Feed
               </Link>
-              {/* <Nav.Link className="d-block d-sm-none" href="/search">
-                Search
-              </Nav.Link> */}
               <Link
                 className="d-block d-sm-none"
                 onClick={() => {
@@ -137,9 +132,6 @@ class NavigationBar extends Component {
               >
                 Search
               </Link>
-              {/* <Nav.Link className="d-block d-sm-none" href="/calendar">
-                Calendar
-              </Nav.Link> */}
               <Link
                 className="d-block d-xl-none"
                 onClick={() => {
@@ -148,9 +140,6 @@ class NavigationBar extends Component {
               >
                 Calendar
               </Link>
-              {/* <Nav.Link className="d-block d-sm-none" href="/map">
-                Map
-              </Nav.Link> */}
               <Link
                 className="d-block d-xl-none"
                 onClick={() => {
