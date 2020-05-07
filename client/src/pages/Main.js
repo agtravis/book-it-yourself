@@ -1,12 +1,8 @@
 import React from "react";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import FeedComponent from "../components/FeedComponent";
 import SideFeedComponent from "../components/SideFeedComponent";
 import Nav from "../components/Nav";
-import Profile from "../pages/Profile";
-import Home from "../pages/Index";
 import axios from "axios";
-import { Jumbotron, Row, Col, Container } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 class Main extends React.Component {
   constructor() {
@@ -52,10 +48,12 @@ class Main extends React.Component {
       <div>
         <Nav updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
         <Row>
-          <Col sm={4}>
-            <SideFeedComponent />
+          <Col xl={4}>
+            <div className="d-none d-xl-block">
+              <SideFeedComponent />
+            </div>
           </Col>
-          <Col sm={8} xs={12}>
+          <Col xl={8}>
             <div>
               {this.state.loggedIn && <p>Welcome {this.state.username} !</p>}
             </div>

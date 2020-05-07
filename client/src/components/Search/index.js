@@ -2,10 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import Button from "react-bootstrap/Button";
-import API from "../../utils/API";
-
-class Search extends Component {
+import Button from "react-bootstrap/Button";class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {

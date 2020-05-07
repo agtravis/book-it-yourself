@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Jumbotron, Container, Image } from "react-bootstrap";
+import React from "react";
+import {  Image } from "react-bootstrap";
 import "./style.css";
 import image from "../../assets/images/userTest.png";
 

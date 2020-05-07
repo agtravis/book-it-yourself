@@ -7,14 +7,12 @@ import Main from "./pages/Main";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
-import Nav from "./components/Nav";
 import FeedComponent from "./components/FeedComponent";
-import SideFeedComponent from "./components/SideFeedComponent";
-import { Row, Col } from "react-bootstrap";
 import SignupForm from "./components/SignupForm";
 import Search from "./pages/Search";
-import API from "./utils/API";
 import UserDetails from "./pages/UserDetails";
+import GoogMap from "./pages/Map";
+import Calendar from "./pages/Calendar";
 
 class App extends React.Component {
   constructor(props) {
@@ -64,6 +62,8 @@ class App extends React.Component {
             <Route exact path="/userdetails" component={UserDetails} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/feed" component={FeedComponent} />
+            <Route exact path="/calendar" component={Calendar} />
+            <Route exact path="/map" component={GoogMap} />
             <Route component={NotFound} />
           </Switch>
           <Footer />

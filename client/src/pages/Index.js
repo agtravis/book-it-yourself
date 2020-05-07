@@ -1,15 +1,9 @@
 import React, { Component } from "react";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import { Row, Col, Jumbotron, Container, Image } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import axios from "axios";
 import Nav from "../components/Nav";
-import LoginForm from "../components/LoginForm";
-import Signup from "../components/SignupForm";
-import Logo from "../assets/images/logo.PNG";
-import Main from "../pages/Main";
-import Profile from "../pages/Profile";
 import SideFeedComponent from "../components/SideFeedComponent";
-import FeedComponent from "../components/FeedComponent";
+
 
 class Home extends Component {
   constructor(props) {
@@ -50,10 +44,12 @@ class Home extends Component {
       <div>
         <Nav updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
         <Row>
-          <Col sm={4}>
-            <SideFeedComponent />
+          <Col xl={4}>
+            <div className="d-none d-xl-block">
+              <SideFeedComponent />
+            </div>
           </Col>
-          <Col sm={8} xs={12}>
+          <Col xl={8}>
             <div>
               {this.state.loggedIn ? (
                 <p>Logged in as: {this.state.username}</p>

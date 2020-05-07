@@ -1,12 +1,7 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import { Row, Col, Jumbotron, Container, Image } from "react-bootstrap";
+import { Row, Col, Jumbotron, Container } from "react-bootstrap";
 import Nav from "../components/Nav";
 import axios from "axios";
-import Main from "../pages/Main";
-import Home from "../pages/Index";
-import API from "../utils/API";
-import image from "../assets/images/userTest.png";
 import ProfileComponent from "../components/ProfileComponent";
 import SideFeedComponent from "../components/SideFeedComponent";
 
@@ -57,11 +52,14 @@ class Profile extends Component {
     return (
       <div>
         <Nav />
+
         <Row>
-          <Col sm={4}>
-            <SideFeedComponent />
+          <Col xl={4}>
+            <div className="d-none d-xl-block">
+              <SideFeedComponent />
+            </div>
           </Col>
-          <Col sm={8} xs={12}>
+          <Col xl={8}>
             <Jumbotron fluid>
               <Container>
                 {/* {this.state.user.username !== undefined ? ( */}

@@ -2,12 +2,9 @@ import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
 import { Nav, Navbar } from "react-bootstrap";
-import Home from "../../pages/Index";
 import Search from "../Search";
 import "./style.css";
 import Logo from "../../assets/images/logo.PNG";
-import API from "../../utils/API";
-
 class NavigationBar extends Component {
   constructor(props) {
     super(props);
@@ -112,6 +109,7 @@ class NavigationBar extends Component {
             <React.Fragment>
               {/* <Nav.Link href="/profile">Profile</Nav.Link> */}
               <Link
+                className="d-block"
                 onClick={() => {
                   this.linkToPage(`/profile`);
                 }}
@@ -120,6 +118,7 @@ class NavigationBar extends Component {
               </Link>
               {/* <Nav.Link href="/feed">Feed</Nav.Link> */}
               <Link
+                className="d-block"
                 onClick={() => {
                   this.linkToPage(`/feed`);
                 }}
@@ -130,6 +129,7 @@ class NavigationBar extends Component {
                 Search
               </Nav.Link> */}
               <Link
+                className="d-block d-xl-none"
                 onClick={() => {
                   this.linkToPage(`/search`, "");
                 }}
@@ -140,6 +140,7 @@ class NavigationBar extends Component {
                 Calendar
               </Nav.Link> */}
               <Link
+                className="d-block d-xl-none"
                 onClick={() => {
                   this.linkToPage(`/calendar`);
                 }}
@@ -150,15 +151,16 @@ class NavigationBar extends Component {
                 Map
               </Nav.Link> */}
               <Link
+                className="d-block d-xl-none"
                 onClick={() => {
                   this.linkToPage(`/map`);
                 }}
               >
                 Map
               </Link>
-              <Nav.Link to="/" onClick={this.logout}>
+              <Link className="d-block" to="/" onClick={this.logout}>
                 Sign out
-              </Nav.Link>
+              </Link>
             </React.Fragment>
           </Navbar.Collapse>
           <div className=" d-none d-sm-block justify-content-end">
