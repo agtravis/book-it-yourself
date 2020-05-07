@@ -21,6 +21,21 @@ class Profile extends Component {
     this.getUser();
   };
 
+  deletePost = (id, author) => {
+    API.deletePost(id)
+      .then(data => {
+        API.updateRemoveUserPost(author, {
+          id: data.data._id,
+        })
+          .then(data => {
+            console.log(data);
+            this.getUser();
+          })
+          .catch(err => console.error(err));
+      })
+      .catch(err => console.error(err));
+  };
+
   updateUser = userObject => {
     this.setState(userObject);
   };
@@ -79,6 +94,7 @@ class Profile extends Component {
               <Container>
                 <div>
                   <ProfileComponent
+                    deletePost={this.deletePost}
                     userId={this.state.user.id}
                     username={this.state.user.username}
                     location={this.state.user.location}

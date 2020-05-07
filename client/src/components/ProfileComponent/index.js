@@ -4,6 +4,7 @@ import "./style.css";
 import image from "../../assets/images/userTest.png";
 import { Link, Redirect } from "react-router-dom";
 import FeedCard from "../FeedCard";
+import API from "../../utils/API";
 
 class ProfileComponent extends Component {
   constructor(props) {
@@ -12,6 +13,19 @@ class ProfileComponent extends Component {
       redirect: null,
     };
   }
+
+  // deletePost = (id, author) => {
+  //   API.deletePost(id)
+  //     .then(data => {
+  //       API.updateRemoveUserPost(author, {
+  //         id: data.data._id,
+  //       })
+  //         .then(data => console.log(data))
+  //         .catch(err => console.error(err));
+  //     })
+  //     .catch(err => console.error(err));
+  // };
+
   render() {
     if (this.state.redirect) {
       const redir = this.state.redirect;
@@ -78,7 +92,11 @@ class ProfileComponent extends Component {
               return (
                 <FeedCard
                   key={index}
+                  id={post._id}
+                  author={post.author}
+                  deletePost={this.props.deletePost}
                   delete={true}
+                  complete={post.complete ? `closed` : `open`}
                   title={post.title}
                   location={post.location}
                   startDate={post.startDate}
@@ -97,6 +115,7 @@ class ProfileComponent extends Component {
                   <FeedCard
                     key={index}
                     delete={false}
+                    complete={`negative`}
                     title={post.title}
                     location={post.location}
                     startDate={post.startDate}
