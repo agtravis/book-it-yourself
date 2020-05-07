@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import FeedComponent from "./components/FeedComponent";
 import SignupForm from "./components/SignupForm";
 import Search from "./pages/Search";
+import MobileSearch from "./pages/MobileSearch"
 import UserDetails from "./pages/UserDetails";
 import GoogMap from "./pages/Map";
 import Calendar from "./pages/Calendar";
@@ -64,6 +65,7 @@ class App extends React.Component {
             <Route exact path="/feed" component={FeedComponent} />
             <Route exact path="/calendar" component={Calendar} />
             <Route exact path="/map" component={GoogMap} />
+            <Route exact path="/mobilesearch" component={MobileSearch} />
             <Route component={NotFound} />
           </Switch>
           <Footer />

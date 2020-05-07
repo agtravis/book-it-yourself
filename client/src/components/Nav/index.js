@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
-import { Nav, Navbar } from "react-bootstrap";
+import {  Nav, Navbar } from "react-bootstrap";
 import Search from "../Search";
 import "./style.css";
 import Logo from "../../assets/images/logo.PNG";
+
 class NavigationBar extends Component {
   constructor(props) {
     super(props);
@@ -129,9 +130,9 @@ class NavigationBar extends Component {
                 Search
               </Nav.Link> */}
               <Link
-                className="d-block d-md-none"
+                className="d-block d-sm-none"
                 onClick={() => {
-                  this.linkToPage(`/search`, "");
+                  this.linkToPage(`/mobilesearch`, "");
                 }}
               >
                 Search
