@@ -162,6 +162,7 @@ class FeedComponent extends Component {
                       return (
                         <FeedCard
                           author={post.author}
+                          name={post.name}
                           key={index}
                           title={post.title}
                           location={post.location}
