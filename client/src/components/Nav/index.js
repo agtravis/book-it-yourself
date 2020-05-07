@@ -129,7 +129,7 @@ class NavigationBar extends Component {
                 Search
               </Nav.Link> */}
               <Link
-                className="d-block d-xl-none"
+                className="d-block d-md-none"
                 onClick={() => {
                   this.linkToPage(`/search`, "");
                 }}
@@ -202,7 +202,7 @@ class NavigationBar extends Component {
               </Nav.Link>
             </React.Fragment>
           </Navbar.Collapse>
-          <div className=" d-none d-sm-block justify-content-end">
+          <div className=" justify-content-end">
             <Search setSearchTerm={this.props.setSearchTerm} />
           </div>
         </Navbar>
