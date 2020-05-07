@@ -55,6 +55,15 @@ class Profile extends Component {
     this.setState(userObject);
   };
 
+  editStatus = (id, status) => {
+    API.updateUser(id, { status: status })
+      .then(data => {
+        console.log(data);
+        this.getUser();
+      })
+      .catch(err => console.error(err));
+  };
+
   getUser = () => {
     axios.get("/api/user/").then(response => {
       console.log("Get user response: ");
@@ -111,6 +120,7 @@ class Profile extends Component {
                   <ProfileComponent
                     deletePost={this.deletePost}
                     togglePostStatus={this.togglePostStatus}
+                    editStatus={this.editStatus}
                     userId={this.state.user.id}
                     username={this.state.user.username}
                     location={this.state.user.location}

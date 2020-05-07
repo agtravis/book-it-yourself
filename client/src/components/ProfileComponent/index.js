@@ -11,6 +11,8 @@ class ProfileComponent extends Component {
     super(props);
     this.state = {
       redirect: null,
+      editMode: false,
+      status: ``,
     };
   }
 
@@ -43,11 +45,45 @@ class ProfileComponent extends Component {
             <span>Phone:</span>
             <p>{this.props.telephone}</p>
           </div>
-
-          <div className="info">
-            <span>Status:</span>
-            <p>{this.props.status}</p>
-          </div>
+          {this.props.userId ? (
+            <div
+              className="info"
+              onClick={() => {
+                this.setState({ editMode: true });
+              }}
+            >
+              <span>Status (click to edit):</span>
+              {this.state.editMode ? (
+                <input
+                  id="status-field"
+                  placeholder="Hit Esc key to cancel"
+                  onChange={event =>
+                    this.setState({ status: event.target.value })
+                  }
+                  // onBlur={() => this.setState({ editMode: false, status: `` })}
+                  onKeyUp={event => {
+                    if (event.keyCode === 27) {
+                      this.setState({ editMode: false, status: `` });
+                    }
+                    if (event.keyCode === 13) {
+                      this.props.editStatus(
+                        this.props.userId,
+                        this.state.status
+                      );
+                      this.setState({ editMode: false, status: `` });
+                    }
+                  }}
+                />
+              ) : (
+                <p>{this.props.status}</p>
+              )}
+            </div>
+          ) : (
+            <div className="info">
+              <span>Status:</span>
+              <p>{this.props.status}</p>
+            </div>
+          )}
 
           <div className="info">
             <span>Role:</span>
