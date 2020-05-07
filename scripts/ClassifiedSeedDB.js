@@ -23,7 +23,7 @@ const postsSeed = [
     description: `Looking for a show, any ideas please get in touch!`,
     location: `Seattle`,
     startDate: `2019-01-01T00:00:00.000Z`,
-    endDate: `2020-01-01T00:00:00.000Z`,
+    endDate: `2021-01-01T00:00:00.000Z`,
   },
   {
     _id: mongoose.Types.ObjectId(`5ea866f6298ddd2a5c1de8fd`),
@@ -33,7 +33,7 @@ const postsSeed = [
     description: `Looking for a band, any ideas please get in touch!`,
     location: `New York`,
     startDate: `2019-01-01T00:00:00.000Z`,
-    endDate: `2020-01-01T00:00:00.000Z`,
+    endDate: `2021-01-01T00:00:00.000Z`,
   },
   {
     _id: mongoose.Types.ObjectId(`5ea866f6298ddd2a5c1de8fe`),
@@ -43,7 +43,7 @@ const postsSeed = [
     description: `Looking for a DJ, any ideas please get in touch!`,
     location: `Portland`,
     startDate: `2019-01-01T00:00:00.000Z`,
-    endDate: `2020-01-01T00:00:00.000Z`,
+    endDate: `2021-01-01T00:00:00.000Z`,
   },
   {
     _id: mongoose.Types.ObjectId(`5ea866f6298ddd2a5c1de8ff`),
@@ -53,7 +53,7 @@ const postsSeed = [
     description: `Looking for a guitar, any ideas please get in touch!`,
     location: `Vancouver`,
     startDate: `2019-01-01T00:00:00.000Z`,
-    endDate: `2020-01-01T00:00:00.000Z`,
+    endDate: `2021-01-01T00:00:00.000Z`,
   },
   {
     _id: mongoose.Types.ObjectId(`5ea866f6298ddd2a5c1de900`),
@@ -63,7 +63,7 @@ const postsSeed = [
     description: `Looking for a place to crash, any ideas please get in touch!`,
     location: `L.A.`,
     startDate: `2019-01-01T00:00:00.000Z`,
-    endDate: `2020-01-01T00:00:00.000Z`,
+    endDate: `2021-01-01T00:00:00.000Z`,
   },
 ];
 

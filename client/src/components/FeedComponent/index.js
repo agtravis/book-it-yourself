@@ -60,9 +60,13 @@ class FeedComponent extends Component {
     API.getPosts()
       .then(response => {
         console.log(response.data);
-        const sortedPosts = response.data.sort((a, b) =>
-          b.startDate > a.startDate ? 1 : -1
-        );
+        const sortedPosts = response.data
+          .filter(
+            post =>
+              post.complete === false && new Date(post.endDate) > new Date()
+          )
+          .sort((a, b) => (b.startDate > a.startDate ? 1 : -1));
+
         this.setState({ posts: sortedPosts, filteredPosts: sortedPosts });
       })
       .catch(err => console.error(err));
