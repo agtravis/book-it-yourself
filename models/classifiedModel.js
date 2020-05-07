@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const classifiedSchema = new Schema({
   type: { type: String, required: true },
   author: { type: Schema.Types.ObjectId },
+  name: { type: String },
   title: { type: String, required: true },
   description: { type: String, required: true },
   location: { type: String },

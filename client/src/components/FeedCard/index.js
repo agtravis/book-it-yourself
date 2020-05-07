@@ -37,16 +37,18 @@ class FeedCard extends Component {
         <Card style={{ width: "auto" }}>
           <Card.Body>
             <h1>{this.props.title}</h1>
-            <button
-              onClick={() => {
-                this.setState({
-                  redirect: `/userdetails`,
-                  id: this.props.author,
-                });
-              }}
-            >
-              CONTACT POSTER
-            </button>
+            {this.props.name ? (
+              <button
+                onClick={() => {
+                  this.setState({
+                    redirect: `/userdetails`,
+                    id: this.props.author,
+                  });
+                }}
+              >
+                {`Contact ${this.props.name}`}
+              </button>
+            ) : null}
             {this.props.delete ? (
               <button
                 onClick={() =>

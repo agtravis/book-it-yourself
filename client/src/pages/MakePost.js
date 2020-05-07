@@ -15,6 +15,7 @@ class MakePost extends Component {
       type: ``,
       title: ``,
       author: ``,
+      name: ``,
       description: ``,
       location: ``,
       startDate: ``,
@@ -36,7 +37,8 @@ class MakePost extends Component {
       !this.state.location ||
       !this.state.startDate ||
       !this.state.endDate ||
-      !this.state.author
+      !this.state.author ||
+      !this.state.name
     ) {
       alert(`Finish the form!`);
     } else {
@@ -48,6 +50,7 @@ class MakePost extends Component {
         startDate: this.state.startDate,
         endDate: this.state.endDate,
         author: this.state.author,
+        name: this.state.name,
       })
         .then(postDb => {
           API.updateUserNewPost(this.state.id, {
@@ -86,6 +89,7 @@ class MakePost extends Component {
           username: response.data.user.username,
           id: response.data.user._id,
           author: response.data.user._id,
+          name: response.data.user.username,
         });
       } else {
         console.log("Get user: no user");
