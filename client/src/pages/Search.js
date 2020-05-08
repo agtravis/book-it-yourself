@@ -84,6 +84,10 @@ class Search extends Component {
               {this.state.users.length > 0
                 ? this.state.users.map(user => (
                     <p
+                      style={{
+                        margin: 20,
+                        fontSize: 20,
+                      }}
                       id={user._id}
                       onClick={event => {
                         this.handleUserChoice(event.target.id);
