@@ -67,7 +67,8 @@ class LoginForm extends Component {
             })
             .catch(error => {
               console.log(error);
-            });
+              alert("invalid credentials");
+            })
         };
       })
   };
@@ -89,7 +90,6 @@ class LoginForm extends Component {
             <Jumbotron>
               <Container>
                 <Form>
-                  <h4>Login</h4>
                   <Form.Group>
                     <Form.Label>
                       Username
