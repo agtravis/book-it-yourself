@@ -164,7 +164,7 @@ class NavigationBar extends Component {
           bg="dark"
           variant="dark"
         >
-          <Navbar.Brand>
+          <Navbar.Brand href="/">
             <img
               src={Logo}
               width="75"
@@ -173,7 +173,6 @@ class NavigationBar extends Component {
               alt="logo"
             />
           </Navbar.Brand>
-          <Navbar.Brand href="/">Book it Yourself</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse
             className="justify-content-end"
