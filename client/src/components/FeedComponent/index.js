@@ -18,6 +18,7 @@ class FeedComponent extends Component {
       postTypes: [
         { filterTerm: `artistNeeded`, displayTerm: `Artist Needed` },
         { filterTerm: `showNeeded`, displayTerm: `Show Needed` },
+        { filterTerm: `promoterNeeded`, displayTerm: `Promoter Needed` },
       ],
       locationSearch: ``,
       redirect: null,

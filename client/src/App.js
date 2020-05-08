@@ -2,6 +2,8 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Footer from "./components/Footer";
 import React from "react";
 import axios from "axios";
+import localForage from "localforage";
+import API from "./utils/API";
 import Login from "./components/LoginForm";
 import Main from "./pages/Main";
 import Index from "./pages/Index";
@@ -23,6 +25,7 @@ class App extends React.Component {
       loggedIn: false,
       username: null,
       id: null,
+      transmitting: false,
     };
   }
 
@@ -31,6 +34,10 @@ class App extends React.Component {
   }
 
   getUser = () => {
+    if (navigator.onLine && !this.state.transmitting) {
+      this.setState({ transmitting: true });
+      this.backOnline();
+    }
     axios.get("/api/user/").then(response => {
       console.log(response.data);
       if (response.data.user) {
@@ -51,6 +58,41 @@ class App extends React.Component {
     });
   };
 
+  backOnline = () => {
+    localForage
+      .length()
+      .then(function (numberOfKeys) {
+        if (numberOfKeys > 0) {
+          localForage
+            .iterate(function (value, key, iterationNumber) {
+              console.log(`value`);
+              console.log(value);
+              for (const post of value) {
+                API.addPost(post.post).then(postDb => {
+                  API.updateUserNewPost(post.user, { id: postDb.data._id })
+                    .then(userDb => {
+                      console.log(userDb);
+                    })
+                    .catch(err => console.error(err));
+                });
+              }
+            })
+            .then(() => {
+              console.log(`iteration complete`);
+              localForage
+                .clear()
+                .then(() => {
+                  console.log(`offline storage emptied`);
+                  this.setState({ transmitting: false });
+                })
+                .catch(err => console.error(err));
+            })
+            .catch(err => console.error(err));
+        }
+      })
+      .catch(err => console.error(err));
+  };
+
   render() {
     return (
       <div>
@@ -65,7 +107,12 @@ class App extends React.Component {
             <Route exact path="/search" component={Search} />
             <Route exact path="/feed" component={FeedComponent} />
             <Route exact path="/calendar" component={Calendar} />
-            <Route exact path="/post" component={MakePost} />
+            <Route
+              exact
+              path="/post"
+              component={MakePost}
+              userId={this.state.id}
+            />
             <Route exact path="/map" component={GoogMap} />
             <Route exact path="/mobilesearch" component={MobileSearch} />
             <Route component={NotFound} />
