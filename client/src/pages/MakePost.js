@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Nav from "../components/Nav";
-import { Button, Jumbotron, Row, Col, Container, Form, InputGroup } from "react-bootstrap";
+import {
+  Button,
+  Jumbotron,
+  Row,
+  Col,
+  Container,
+  Form,
+  InputGroup,
+} from "react-bootstrap";
 import SideFeedComponent from "../components/SideFeedComponent";
 import API from "../utils/API";
 import localForage from "localforage";
@@ -22,7 +30,7 @@ class MakePost extends Component {
       startDate: ``,
       endDate: ``,
       success: false,
-      transmitting: false,
+      offlineSuccess: false,
     };
   }
 
@@ -107,6 +115,7 @@ class MakePost extends Component {
               .setItem(`postKey`, postArr)
               .then(value => {
                 console.log(`localForage success - post stored offline!`);
+                this.setState({ offlineSuccess: true });
                 console.log(value);
               })
               .catch(err => console.error(err));
@@ -117,10 +126,6 @@ class MakePost extends Component {
   };
 
   getUser = () => {
-    if (navigator.onLine && !this.state.transmitting) {
-      this.setState({ transmitting: true });
-      this.backOnline();
-    }
     axios.get("/api/user/").then(response => {
       console.log(response.data);
       if (response.data.user) {
@@ -143,40 +148,6 @@ class MakePost extends Component {
     });
   };
 
-  backOnline = () => {
-    localForage
-      .length()
-      .then(function (numberOfKeys) {
-        if (numberOfKeys > 0) {
-          localForage
-            .iterate(function (value, key, iterationNumber) {
-              console.log(value.post);
-              for (const post of value) {
-                API.addPost(post.post).then(postDb => {
-                  API.updateUserNewPost(post.user, { id: postDb.data._id })
-                    .then(userDb => {
-                      console.log(userDb);
-                    })
-                    .catch(err => console.error(err));
-                });
-              }
-            })
-            .then(() => {
-              console.log(`iteration complete`);
-              localForage
-                .clear()
-                .then(() => {
-                  console.log(`offline storage emptied`);
-                  this.setState({ transmitting: false });
-                })
-                .catch(err => console.error(err));
-            })
-            .catch(err => console.error(err));
-        }
-      })
-      .catch(err => console.error(err));
-  };
-
   render() {
     return (
       <div>
@@ -196,11 +167,13 @@ class MakePost extends Component {
                       <Form.Control
                         placeholder="Title"
                         id="title"
-                        onChange={event => this.setState({ title: event.target.value })}>
-                      </Form.Control>
+                        onChange={event =>
+                          this.setState({ title: event.target.value })
+                        }
+                      ></Form.Control>
                     </Form.Group>
                     <Form.Group as={Col}>
-                      <Form.Control 
+                      <Form.Control
                         as="select"
                         id="type"
                         name="typelist"
@@ -208,24 +181,29 @@ class MakePost extends Component {
                           this.setState({
                             type: event.target.value,
                             success: false,
+                            offlineSuccess: false,
                           })
-                        }>
+                        }
+                      >
                         <option>Select</option>
-                        <option>need an artist</option>
-                        <option>need a promoter</option>
-                        <option>need a show</option>
+                        <option value={`artistNeeded`}>need an artist</option>
+                        <option value={`promoterNeeded`}>
+                          need a promoter
+                        </option>
+                        <option value={`showNeeded`}>need a show</option>
                       </Form.Control>
                     </Form.Group>
                     <InputGroup>
                       <InputGroup.Prepend>
                         <InputGroup.Text>Message</InputGroup.Text>
                       </InputGroup.Prepend>
-                      <Form.Control 
-                        as="textarea" 
+                      <Form.Control
+                        as="textarea"
                         id="description"
                         onChange={event =>
                           this.setState({ description: event.target.value })
-                        } />
+                        }
+                      />
                     </InputGroup>
                     <Form.Group>
                       <Form.Label></Form.Label>
@@ -233,35 +211,55 @@ class MakePost extends Component {
                         placeholder="Location"
                         id="location"
                         onChange={event =>
-                          this.setState({ location: event.target.value })}>
-                      </Form.Control>
+                          this.setState({ location: event.target.value })
+                        }
+                      ></Form.Control>
                     </Form.Group>
                     <InputGroup>
                       <InputGroup.Prepend>
-                        <InputGroup.Text>From</InputGroup.Text>
+                        <InputGroup.Text>
+                          {this.state.startDate ? `From` : `When`}
+                        </InputGroup.Text>
                       </InputGroup.Prepend>
-                      <Form.Control 
+                      <Form.Control
                         type="date"
                         id="startDate"
                         onChange={event =>
                           this.setState({ startDate: event.target.value })
-                        }>
-                      </Form.Control>
-                        <InputGroup.Prepend>
-                          <InputGroup.Text>To</InputGroup.Text>
-                        </InputGroup.Prepend>
-                        <Form.Control 
-                        type="date"
-                        id="endDate"
-                        onChange={event =>
-                          this.setState({ endDate: event.target.value })
-                        }>
-                      </Form.Control>
-                      <Button variant="dark" type="submit" onClick={this.handleSubmit}>
-                        Submit    
+                        }
+                      ></Form.Control>
+                      {this.state.startDate ? (
+                        <>
+                          <InputGroup.Prepend>
+                            <InputGroup.Text>To</InputGroup.Text>
+                          </InputGroup.Prepend>
+                          <Form.Control
+                            type="date"
+                            id="endDate"
+                            onChange={event =>
+                              this.setState({ endDate: event.target.value })
+                            }
+                          ></Form.Control>{" "}
+                        </>
+                      ) : null}
+                      <Button
+                        variant="dark"
+                        type="submit"
+                        onClick={this.handleSubmit}
+                      >
+                        Submit
                       </Button>
                     </InputGroup>
                     {this.state.success ? <h5>Posted!</h5> : null}
+                    {this.state.offlineSuccess ? (
+                      <div>
+                        <h5>Posted in offline mode!</h5>
+                        <p>
+                          (Offline posts will be collectively resubmitted on
+                          reconnection on any page.)
+                        </p>
+                      </div>
+                    ) : null}
                   </Form.Row>
                 </Form>
               </Container>
