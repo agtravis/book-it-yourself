@@ -44,7 +44,7 @@ class MakePost extends Component {
     ) {
       alert(`Finish the form!`);
     } else {
-      if (navigator.online) {
+      if (navigator.onLine) {
         API.addPost({
           type: this.state.type,
           title: this.state.title,
