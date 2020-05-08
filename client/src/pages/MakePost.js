@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Nav from "../components/Nav";
-import { Jumbotron, Row, Col } from "react-bootstrap";
+import { Button, Jumbotron, Row, Col, Container, Form, InputGroup } from "react-bootstrap";
 import SideFeedComponent from "../components/SideFeedComponent";
 import API from "../utils/API";
 import localForage from "localforage";
@@ -188,68 +188,84 @@ class MakePost extends Component {
             </div>
           </Col>
           <Col xl={8}>
-            <h1>Make a Post</h1>
-            <form onSubmit={event => this.handleSubmit(event)}>
-              <p>What kind of post are you making?</p>
-              <select
-                id="type"
-                name="typelist"
-                onChange={event =>
-                  this.setState({
-                    type: event.target.value,
-                    success: false,
-                  })
-                }
-              >
-                <option value="">Choose:</option>
-                <option value="artistNeeded">
-                  Promoter looking for an artist
-                </option>
-                <option value="showNeeded">Artist looking for a show</option>
-              </select>
-              <p>A title for your post:</p>
-              <input
-                id="title"
-                onChange={event => this.setState({ title: event.target.value })}
-              />
-              <p>Details please!:</p>
-              <textarea
-                id="description"
-                onChange={event =>
-                  this.setState({ description: event.target.value })
-                }
-              ></textarea>
-              <p>Where is this going down?:</p>
-              <input
-                id="location"
-                onChange={event =>
-                  this.setState({ location: event.target.value })
-                }
-              />
-              <p>When, baby?:</p>
-              <p>From:</p>
-              <input
-                type="date"
-                id="startDate"
-                onChange={event =>
-                  this.setState({ startDate: event.target.value })
-                }
-              />
-              {this.state.startDate ? (
-                <div>
-                  <p>Until:</p>
-                  <input
-                    type="date"
-                    id="endDate"
-                    onChange={event =>
-                      this.setState({ endDate: event.target.value })
-                    }
-                  />
-                </div>
-              ) : null}
-              <button type="submit">Submit</button>
-              {this.state.success ? <h1>Posted!</h1> : null}
-            </form>
+            <Jumbotron>
+              <Container>
+                <Form onSubmit={event => this.handleSubmit(event)}>
+                  <Form.Row>
+                    <Form.Group as={Col}>
+                      <Form.Control
+                        placeholder="Title"
+                        id="title"
+                        onChange={event => this.setState({ title: event.target.value })}>
+                      </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control 
+                        as="select"
+                        id="type"
+                        name="typelist"
+                        onChange={event =>
+                          this.setState({
+                            type: event.target.value,
+                            success: false,
+                          })
+                        }>
+                        <option>Select</option>
+                        <option>need an artist</option>
+                        <option>need a promoter</option>
+                        <option>need a show</option>
+                      </Form.Control>
+                    </Form.Group>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>Message</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control 
+                        as="textarea" 
+                        id="description"
+                        onChange={event =>
+                          this.setState({ description: event.target.value })
+                        } />
+                    </InputGroup>
+                    <Form.Group>
+                      <Form.Label></Form.Label>
+                      <Form.Control
+                        placeholder="Location"
+                        id="location"
+                        onChange={event =>
+                          this.setState({ location: event.target.value })}>
+                      </Form.Control>
+                    </Form.Group>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>From</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control 
+                        type="date"
+                        id="startDate"
+                        onChange={event =>
+                          this.setState({ startDate: event.target.value })
+                        }>
+                      </Form.Control>
+                        <InputGroup.Prepend>
+                          <InputGroup.Text>To</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Control 
+                        type="date"
+                        id="endDate"
+                        onChange={event =>
+                          this.setState({ endDate: event.target.value })
+                        }>
+                      </Form.Control>
+                      <Button variant="dark" type="submit" onClick={this.handleSubmit}>
+                        Submit    
+                      </Button>
+                    </InputGroup>
+                    {this.state.success ? <h5>Posted!</h5> : null}
+                  </Form.Row>
+                </Form>
+              </Container>
+            </Jumbotron>
           </Col>
         </Row>
       </div>
