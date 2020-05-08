@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Nav from "../components/Nav";
-import { Jumbotron, Row, Col } from "react-bootstrap";
+import { Button, Jumbotron, Row, Col, Container, Form, InputGroup } from "react-bootstrap";
 import SideFeedComponent from "../components/SideFeedComponent";
 import API from "../utils/API";
-import localForage from "localforage";
 
 class MakePost extends Component {
   constructor(props) {
@@ -22,7 +21,6 @@ class MakePost extends Component {
       startDate: ``,
       endDate: ``,
       success: false,
-      transmitting: false,
     };
   }
 
@@ -44,83 +42,44 @@ class MakePost extends Component {
     ) {
       alert(`Finish the form!`);
     } else {
-      if (navigator.onLine) {
-        API.addPost({
-          type: this.state.type,
-          title: this.state.title,
-          description: this.state.description,
-          location: this.state.location,
-          startDate: this.state.startDate,
-          endDate: this.state.endDate,
-          author: this.state.author,
-          name: this.state.name,
-        })
-          .then(postDb => {
-            API.updateUserNewPost(this.state.id, {
-              id: postDb.data._id,
+      API.addPost({
+        type: this.state.type,
+        title: this.state.title,
+        description: this.state.description,
+        location: this.state.location,
+        startDate: this.state.startDate,
+        endDate: this.state.endDate,
+        author: this.state.author,
+        name: this.state.name,
+      })
+        .then(postDb => {
+          API.updateUserNewPost(this.state.id, {
+            id: postDb.data._id,
+          })
+            .then(userDB => {
+              console.log(userDB);
+              this.setState({
+                type: ``,
+                title: ``,
+                description: ``,
+                location: ``,
+                startDate: ``,
+                endDate: ``,
+                success: true,
+              });
+              document.getElementById(`type`).value = ``;
+              document.getElementById(`title`).value = ``;
+              document.getElementById(`description`).value = ``;
+              document.getElementById(`location`).value = ``;
+              document.getElementById(`startDate`).value = ``;
             })
-              .then(userDB => {
-                console.log(userDB);
-                this.setState({
-                  type: ``,
-                  title: ``,
-                  description: ``,
-                  location: ``,
-                  startDate: ``,
-                  endDate: ``,
-                  success: true,
-                });
-                document.getElementById(`type`).value = ``;
-                document.getElementById(`title`).value = ``;
-                document.getElementById(`description`).value = ``;
-                document.getElementById(`location`).value = ``;
-                document.getElementById(`startDate`).value = ``;
-              })
-              .catch(err => console.error(err));
-          })
-          .catch(err => console.error(err));
-      } else {
-        const postObj = {
-          post: {
-            type: this.state.type,
-            title: this.state.title,
-            description: this.state.description,
-            location: this.state.location,
-            startDate: this.state.startDate,
-            endDate: this.state.endDate,
-            author: this.state.author,
-            name: this.state.name,
-          },
-          user: this.state.id,
-        };
-        const postArr = [];
-        localForage
-          .getItem("postKey")
-          .then(value => {
-            postArr.push(postObj);
-            if (value && value.length > 0) {
-              for (const post of value) {
-                postArr.push(post);
-              }
-            }
-            localForage
-              .setItem(`postKey`, postArr)
-              .then(value => {
-                console.log(`localForage success - post stored offline!`);
-                console.log(value);
-              })
-              .catch(err => console.error(err));
-          })
-          .catch(err => console.error(err));
-      }
+            .catch(err => console.error(err));
+        })
+        .catch(err => console.error(err));
     }
   };
 
   getUser = () => {
-    if (navigator.onLine && !this.state.transmitting) {
-      this.setState({ transmitting: true });
-      this.backOnline();
-    }
     axios.get("/api/user/").then(response => {
       console.log(response.data);
       if (response.data.user) {
@@ -143,40 +102,6 @@ class MakePost extends Component {
     });
   };
 
-  backOnline = () => {
-    localForage
-      .length()
-      .then(function (numberOfKeys) {
-        if (numberOfKeys > 0) {
-          localForage
-            .iterate(function (value, key, iterationNumber) {
-              console.log(value.post);
-              for (const post of value) {
-                API.addPost(post.post).then(postDb => {
-                  API.updateUserNewPost(post.user, { id: postDb.data._id })
-                    .then(userDb => {
-                      console.log(userDb);
-                    })
-                    .catch(err => console.error(err));
-                });
-              }
-            })
-            .then(() => {
-              console.log(`iteration complete`);
-              localForage
-                .clear()
-                .then(() => {
-                  console.log(`offline storage emptied`);
-                  this.setState({ transmitting: false });
-                })
-                .catch(err => console.error(err));
-            })
-            .catch(err => console.error(err));
-        }
-      })
-      .catch(err => console.error(err));
-  };
-
   render() {
     return (
       <div>
@@ -188,68 +113,84 @@ class MakePost extends Component {
             </div>
           </Col>
           <Col xl={8}>
-            <h1>Make a Post</h1>
-            <form onSubmit={event => this.handleSubmit(event)}>
-              <p>What kind of post are you making?</p>
-              <select
-                id="type"
-                name="typelist"
-                onChange={event =>
-                  this.setState({
-                    type: event.target.value,
-                    success: false,
-                  })
-                }
-              >
-                <option value="">Choose:</option>
-                <option value="artistNeeded">
-                  Promoter looking for an artist
-                </option>
-                <option value="showNeeded">Artist looking for a show</option>
-              </select>
-              <p>A title for your post:</p>
-              <input
-                id="title"
-                onChange={event => this.setState({ title: event.target.value })}
-              />
-              <p>Details please!:</p>
-              <textarea
-                id="description"
-                onChange={event =>
-                  this.setState({ description: event.target.value })
-                }
-              ></textarea>
-              <p>Where is this going down?:</p>
-              <input
-                id="location"
-                onChange={event =>
-                  this.setState({ location: event.target.value })
-                }
-              />
-              <p>When, baby?:</p>
-              <p>From:</p>
-              <input
-                type="date"
-                id="startDate"
-                onChange={event =>
-                  this.setState({ startDate: event.target.value })
-                }
-              />
-              {this.state.startDate ? (
-                <div>
-                  <p>Until:</p>
-                  <input
-                    type="date"
-                    id="endDate"
-                    onChange={event =>
-                      this.setState({ endDate: event.target.value })
-                    }
-                  />
-                </div>
-              ) : null}
-              <button type="submit">Submit</button>
-              {this.state.success ? <h1>Posted!</h1> : null}
-            </form>
+            <Jumbotron>
+              <Container>
+                <Form onSubmit={event => this.handleSubmit(event)}>
+                  <Form.Row>
+                    <Form.Group as={Col}>
+                      <Form.Control
+                        placeholder="Title"
+                        id="title"
+                        onChange={event => this.setState({ title: event.target.value })}>
+                      </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Control 
+                        as="select"
+                        id="type"
+                        name="typelist"
+                        onChange={event =>
+                          this.setState({
+                            type: event.target.value,
+                            success: false,
+                          })
+                        }>
+                        <option>Select</option>
+                        <option>need an artist</option>
+                        <option>need a promoter</option>
+                        <option>need a show</option>
+                      </Form.Control>
+                    </Form.Group>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>Message</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control 
+                        as="textarea" 
+                        id="description"
+                        onChange={event =>
+                          this.setState({ description: event.target.value })
+                        } />
+                    </InputGroup>
+                    <Form.Group>
+                      <Form.Label></Form.Label>
+                      <Form.Control
+                        placeholder="Location"
+                        id="location"
+                        onChange={event =>
+                          this.setState({ location: event.target.value })}>
+                      </Form.Control>
+                    </Form.Group>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>From</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control 
+                        type="date"
+                        id="startDate"
+                        onChange={event =>
+                          this.setState({ startDate: event.target.value })
+                        }>
+                      </Form.Control>
+                        <InputGroup.Prepend>
+                          <InputGroup.Text>To</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Control 
+                        type="date"
+                        id="endDate"
+                        onChange={event =>
+                          this.setState({ endDate: event.target.value })
+                        }>
+                      </Form.Control>
+                      <Button variant="dark" type="submit" onClick={this.handleSubmit}>
+                        Submit    
+                      </Button>
+                    </InputGroup>
+                    {this.state.success ? <h5>Posted!</h5> : null}
+                  </Form.Row>
+                </Form>
+              </Container>
+            </Jumbotron>
           </Col>
         </Row>
       </div>
