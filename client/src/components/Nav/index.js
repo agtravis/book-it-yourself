@@ -23,22 +23,41 @@ class NavigationBar extends Component {
   }
 
   getUser = () => {
-    axios.get("/api/user/").then(response => {
-      console.log(response.data);
-      if (response.data.user) {
-        this.setState({
-          loggedIn: true,
-          username: response.data.user.username,
-          id: response.data.user._id,
-        });
-      } else {
-        this.setState({
-          loggedIn: false,
-          username: null,
-          id: null,
-        });
-      }
-    });
+    if (navigator.onLine) {
+      axios.get("/api/user/").then(response => {
+        console.log(response.data);
+        if (response.data.user) {
+          this.setState({
+            loggedIn: true,
+            username: response.data.user.username,
+            id: response.data.user._id,
+          });
+        } else {
+          this.setState({
+            loggedIn: false,
+            username: null,
+            id: null,
+          });
+        }
+      });
+    } else {
+      localForage
+        .getItem(`userKey`)
+        .then(value => {
+          if (value) {
+            console.log(`userKey value:`);
+            console.log(value);
+          }
+          if (value && value.loggedIn) {
+            this.setState({
+              loggedIn: value.loggedIn,
+              username: value.username,
+              id: value.id,
+            });
+          }
+        })
+        .catch(err => console.error(err));
+    }
   };
 
   logout = event => {
