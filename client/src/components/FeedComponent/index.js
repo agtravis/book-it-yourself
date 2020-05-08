@@ -128,13 +128,18 @@ class FeedComponent extends Component {
               <Container>
                 <h1>Posts</h1>{" "}
                 <Link
+                  style={{
+                    paddingLeft: 5,
+                    color: "blue",
+                    textDecoration: "underline blue",
+                  }}
                   onClick={() => {
                     this.setState({ redirect: `/post` });
                   }}
                 >
                   Make a post
                 </Link>
-                <h3>Filter:</h3>
+                <h3 style={{ marginTop: 60 }}>Filter:</h3>
                 <form
                   id="location-search"
                   onSubmit={event => {
@@ -148,7 +153,13 @@ class FeedComponent extends Component {
                     }
                   }}
                 >
-                  <label htmlFor="post-location">
+                  <label
+                    style={{
+                      paddingLeft: 5,
+                      marginRight: 10,
+                    }}
+                    htmlFor="post-location"
+                  >
                     For where are you searching?
                   </label>
                   <input
@@ -161,7 +172,15 @@ class FeedComponent extends Component {
                   <button type="submit">Search</button>
                 </form>
                 <form id="select-post-type">
-                  <label htmlFor="post-types">What kind of post?</label>
+                  <label
+                    style={{
+                      paddingLeft: 5,
+                      marginRight: 10,
+                    }}
+                    htmlFor="post-types"
+                  >
+                    What kind of post?
+                  </label>
                   <select
                     id="post-type"
                     name="post-type-list"
