@@ -4,6 +4,7 @@ import FeedCard from "../FeedCard";
 import Nav from "../Nav";
 import SideFeedComponent from "../SideFeedComponent";
 import axios from "axios";
+import localForage from "localforage";
 import API from "../../utils/API";
 import { Link, Redirect } from "react-router-dom";
 
@@ -63,22 +64,48 @@ class FeedComponent extends Component {
   };
 
   getUser = () => {
-    axios.get("/api/user/").then(response => {
-      console.log(response.data);
-      if (response.data.user) {
-        console.log("Get User: There is a user saved in the server session: ");
-        this.setState({
-          username: response.data.user.username,
-          id: response.data.user._id,
-        });
-      } else {
-        console.log("Get user: no user");
-        this.setState({
-          username: null,
-          id: null,
-        });
-      }
-    });
+    if (navigator.onLine) {
+      axios.get("/api/user/").then(response => {
+        console.log(response.data);
+        if (response.data.user) {
+          console.log(
+            "Get User: There is a user saved in the server session: "
+          );
+          this.setState({
+            username: response.data.user.username,
+            id: response.data.user._id,
+          });
+          localForage.setItem(`userKey`, {
+            loggedIn: true,
+            username: response.data.user.username,
+            id: response.data.user._id,
+          });
+        } else {
+          console.log("Get user: no user");
+          this.setState({
+            username: null,
+            id: null,
+          });
+        }
+      });
+    } else {
+      localForage
+        .getItem(`userKey`)
+        .then(value => {
+          if (value) {
+            console.log(`userKey value:`);
+            console.log(value);
+          }
+          if (value && value.loggedIn) {
+            this.setState({
+              loggedIn: value.loggedIn,
+              username: value.username,
+              id: value.id,
+            });
+          }
+        })
+        .catch(err => console.error(err));
+    }
   };
 
   render() {

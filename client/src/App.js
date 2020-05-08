@@ -47,9 +47,19 @@ class App extends React.Component {
           username: response.data.user.username,
           id: response.data.user._id,
         });
+        localForage.setItem(`userKey`, {
+          loggedIn: true,
+          username: response.data.user.username,
+          id: response.data.user._id,
+        });
       } else {
         console.log("Get user: no user");
         this.setState({
+          loggedIn: false,
+          username: null,
+          id: null,
+        });
+        localForage.setItem(`userKey`, {
           loggedIn: false,
           username: null,
           id: null,
@@ -60,27 +70,29 @@ class App extends React.Component {
 
   backOnline = () => {
     localForage
-      .length()
-      .then(function (numberOfKeys) {
-        if (numberOfKeys > 0) {
+      .getItem(`postKey`)
+      .then(value => {
+        console.log(`postKey value`);
+        console.log(value);
+        if (value) {
           localForage
-            .iterate(function (value, key, iterationNumber) {
-              console.log(`value`);
-              console.log(value);
-              for (const post of value) {
-                API.addPost(post.post).then(postDb => {
-                  API.updateUserNewPost(post.user, { id: postDb.data._id })
-                    .then(userDb => {
-                      console.log(userDb);
-                    })
-                    .catch(err => console.error(err));
-                });
+            .iterate((value, key, iterationNumber) => {
+              if (key === `postKey`) {
+                for (const post of value) {
+                  API.addPost(post.post).then(postDb => {
+                    API.updateUserNewPost(post.user, { id: postDb.data._id })
+                      .then(userDb => {
+                        console.log(userDb);
+                      })
+                      .catch(err => console.error(err));
+                  });
+                }
               }
             })
             .then(() => {
               console.log(`iteration complete`);
               localForage
-                .clear()
+                .removeItem(`postKey`)
                 .then(() => {
                   console.log(`offline storage emptied`);
                   this.setState({ transmitting: false });

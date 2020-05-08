@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
+import localForage from "localforage";
 import { Nav, Navbar } from "react-bootstrap";
 import Search from "../Search";
 import "./style.css";
@@ -22,22 +23,41 @@ class NavigationBar extends Component {
   }
 
   getUser = () => {
-    axios.get("/api/user/").then(response => {
-      console.log(response.data);
-      if (response.data.user) {
-        this.setState({
-          loggedIn: true,
-          username: response.data.user.username,
-          id: response.data.user._id,
-        });
-      } else {
-        this.setState({
-          loggedIn: false,
-          username: null,
-          id: null,
-        });
-      }
-    });
+    if (navigator.onLine) {
+      axios.get("/api/user/").then(response => {
+        console.log(response.data);
+        if (response.data.user) {
+          this.setState({
+            loggedIn: true,
+            username: response.data.user.username,
+            id: response.data.user._id,
+          });
+        } else {
+          this.setState({
+            loggedIn: false,
+            username: null,
+            id: null,
+          });
+        }
+      });
+    } else {
+      localForage
+        .getItem(`userKey`)
+        .then(value => {
+          if (value) {
+            console.log(`userKey value:`);
+            console.log(value);
+          }
+          if (value && value.loggedIn) {
+            this.setState({
+              loggedIn: value.loggedIn,
+              username: value.username,
+              id: value.id,
+            });
+          }
+        })
+        .catch(err => console.error(err));
+    }
   };
 
   logout = event => {
@@ -47,6 +67,12 @@ class NavigationBar extends Component {
       .post("/api/user/logout")
       .then(response => {
         console.log(response.data);
+
+        localForage.setItem(`userKey`, {
+          loggedIn: false,
+          username: null,
+          id: null,
+        });
         if (response.status === 200) {
           window.location.replace(`/`);
         }

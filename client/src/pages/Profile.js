@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Row, Col, Jumbotron, Container } from "react-bootstrap";
 import Nav from "../components/Nav";
 import axios from "axios";
+import localForage from "localforage";
 import API from "../utils/API";
 import ProfileComponent from "../components/ProfileComponent";
 import SideFeedComponent from "../components/SideFeedComponent";
@@ -65,42 +66,67 @@ class Profile extends Component {
   };
 
   getUser = () => {
-    axios.get("/api/user/").then(response => {
-      console.log("Get user response: ");
-      console.log(response.data);
-      if (response.data.user) {
-        API.getUser(response.data.user._id)
-          .then(user => {
+    if (navigator.onLine) {
+      axios.get("/api/user/").then(response => {
+        console.log("Get user response: ");
+        console.log(response.data);
+        if (response.data.user) {
+          API.getUser(response.data.user._id)
+            .then(user => {
+              this.setState({
+                user: {
+                  id: user.data._id,
+                  username: user.data.username,
+                  location: user.data.location,
+                  email: user.data.email,
+                  telephone: user.data.telephone,
+                  role: user.data.role,
+                  status: user.data.status,
+                  posts: user.data.posts,
+                },
+              });
+            })
+            .catch(err => console.error(err));
+          console.log(
+            "Get User: There is a user saved in the server session: "
+          );
+
+          this.setState({
+            loggedIn: true,
+            username: response.data.user.username,
+            id: response.data.user._id,
+          });
+        } else {
+          console.log("Get user: no user");
+          this.setState({
+            loggedIn: false,
+            username: null,
+            id: null,
+          });
+        }
+      });
+    } else {
+      localForage
+        .getItem(`userKey`)
+        .then(value => {
+          if (value) {
+            console.log(`userKey value:`);
+            console.log(value);
+          }
+          if (value && value.loggedIn) {
             this.setState({
+              loggedIn: value.loggedIn,
+              username: value.username,
+              id: value.id,
               user: {
-                id: user.data._id,
-                username: user.data.username,
-                location: user.data.location,
-                email: user.data.email,
-                telephone: user.data.telephone,
-                role: user.data.role,
-                status: user.data.status,
-                posts: user.data.posts,
+                id: value.id,
+                username: value.username,
               },
             });
-          })
-          .catch(err => console.error(err));
-        console.log("Get User: There is a user saved in the server session: ");
-
-        this.setState({
-          loggedIn: true,
-          username: response.data.user.username,
-          id: response.data.user._id,
-        });
-      } else {
-        console.log("Get user: no user");
-        this.setState({
-          loggedIn: false,
-          username: null,
-          id: null,
-        });
-      }
-    });
+          }
+        })
+        .catch(err => console.error(err));
+    }
   };
 
   render() {
