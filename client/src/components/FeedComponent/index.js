@@ -4,6 +4,7 @@ import FeedCard from "../FeedCard";
 import Nav from "../Nav";
 import SideFeedComponent from "../SideFeedComponent";
 import axios from "axios";
+import localForage from "localforage";
 import API from "../../utils/API";
 import { Link, Redirect } from "react-router-dom";
 
@@ -68,6 +69,11 @@ class FeedComponent extends Component {
       if (response.data.user) {
         console.log("Get User: There is a user saved in the server session: ");
         this.setState({
+          username: response.data.user.username,
+          id: response.data.user._id,
+        });
+        localForage.setItem(`userKey`, {
+          loggedIn: true,
           username: response.data.user.username,
           id: response.data.user._id,
         });

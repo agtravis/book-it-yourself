@@ -126,26 +126,49 @@ class MakePost extends Component {
   };
 
   getUser = () => {
-    axios.get("/api/user/").then(response => {
-      console.log(response.data);
-      if (response.data.user) {
-        console.log("Get User: There is a user saved in the server session: ");
-        this.setState({
-          loggedIn: true,
-          username: response.data.user.username,
-          id: response.data.user._id,
-          author: response.data.user._id,
-          name: response.data.user.username,
-        });
-      } else {
-        console.log("Get user: no user");
-        this.setState({
-          loggedIn: false,
-          username: null,
-          id: null,
-        });
-      }
-    });
+    if (navigator.onLine) {
+      axios.get("/api/user/").then(response => {
+        console.log(response.data);
+        if (response.data.user) {
+          console.log(
+            "Get User: There is a user saved in the server session: "
+          );
+          this.setState({
+            loggedIn: true,
+            username: response.data.user.username,
+            id: response.data.user._id,
+            author: response.data.user._id,
+            name: response.data.user.username,
+          });
+        } else {
+          console.log("Get user: no user");
+          this.setState({
+            loggedIn: false,
+            username: null,
+            id: null,
+          });
+        }
+      });
+    } else {
+      localForage
+        .getItem(`userKey`)
+        .then(value => {
+          if (value) {
+            console.log(`userKey value:`);
+            console.log(value);
+          }
+          if (value && value.loggedIn) {
+            this.setState({
+              loggedIn: value.loggedIn,
+              username: value.username,
+              id: value.id,
+              author: value.id,
+              name: value.username,
+            });
+          }
+        })
+        .catch(err => console.error(err));
+    }
   };
 
   render() {

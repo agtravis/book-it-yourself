@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
+import localForage from "localforage";
 import { Nav, Navbar } from "react-bootstrap";
 import Search from "../Search";
 import "./style.css";
@@ -47,6 +48,12 @@ class NavigationBar extends Component {
       .post("/api/user/logout")
       .then(response => {
         console.log(response.data);
+
+        localForage.setItem(`userKey`, {
+          loggedIn: false,
+          username: null,
+          id: null,
+        });
         if (response.status === 200) {
           window.location.replace(`/`);
         }
