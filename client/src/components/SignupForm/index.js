@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Jumbotron, Container } from "react-bootstrap";
 import SideFeedComponent from "../SideFeedComponent";
 import Nav from "../Nav";
 
@@ -149,137 +149,100 @@ class Signup extends Component {
             </div>
           </Col>
           <Col xl={8}>
-            <Form>
-              <h3>Create Account</h3>
-              <Form.Group
-                as={Row}
-                controlId="formPlaintextUsername"
-                className="justify-content-center"
-              >
-                <Form.Label column sm="1">
-                  Username
-                </Form.Label>
-                <Col sm="2">
-                  <Form.Control
-                    type="text"
-                    id="username"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.handleChange}
-                  />
-                  <div style={{ fontSize: 10, color: "red" }}>
-                    {this.state.usernameError}
-                  </div>
-                </Col>
-              </Form.Group>
-              <Form.Group
-                as={Row}
-                controlId="formPlaintextPassword"
-                className="justify-content-center"
-              >
-                <Form.Label column sm="1">
-                  Password
-                </Form.Label>
-                <Col sm="2">
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                  />
-                  <div style={{ fontSize: 10, color: "red" }}>
-                    {this.state.passwordError}
-                  </div>
-                </Col>
-              </Form.Group>
-              <Form.Group
-                as={Row}
-                controlId="formPlaintext"
-                className="justify-content-center"
-              >
-                <Form.Label column sm="1">
-                  City
-                </Form.Label>
-                <Col sm="2">
-                  <Form.Control
-                    type="text"
-                    id="location"
-                    name="location"
-                    value={this.state.location}
-                    onChange={this.handleChange}
-                  />
-                </Col>
-              </Form.Group>
-              <Form.Group
-                as={Row}
-                controlId="formPlaintextTelephone"
-                className="justify-content-center"
-              >
-                <Form.Label column sm="1">
-                  Phone
-                </Form.Label>
-                <Col sm="2">
-                  <Form.Control
-                    type="text"
-                    id="telephone"
-                    name="telephone"
-                    value={this.state.telephone}
-                    onChange={this.handleChange}
-                  />
-                </Col>
-              </Form.Group>
-              <Form.Group
-                as={Row}
-                controlId="formBasicEmail"
-                className="justify-content-center"
-              >
-                <Form.Label column sm="1">
-                  Email
-                </Form.Label>
-                <Col sm="2">
-                  <Form.Control
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                  />
-                  <div style={{ fontSize: 10, color: "red" }}>
-                    {this.state.emailError}
-                  </div>
-                </Col>
-              </Form.Group>
-              <Form.Group
-                as={Row}
-                controlId="formBasicEmail"
-                className="justify-content-center"
-              >
-                <Form.Label column sm="1">
-                  Role
-                </Form.Label>
-                <Col sm="2">
+            <Jumbotron>
+              <Container>
+                <Form>
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="formGridEmail">
+                      <Form.Label>Username</Form.Label>
+                      <Form.Control 
+                        type="text"
+                        id="username"
+                        name="username"
+                        value={this.state.username}
+                        onChange={this.handleChange}
+                      />
+                      <div style={{ fontSize: 12, color: "red" }}>
+                        {this.state.usernameError}
+                      </div>
+                    </Form.Group>
+
+                    <Form.Group as={Col}>
+                      <Form.Label>Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        name="password"
+                        value={this.state.password}
+                        onChange={this.handleChange}
+                      />
+                      <div style={{ fontSize: 12, color: "red" }}>
+                        {this.state.passwordError}
+                      </div>
+                    </Form.Group>
+                  </Form.Row>
+
+                  <Form.Group>
+                    <Form.Label>Email Address</Form.Label>
+                    <Form.Control
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.emailError}
+                    </div>
+                  </Form.Group>
+
+                  <Form.Row>
+                    <Form.Group as={Col}>
+                      <Form.Label>City</Form.Label>
+                      <Form.Control 
+                        type="text"
+                        id="location"
+                        name="location"
+                        value={this.state.location}
+                        onChange={this.handleChange}/>
+                    </Form.Group>
+
+                    <Form.Group as={Col}>
+                      <Form.Label>Phone</Form.Label>
+                      <Form.Control 
+                        type="text"
+                        id="telephone"
+                        name="telephone"
+                        value={this.state.telephone}
+                        onChange={this.handleChange}/>
+                    </Form.Group>
+                  </Form.Row>
+
+                  <Form.Group>
                   <Form.Check
+                    inline
                     type="checkbox"
                     value="artist"
-                    label="artist"
+                    label="Artist"
                     onChange={event => this.handleCheck(event, `artist`)}
                   />
                   <Form.Check
+                    inline
                     type="checkbox"
                     value="promoter"
-                    label="promoter"
+                    label="Promoter"
                     onChange={event => this.handleCheck(event, `promoter`)}
                   />
-                  <div style={{ fontSize: 10, color: "red" }}>
+                  <div style={{ fontSize: 12, color: "red" }}>
                     {this.state.roleError}
                   </div>
-                </Col>
-              </Form.Group>
+                  </Form.Group>
 
-              <Button variant="dark" type="submit" onClick={this.handleSubmit}>
-                Submit
-              </Button>
-            </Form>
+                  <Button variant="dark" type="submit" onClick={this.handleSubmit}>
+                    Sign Up
+                  </Button>
+                </Form>
+              </Container>
+            </Jumbotron>
           </Col>
         </Row>
       </div>
