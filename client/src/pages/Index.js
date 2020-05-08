@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Container, Jumbotron, Image, Badge } from "react-bootstrap";
 import axios from "axios";
 import Nav from "../components/Nav";
 import SideFeedComponent from "../components/SideFeedComponent";
+import logo from '../assets/images/logo.PNG';
 
 
 class Home extends Component {
@@ -23,14 +24,12 @@ class Home extends Component {
     axios.get("/api/user/").then(response => {
       console.log(response.data);
       if (response.data.user) {
-        console.log("Get User: There is a user saved in the server session: ");
         this.setState({
           loggedIn: true,
           username: response.data.user.username,
           id: response.data.user._id,
         });
       } else {
-        console.log("Get user: no user");
         this.setState({
           loggedIn: false,
           username: null,
@@ -51,11 +50,17 @@ class Home extends Component {
           </Col>
           <Col xl={8}>
             <div>
-              {this.state.loggedIn ? (
-                <p>Logged in as: {this.state.username}</p>
-              ) : (
-                <p>nobody logged in</p>
-              )}
+            <Jumbotron fluid>
+              <Container>
+                <h1>
+                  <Badge variant="dark">Book-it-Yourself</Badge>
+                </h1>
+                <h3>
+                  We connect artists and promoters together
+                </h3>
+                <Image src={logo} fluid />
+              </Container>
+            </Jumbotron>
             </div>
           </Col>
         </Row>
