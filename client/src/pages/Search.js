@@ -72,7 +72,15 @@ class Search extends Component {
           </Col>
           <Col xl={8}>
             <Jumbotron fluid>
-              <p>search page</p>
+              <p
+                style={{
+                  textAlign: "center",
+                  fontWeight: "bolder",
+                  fontSize: 40,
+                }}
+              >
+                Search Page
+              </p>
               {this.state.users.length > 0
                 ? this.state.users.map(user => (
                     <p
