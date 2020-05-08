@@ -25,14 +25,12 @@ class NavigationBar extends Component {
     axios.get("/api/user/").then(response => {
       console.log(response.data);
       if (response.data.user) {
-        console.log("Get User: There is a user saved in the server session: ");
         this.setState({
           loggedIn: true,
           username: response.data.user.username,
           id: response.data.user._id,
         });
       } else {
-        console.log("Get user: no user");
         this.setState({
           loggedIn: false,
           username: null,
@@ -92,7 +90,7 @@ class NavigationBar extends Component {
           bg="dark"
           variant="dark"
         >
-          <Navbar.Brand>
+          <Navbar.Brand href="/">
             <img
               src={Logo}
               width="75"
@@ -101,7 +99,6 @@ class NavigationBar extends Component {
               alt="logo"
             />
           </Navbar.Brand>
-          <Navbar.Brand href="/">Book it Yourself</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse
             className="justify-content-end"
@@ -167,7 +164,7 @@ class NavigationBar extends Component {
           bg="dark"
           variant="dark"
         >
-          <Navbar.Brand>
+          <Navbar.Brand href="/">
             <img
               src={Logo}
               width="75"
@@ -176,7 +173,6 @@ class NavigationBar extends Component {
               alt="logo"
             />
           </Navbar.Brand>
-          <Navbar.Brand href="/">Book it Yourself</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse
             className="justify-content-end"

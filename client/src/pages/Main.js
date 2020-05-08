@@ -26,14 +26,12 @@ class Main extends React.Component {
     axios.get("/api/user/").then(response => {
       console.log(response.data);
       if (response.data.user) {
-        console.log("Get User: There is a user saved in the server session: ");
         this.setState({
           loggedIn: true,
           username: response.data.user.username,
           id: response.data.user._id,
         });
       } else {
-        console.log("Get user: no user");
         this.setState({
           loggedIn: false,
           username: null,
