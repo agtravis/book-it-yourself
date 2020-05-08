@@ -4,6 +4,7 @@ import Nav from "../components/Nav";
 import { Jumbotron, Row, Col } from "react-bootstrap";
 import SideFeedComponent from "../components/SideFeedComponent";
 import API from "../utils/API";
+import localForage from "localforage";
 
 class MakePost extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class MakePost extends Component {
       startDate: ``,
       endDate: ``,
       success: false,
+      transmitting: false,
     };
   }
 
@@ -42,44 +44,67 @@ class MakePost extends Component {
     ) {
       alert(`Finish the form!`);
     } else {
-      API.addPost({
-        type: this.state.type,
-        title: this.state.title,
-        description: this.state.description,
-        location: this.state.location,
-        startDate: this.state.startDate,
-        endDate: this.state.endDate,
-        author: this.state.author,
-        name: this.state.name,
-      })
-        .then(postDb => {
-          API.updateUserNewPost(this.state.id, {
-            id: postDb.data._id,
-          })
-            .then(userDB => {
-              console.log(userDB);
-              this.setState({
-                type: ``,
-                title: ``,
-                description: ``,
-                location: ``,
-                startDate: ``,
-                endDate: ``,
-                success: true,
-              });
-              document.getElementById(`type`).value = ``;
-              document.getElementById(`title`).value = ``;
-              document.getElementById(`description`).value = ``;
-              document.getElementById(`location`).value = ``;
-              document.getElementById(`startDate`).value = ``;
-            })
-            .catch(err => console.error(err));
+      if (navigator.online) {
+        API.addPost({
+          type: this.state.type,
+          title: this.state.title,
+          description: this.state.description,
+          location: this.state.location,
+          startDate: this.state.startDate,
+          endDate: this.state.endDate,
+          author: this.state.author,
+          name: this.state.name,
         })
-        .catch(err => console.error(err));
+          .then(postDb => {
+            API.updateUserNewPost(this.state.id, {
+              id: postDb.data._id,
+            })
+              .then(userDB => {
+                console.log(userDB);
+                this.setState({
+                  type: ``,
+                  title: ``,
+                  description: ``,
+                  location: ``,
+                  startDate: ``,
+                  endDate: ``,
+                  success: true,
+                });
+                document.getElementById(`type`).value = ``;
+                document.getElementById(`title`).value = ``;
+                document.getElementById(`description`).value = ``;
+                document.getElementById(`location`).value = ``;
+                document.getElementById(`startDate`).value = ``;
+              })
+              .catch(err => console.error(err));
+          })
+          .catch(err => console.error(err));
+      } else {
+        const postObj = {
+          post: {
+            type: this.state.type,
+            title: this.state.title,
+            description: this.state.description,
+            location: this.state.location,
+            startDate: this.state.startDate,
+            endDate: this.state.endDate,
+            author: this.state.author,
+            name: this.state.name,
+          },
+          user: this.state.id,
+        };
+        localForage.setItem(`postKey`, postObj, () => {
+          console.log(`localForage success`);
+        });
+      }
     }
   };
 
   getUser = () => {
+    if (navigator.onLine && !this.state.transmitting) {
+      this.setState({ transmitting: true });
+      this.backOnline();
+    }
     axios.get("/api/user/").then(response => {
       console.log(response.data);
       if (response.data.user) {
@@ -100,6 +125,38 @@ class MakePost extends Component {
         });
       }
     });
+  };
+
+  backOnline = () => {
+    localForage
+      .length()
+      .then(function (numberOfKeys) {
+        if (numberOfKeys > 0) {
+          localForage
+            .iterate(function (value, key, iterationNumber) {
+              console.log(value.post);
+              API.addPost(value.post).then(postDb => {
+                API.updateUserNewPost(value.user, { id: postDb.data._id })
+                  .then(userDb => {
+                    console.log(userDb);
+                  })
+                  .catch(err => console.error(err));
+              });
+            })
+            .then(() => {
+              console.log(`iteration complete`);
+              localForage
+                .clear()
+                .then(() => {
+                  console.log(`offline storage emptied`);
+                  this.setState({ transmitting: false });
+                })
+                .catch(err => console.error(err));
+            })
+            .catch(err => console.error(err));
+        }
+      })
+      .catch(err => console.error(err));
   };
 
   render() {
