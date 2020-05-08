@@ -56,7 +56,7 @@ class Home extends Component {
                   <Badge variant="dark">Book-it-Yourself</Badge>
                 </h1>
                 <h3>
-                  We connect artists and promoters together
+                  helps to connect with artists and promoters
                 </h3>
                 <Image src={logo} fluid />
               </Container>
