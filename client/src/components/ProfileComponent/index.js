@@ -12,6 +12,9 @@ class ProfileComponent extends Component {
     this.state = {
       redirect: null,
       editMode: false,
+      location: ``,
+      email: ``,
+      telephone: ``,
       status: ``,
     };
   }
@@ -34,20 +37,50 @@ class ProfileComponent extends Component {
         </p>
 
         <div className="shade w-75">
-          <div className="info">
-            <span>Location:</span>
-            <p>{this.props.location}</p>
-          </div>
+        {this.props.userId ? (
+            <div
+              className="info"
+              onClick={() => {
+                this.setState({ editMode: true });
+              }}
+            >
+              <span>Location :</span>
+              {this.state.editMode ? (
+                <input
+                  id="status-field"
+                  placeholder="press ESC to cancel"
+                  onChange={event =>
+                    this.setState({ location: event.target.value })
+                  }
+                  onKeyUp={event => {
+                    if (event.keyCode === 27) {
+                      this.setState({ editMode: false, location: `` });
+                    }
+                    if (event.keyCode === 13) {
+                      this.props.editLocation(
+                        this.props.userId,
+                        this.state.location
+                      );
+                      this.setState({ editMode: false, location: `` });
+                    }
+                  }}
+                />
+              ) : (
+                <p>{this.props.location}</p>
+              )}
+            </div>
+          ) : (
+            <div className="info">
+              <span>Location :</span>
+              <p>{this.props.location}</p>
+            </div>
+          )}
 
           <div className="info">
             <span>Email:</span>
             <p>{this.props.email}</p>
           </div>
 
-          <div className="info">
-            <span>Phone:</span>
-            <p>{this.props.telephone}</p>
-          </div>
           {this.props.userId ? (
             <div
               className="info"
@@ -55,11 +88,49 @@ class ProfileComponent extends Component {
                 this.setState({ editMode: true });
               }}
             >
-              <span>Status (click to edit):</span>
+              <span>Phone :</span>
               {this.state.editMode ? (
                 <input
                   id="status-field"
-                  placeholder="Hit Esc key to cancel"
+                  placeholder="press ESC to cancel"
+                  onChange={event =>
+                    this.setState({ telephone: event.target.value })
+                  }
+                  onKeyUp={event => {
+                    if (event.keyCode === 27) {
+                      this.setState({ editMode: false, telephone: `` });
+                    }
+                    if (event.keyCode === 13) {
+                      this.props.editPhone(
+                        this.props.userId,
+                        this.state.telephone
+                      );
+                      this.setState({ editMode: false, telephone: `` });
+                    }
+                  }}
+                />
+              ) : (
+                <p>{this.props.telephone}</p>
+              )}
+            </div>
+          ) : (
+            <div className="info">
+              <span>Phone :</span>
+              <p>{this.props.telephone}</p>
+            </div>
+          )}
+          {this.props.userId ? (
+            <div
+              className="info"
+              onClick={() => {
+                this.setState({ editMode: true });
+              }}
+            >
+              <span>Status :</span>
+              {this.state.editMode ? (
+                <input
+                  id="status-field"
+                  placeholder="press ESC to cancel"
                   onChange={event =>
                     this.setState({ status: event.target.value })
                   }
@@ -83,13 +154,13 @@ class ProfileComponent extends Component {
             </div>
           ) : (
             <div className="info">
-              <span>Status:</span>
+              <span>Status :</span>
               <p>{this.props.status}</p>
             </div>
           )}
 
           <div className="info">
-            <span>Role:</span>
+            <span>Role :</span>
             {this.props.role !== undefined ? (
               <ul>
                 {this.props.role.map(role => (
@@ -108,7 +179,7 @@ class ProfileComponent extends Component {
               this.setState({ redirect: `/post` });
             }}
           >
-            Make a post
+            Write a post
           </Link>
         ) : null}
         <div className="shade w-75">

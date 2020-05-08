@@ -56,8 +56,35 @@ class Profile extends Component {
     this.setState(userObject);
   };
 
+  editLocation = (id, location) => {
+    API.updateUser(id, { location: location })
+      .then(data => {
+        console.log(data);
+        this.getUser();
+      })
+      .catch(err => console.error(err));
+  };
+
+  editPhone = (id, telephone) => {
+    API.updateUser(id, { telephone: telephone })
+    .then(data => {
+      console.log(data);
+      this.getUser();
+    })
+    .catch(err => console.error(err));
+  };
+  
   editStatus = (id, status) => {
     API.updateUser(id, { status: status })
+      .then(data => {
+        console.log(data);
+        this.getUser();
+      })
+      .catch(err => console.error(err));
+  };
+
+  editRole = (id, role) => {
+    API.updateUser(id, { role: role })
       .then(data => {
         console.log(data);
         this.getUser();
@@ -146,7 +173,10 @@ class Profile extends Component {
                   <ProfileComponent
                     deletePost={this.deletePost}
                     togglePostStatus={this.togglePostStatus}
+                    editLocation={this.editLocation}
+                    editPhone={this.editPhone}
                     editStatus={this.editStatus}
+                    editRole={this.editRole}
                     userId={this.state.user.id}
                     username={this.state.user.username}
                     location={this.state.user.location}
