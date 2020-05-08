@@ -72,10 +72,22 @@ class Search extends Component {
           </Col>
           <Col xl={8}>
             <Jumbotron fluid>
-              <p>search page</p>
+              <p
+                style={{
+                  textAlign: "center",
+                  fontWeight: "bolder",
+                  fontSize: 40,
+                }}
+              >
+                Search Page
+              </p>
               {this.state.users.length > 0
                 ? this.state.users.map(user => (
                     <p
+                      style={{
+                        margin: 20,
+                        fontSize: 20,
+                      }}
                       id={user._id}
                       onClick={event => {
                         this.handleUserChoice(event.target.id);
