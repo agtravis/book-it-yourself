@@ -17,6 +17,7 @@ import UserDetails from "./pages/UserDetails";
 import GoogMap from "./pages/Map";
 import Calendar from "./pages/Calendar";
 import MakePost from "./pages/MakePost";
+import NetworkDetector from "./Hoc/NetworkDetector";
 
 class App extends React.Component {
   constructor(props) {
@@ -34,10 +35,6 @@ class App extends React.Component {
   }
 
   getUser = () => {
-    if (navigator.onLine && !this.state.transmitting) {
-      this.setState({ transmitting: true });
-      this.backOnline();
-    }
     axios.get("/api/user/").then(response => {
       console.log(response.data);
       if (response.data.user) {
@@ -66,43 +63,6 @@ class App extends React.Component {
         });
       }
     });
-  };
-
-  backOnline = () => {
-    localForage
-      .getItem(`postKey`)
-      .then(value => {
-        console.log(`postKey value`);
-        console.log(value);
-        if (value) {
-          localForage
-            .iterate((value, key, iterationNumber) => {
-              if (key === `postKey`) {
-                for (const post of value) {
-                  API.addPost(post.post).then(postDb => {
-                    API.updateUserNewPost(post.user, { id: postDb.data._id })
-                      .then(userDb => {
-                        console.log(userDb);
-                      })
-                      .catch(err => console.error(err));
-                  });
-                }
-              }
-            })
-            .then(() => {
-              console.log(`iteration complete`);
-              localForage
-                .removeItem(`postKey`)
-                .then(() => {
-                  console.log(`offline storage emptied`);
-                  this.setState({ transmitting: false });
-                })
-                .catch(err => console.error(err));
-            })
-            .catch(err => console.error(err));
-        }
-      })
-      .catch(err => console.error(err));
   };
 
   render() {
@@ -135,4 +95,4 @@ class App extends React.Component {
     );
   }
 }
-export default App;
+export default NetworkDetector(App);
