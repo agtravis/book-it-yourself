@@ -93,9 +93,25 @@ class MakePost extends Component {
           },
           user: this.state.id,
         };
-        localForage.setItem(`postKey`, postObj, () => {
-          console.log(`localForage success`);
-        });
+        const postArr = [];
+        localForage
+          .getItem("postKey")
+          .then(value => {
+            postArr.push(postObj);
+            if (value && value.length > 0) {
+              for (const post of value) {
+                postArr.push(post);
+              }
+            }
+            localForage
+              .setItem(`postKey`, postArr)
+              .then(value => {
+                console.log(`localForage success - post stored offline!`);
+                console.log(value);
+              })
+              .catch(err => console.error(err));
+          })
+          .catch(err => console.error(err));
       }
     }
   };
@@ -135,13 +151,15 @@ class MakePost extends Component {
           localForage
             .iterate(function (value, key, iterationNumber) {
               console.log(value.post);
-              API.addPost(value.post).then(postDb => {
-                API.updateUserNewPost(value.user, { id: postDb.data._id })
-                  .then(userDb => {
-                    console.log(userDb);
-                  })
-                  .catch(err => console.error(err));
-              });
+              for (const post of value) {
+                API.addPost(post.post).then(postDb => {
+                  API.updateUserNewPost(post.user, { id: postDb.data._id })
+                    .then(userDb => {
+                      console.log(userDb);
+                    })
+                    .catch(err => console.error(err));
+                });
+              }
             })
             .then(() => {
               console.log(`iteration complete`);
