@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image } from "react-bootstrap";
+import { Image, Form, Button } from "react-bootstrap";
 import "./style.css";
 import image from "../../assets/images/userTest.png";
 import { Link, Redirect } from "react-router-dom";
@@ -11,13 +11,61 @@ class ProfileComponent extends Component {
     super(props);
     this.state = {
       redirect: null,
-      editMode: false,
-      location: ``,
-      email: ``,
-      telephone: ``,
-      status: ``,
+      editModeLocation: false,
+      editModeEmail: false,
+      editModePhone: false,
+      editModeStatus: false,
+      editModeRole: false,
+      newLocation: ``,
+      newEmail: ``,
+      newTelephone: ``,
+      newStatus: ``,
+      newRole: [],
     };
   }
+
+  toggleEdit = (event, field) => {
+    event.stopPropagation();
+    if (this.state[`editMode${field}`]) {
+      this.setState({ [`editMode${field}`]: false });
+    } else {
+      this.setState({ [`editMode${field}`]: true });
+    }
+  };
+
+  changeState = (event, field) => {
+    this.setState({ [`new${field}`]: event.target.value });
+  };
+
+  editField = (event, field) => {
+    this.toggleEdit(event, field);
+    this.props.editField(
+      this.props.userId,
+      field.toLowerCase(),
+      this.state[`new${field}`]
+    );
+    this.setState({ newRole: [] });
+  };
+
+  handleCheck = (event, roleName) => {
+    if (event.target.checked) {
+      this.setState({
+        newRole: [...this.state.newRole, roleName],
+      });
+    } else {
+      if (this.state.newRole.includes(roleName)) {
+        const newRoles = [...this.state.newRole];
+        newRoles.splice(newRoles.indexOf(roleName), 1);
+        this.setState({ newRole: newRoles });
+      }
+    }
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.toggleEdit(event, `Role`);
+    this.editField(event, `Role`);
+  };
 
   render() {
     if (this.state.redirect) {
@@ -35,38 +83,47 @@ class ProfileComponent extends Component {
           {this.props.userId ? `Welcome, ` : null}
           {this.props.username}
         </p>
+        {this.props.userId ? (
+          <p style={{ textAlign: `center` }}>
+            To edit your details, click on what you want to edit
+          </p>
+        ) : null}
 
         <div className="shade w-75">
-        {this.props.userId ? (
-            <div
-              className="info"
-              onClick={() => {
-                this.setState({ editMode: true });
-              }}
-            >
-              <span>Location :</span>
-              {this.state.editMode ? (
+          {this.props.userId ? (
+            <div className="info">
+              <span
+                onClick={event => {
+                  this.toggleEdit(event, `Location`);
+                }}
+              >
+                Location :
+              </span>
+              {this.state.editModeLocation ? (
                 <input
-                  id="status-field"
+                  id="Location"
                   placeholder="press ESC to cancel"
-                  onChange={event =>
-                    this.setState({ location: event.target.value })
-                  }
+                  onBlur={event => {
+                    this.toggleEdit(event, `Location`);
+                  }}
+                  onChange={event => this.changeState(event, `Location`)}
                   onKeyUp={event => {
                     if (event.keyCode === 27) {
-                      this.setState({ editMode: false, location: `` });
+                      this.toggleEdit(event, `Location`);
                     }
                     if (event.keyCode === 13) {
-                      this.props.editLocation(
-                        this.props.userId,
-                        this.state.location
-                      );
-                      this.setState({ editMode: false, location: `` });
+                      this.editField(event, `Location`);
                     }
                   }}
                 />
               ) : (
-                <p>{this.props.location}</p>
+                <p
+                  onClick={event => {
+                    this.toggleEdit(event, `Location`);
+                  }}
+                >
+                  {this.props.location}
+                </p>
               )}
             </div>
           ) : (
@@ -77,97 +134,166 @@ class ProfileComponent extends Component {
           )}
 
           <div className="info">
-            <span>Email:</span>
-            <p>{this.props.email}</p>
+            <span
+              onClick={event => {
+                this.toggleEdit(event, `Email`);
+              }}
+            >
+              Email:
+            </span>
+            {this.state.editModeEmail ? (
+              <input
+                id="Email"
+                placeholder="press ESC to cancel"
+                onBlur={event => {
+                  this.toggleEdit(event, `Email`);
+                }}
+                onChange={event => this.changeState(event, `Email`)}
+                onKeyUp={event => {
+                  if (event.keyCode === 27) {
+                    this.toggleEdit(event, `Email`);
+                  }
+                  if (event.keyCode === 13) {
+                    this.editField(event, `Email`);
+                  }
+                }}
+              />
+            ) : (
+              <p
+                onClick={event => {
+                  this.toggleEdit(event, `Email`);
+                }}
+              >
+                {this.props.email}
+              </p>
+            )}
           </div>
 
-          {this.props.userId ? (
-            <div
-              className="info"
-              onClick={() => {
-                this.setState({ editMode: true });
+          <div className="info">
+            <span
+              onClick={event => {
+                this.toggleEdit(event, `Phone`);
               }}
             >
-              <span>Phone :</span>
-              {this.state.editMode ? (
-                <input
-                  id="status-field"
-                  placeholder="press ESC to cancel"
-                  onChange={event =>
-                    this.setState({ telephone: event.target.value })
+              Phone:
+            </span>
+            {this.state.editModePhone ? (
+              <input
+                id="Phone"
+                placeholder="press ESC to cancel"
+                onBlur={event => {
+                  this.toggleEdit(event, `Phone`);
+                }}
+                onChange={event => this.changeState(event, `Phone`)}
+                onKeyUp={event => {
+                  if (event.keyCode === 27) {
+                    this.toggleEdit(event, `Phone`);
                   }
-                  onKeyUp={event => {
-                    if (event.keyCode === 27) {
-                      this.setState({ editMode: false, telephone: `` });
-                    }
-                    if (event.keyCode === 13) {
-                      this.props.editPhone(
-                        this.props.userId,
-                        this.state.telephone
-                      );
-                      this.setState({ editMode: false, telephone: `` });
-                    }
-                  }}
-                />
-              ) : (
-                <p>{this.props.telephone}</p>
-              )}
-            </div>
-          ) : (
-            <div className="info">
-              <span>Phone :</span>
-              <p>{this.props.telephone}</p>
-            </div>
-          )}
-          {this.props.userId ? (
-            <div
-              className="info"
-              onClick={() => {
-                this.setState({ editMode: true });
-              }}
-            >
-              <span>Status :</span>
-              {this.state.editMode ? (
-                <input
-                  id="status-field"
-                  placeholder="press ESC to cancel"
-                  onChange={event =>
-                    this.setState({ status: event.target.value })
+                  if (event.keyCode === 13) {
+                    this.editField(event, `Phone`);
                   }
-                  // onBlur={() => this.setState({ editMode: false, status: `` })}
-                  onKeyUp={event => {
-                    if (event.keyCode === 27) {
-                      this.setState({ editMode: false, status: `` });
-                    }
-                    if (event.keyCode === 13) {
-                      this.props.editStatus(
-                        this.props.userId,
-                        this.state.status
-                      );
-                      this.setState({ editMode: false, status: `` });
-                    }
-                  }}
-                />
-              ) : (
-                <p>{this.props.status}</p>
-              )}
-            </div>
-          ) : (
-            <div className="info">
-              <span>Status :</span>
-              <p>{this.props.status}</p>
-            </div>
-          )}
+                }}
+              />
+            ) : (
+              <p
+                onClick={event => {
+                  this.toggleEdit(event, `Phone`);
+                }}
+              >
+                {this.props.telephone}
+              </p>
+            )}
+          </div>
 
           <div className="info">
-            <span>Role :</span>
-            {this.props.role !== undefined ? (
-              <ul>
-                {this.props.role.map(role => (
-                  <li>{role}</li>
-                ))}
-              </ul>
-            ) : null}
+            <span
+              onClick={event => {
+                this.toggleEdit(event, `Status`);
+              }}
+            >
+              Status:
+            </span>
+            {this.state.editModeStatus ? (
+              <input
+                id="Status"
+                placeholder="press ESC to cancel"
+                onBlur={event => {
+                  this.toggleEdit(event, `Status`);
+                }}
+                onChange={event => this.changeState(event, `Status`)}
+                onKeyUp={event => {
+                  if (event.keyCode === 27) {
+                    this.toggleEdit(event, `Status`);
+                  }
+                  if (event.keyCode === 13) {
+                    this.editField(event, `Status`);
+                  }
+                }}
+              />
+            ) : (
+              <p
+                onClick={event => {
+                  this.toggleEdit(event, `Status`);
+                }}
+              >
+                {this.props.status}
+              </p>
+            )}
+          </div>
+          <div className="info">
+            <span
+              onClick={event => {
+                this.toggleEdit(event, `Role`);
+              }}
+            >
+              Role :
+            </span>
+            {this.state.editModeRole ? (
+              <>
+                <Form.Group>
+                  <Form.Check
+                    inline
+                    type="checkbox"
+                    value="artist"
+                    label="Artist"
+                    onChange={event => this.handleCheck(event, `artist`)}
+                  />
+                  <Form.Check
+                    inline
+                    type="checkbox"
+                    value="promoter"
+                    label="Promoter"
+                    onChange={event => this.handleCheck(event, `promoter`)}
+                  />
+                  <div style={{ fontSize: 12, color: "red" }}>
+                    {this.state.roleError}
+                  </div>
+                </Form.Group>
+                <Button
+                  variant="dark"
+                  type="submit"
+                  onClick={event => {
+                    this.handleSubmit(event);
+                  }}
+                >
+                  Submit Roles
+                </Button>{" "}
+              </>
+            ) : (
+              <>
+                {this.props.role !== undefined ? (
+                  <ul
+                    onClick={event => {
+                      this.toggleEdit(event, `Role`);
+                    }}
+                  >
+                    {this.props.role.map(role => (
+                      <li>{role}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </>
+            )}
           </div>
         </div>
 
