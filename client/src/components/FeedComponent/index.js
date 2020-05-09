@@ -120,12 +120,12 @@ class FeedComponent extends Component {
         <Row>
           <Col xl={4}>
             <div className="d-none d-xl-block">
-              <SideFeedComponent />
+              <SideFeedComponent  />
             </div>
           </Col>
           <Col xl={8}>
             <Jumbotron fluid>
-              <Container>
+              <Container className="maincontain">
                 <h1>Posts</h1>{" "}
                 <Link
                   style={{

@@ -168,7 +168,7 @@ class Profile extends Component {
           </Col>
           <Col xl={8}>
             <Jumbotron fluid>
-              <Container>
+              <Container className="maincontain">
                 <div>
                   <ProfileComponent
                     deletePost={this.deletePost}

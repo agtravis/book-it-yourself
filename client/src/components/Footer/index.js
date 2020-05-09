@@ -1,10 +1,11 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Logo from "../../assets/images/logo.PNG";
+import "./style.css"
 
 function Footer() {
   return (
-    <Navbar bg="dark">
+    <Navbar className="footer" bg="dark" fixed="bottom">
       <Navbar.Brand>
         <img
           src={Logo}

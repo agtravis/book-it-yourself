@@ -61,7 +61,7 @@ class Profile extends Component {
           </Col>
           <Col xl={8}>
             <Jumbotron fluid>
-              <Container>
+              
                 {/* {this.state.user.username !== undefined ? ( */}
                 <div>
                   <ProfileComponent
@@ -75,7 +75,7 @@ class Profile extends Component {
                   />
                 </div>
                 {/* ) : null} */}
-              </Container>
+             
             </Jumbotron>
           </Col>
         </Row>

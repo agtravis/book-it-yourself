@@ -5,7 +5,6 @@ import axios from "axios";
 import "./style.css";
 import Nav from "../Nav";
 import SideFeedComponent from "../SideFeedComponent";
-
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -17,28 +16,22 @@ class LoginForm extends Component {
       loginError: "",
     };
   }
-
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value,
     });
   };
-
   validate = (NoMatch) => {
     let loginError = "";
-
     if (NoMatch) {
       loginError = "invalid credentials";
     }
-
     if (loginError) {
       this.setState({ loginError });
       return false;
     }
-
     return true;
   };
-
   handleSubmit = event => {
     event.preventDefault();
     let NoMatch = true;
@@ -72,7 +65,6 @@ class LoginForm extends Component {
         };
       })
   };
-
   render() {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
@@ -81,42 +73,40 @@ class LoginForm extends Component {
       <div>
         <Nav />
         <Row>
-          <Col xl={4}>
-            <div className="d-none d-xl-block">
-              <SideFeedComponent />
-            </div>
-          </Col>
-          <Col xl={8}>
-            <Jumbotron>
+          <Col xl={12}>
+            
+            <Jumbotron className="maincontain">
               <Container>
                 <Form>
-                  <Form.Group>
-                    <Form.Label>
-                      Username
-                    </Form.Label>
-                      <Form.Control
-                        type="text"
-                        id="username"
-                        name="username"
-                        value={this.state.username}
-                        onChange={this.handleChange}
-                      />
-                  </Form.Group>
-
-                  <Form.Group>
-                    <Form.Label>
-                      Password
-                    </Form.Label>
-                      <Form.Control 
-                        type="password" 
-                        name="password"
-                        value={this.state.password}
-                        onChange={this.handleChange} 
-                      />
-                      <div style={{ fontSize: 10, color: "red" }}>
-                        {this.state.loginError}
-                      </div>
-                  </Form.Group>
+                  <h5>Log In:</h5>
+                  <Form.Row>
+                    <Form.Group>
+                      <Form.Label>
+                        Username
+                      </Form.Label>
+                        <Form.Control
+                          type="text"
+                          id="username"
+                          name="username"
+                          value={this.state.username}
+                          onChange={this.handleChange}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label>
+                        Password
+                      </Form.Label>
+                        <Form.Control 
+                          type="password" 
+                          name="password"
+                          value={this.state.password}
+                          onChange={this.handleChange} 
+                        />
+                        <div style={{ fontSize: 10, color: "red" }}>
+                          {this.state.loginError}
+                        </div>
+                    </Form.Group>
+                  </Form.Row>
                   <Button variant="dark" type="submit" onClick={this.handleSubmit}>
                     Submit
                   </Button>
@@ -129,5 +119,4 @@ class LoginForm extends Component {
     );
   }
 }
-
 export default LoginForm;

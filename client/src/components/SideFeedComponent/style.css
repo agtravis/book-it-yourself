@@ -1,0 +1,9 @@
+.sidebar {
+  position: fixed;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 0px;
+}

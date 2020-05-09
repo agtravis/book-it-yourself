@@ -71,7 +71,7 @@ class Search extends Component {
             </div>
           </Col>
           <Col xl={8}>
-            <Jumbotron fluid>
+            <Jumbotron className="maincontain" fluid>
               <p
                 style={{
                   textAlign: "center",
