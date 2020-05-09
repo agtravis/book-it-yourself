@@ -71,9 +71,13 @@ class LoginForm extends Component {
         <Row>
           <Col xl={12}>
             <Jumbotron className="logcontain">
-            <h5 className="text-center">Login:</h5>
               <Container>
                 <Form>
+                <Form.Row>
+                <Form.Group>
+                <h5 className="text-center">Login:</h5>
+                </Form.Group>
+                </Form.Row>
                   <Form.Row>
                     <Form.Group>
                       <Form.Label>Username</Form.Label>
@@ -85,6 +89,8 @@ class LoginForm extends Component {
                         onChange={this.handleChange}
                       />
                     </Form.Group>
+                    </Form.Row>
+                    <Form.Row>
                     <Form.Group>
                       <Form.Label>Password</Form.Label>
                       <Form.Control

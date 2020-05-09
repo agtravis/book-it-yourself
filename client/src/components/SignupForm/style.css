@@ -1,3 +1,15 @@
 .signcontain {
-  margin-top: 120px;
+  background-image: url(../../assets/images/ontape.jpg);
+  background-size: cover;
+  color: rgb(255, 255, 255);
+  font-weight: bolder;
+  height: 550px;
+  font-size: 18pt;
+  max-width: 650px;
+}
+.signupbg {
+  background-color: rgb(194, 172, 132);
+  margin-top: 60px;
+  padding-top: 30px;
+  padding-bottom: 140px;
 }
