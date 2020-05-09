@@ -1,5 +1,5 @@
 .maincontain {
-    margin-top: 150px;
+    margin: 0;
   }
 .homecontain {
     margin-top: 100px;
@@ -10,8 +10,4 @@
 }
 .mainbg {
     background-color: rgb(194, 172, 132);
-}
-.logo {
-    border-width: 10px;
-    border-color: tomato;
 }

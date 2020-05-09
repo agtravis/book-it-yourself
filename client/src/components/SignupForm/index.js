@@ -141,7 +141,7 @@ class Signup extends Component {
         <Row>
           <Col xl={12}>
             <h5 className="text-center">Signup</h5>
-            <Jumbotron className="maincontain">
+            <Jumbotron className="signcontain">
               <Container>
                 <Form>
                   <Form.Row>

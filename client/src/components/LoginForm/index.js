@@ -70,7 +70,7 @@ class LoginForm extends Component {
         <Nav />
         <Row>
           <Col xl={12}>
-            <Jumbotron className="maincontain">
+            <Jumbotron className="logcontain">
             <h5 className="text-center">Login:</h5>
               <Container>
                 <Form>
