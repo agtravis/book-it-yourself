@@ -160,4 +160,5 @@ Chat.......
 
 ## Contact
 
-Created by [@agtravis](https://agtravis.github.io/portfolio) | [@ddhoang21](https://ddhoang21.github.io/My-Portfolio/) | [@FrantzCFelix](https:///) | [@Issouf03](https:///) | [@remyguts](https:///)| [@resousa](https:///)
+Created by [@agtravis](https://agtravis.github.io/portfolio) | [@ddhoang21](https://ddhoang21.github.io/My-Portfolio/) | [@FrantzCFelix](https://github.com/FrantzCFelix) | [@Issouf03](https:///) | [@remyguts](https:///)| [@resousa](https:///)
+
