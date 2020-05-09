@@ -11,3 +11,18 @@
 .mainbg {
     background-color: rgb(194, 172, 132);
 }
+.searchcontain {
+    background-image: url("../assets/images/bookit.jpg");
+    background-size: cover;
+    padding-top: 60px;
+    padding-bottom: 40px;
+    width: 900px
+  }
+  .searchbg {
+    background-color: rgb(194, 172, 132);
+    padding-bottom: 300px;
+    padding-top: 250px;
+  }
+  .searchheader {
+    margin-bottom: 100px;
+  }
