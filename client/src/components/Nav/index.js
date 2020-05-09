@@ -25,7 +25,6 @@ class NavigationBar extends Component {
   getUser = () => {
     if (navigator.onLine) {
       axios.get("/api/user/").then(response => {
-        console.log(response.data);
         if (response.data.user) {
           this.setState({
             loggedIn: true,
@@ -44,10 +43,6 @@ class NavigationBar extends Component {
       localForage
         .getItem(`userKey`)
         .then(value => {
-          if (value) {
-            console.log(`userKey value:`);
-            console.log(value);
-          }
           if (value && value.loggedIn) {
             this.setState({
               loggedIn: value.loggedIn,
@@ -62,12 +57,9 @@ class NavigationBar extends Component {
 
   logout = event => {
     event.preventDefault();
-    console.log("logging out");
     axios
       .post("/api/user/logout")
       .then(response => {
-        console.log(response.data);
-
         localForage.setItem(`userKey`, {
           loggedIn: false,
           username: null,
@@ -78,11 +70,11 @@ class NavigationBar extends Component {
         }
       })
       .catch(error => {
-        console.log("Logout error");
+        console.error(error);
       });
   };
 
-  linkToPage = (path, blank) => {
+  linkToPage = path => {
     this.setState({
       redirect: path,
     });
@@ -150,7 +142,7 @@ class NavigationBar extends Component {
               <Link
                 className="d-block d-sm-none"
                 onClick={() => {
-                  this.linkToPage(`/mobilesearch`, "");
+                  this.linkToPage(`/mobilesearch`);
                 }}
               >
                 Search
@@ -183,13 +175,7 @@ class NavigationBar extends Component {
       );
     } else {
       return (
-        <Navbar
-          collapseOnSelect
-          // className="fixed-top"
-          expand="lg"
-          bg="dark"
-          variant="dark"
-        >
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Navbar.Brand href="/">
             <img
               src={Logo}

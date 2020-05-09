@@ -6,7 +6,7 @@ import SideFeedComponent from "../SideFeedComponent";
 import axios from "axios";
 import localForage from "localforage";
 import API from "../../utils/API";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import "./style.css";
 
 class FeedComponent extends Component {
@@ -20,10 +20,10 @@ class FeedComponent extends Component {
       postTypes: [
         { filterTerm: `artistNeeded`, displayTerm: `Artist Needed` },
         { filterTerm: `showNeeded`, displayTerm: `Show Needed` },
-        { filterTerm: `promoterNeeded`, displayTerm: `Promoter Needed` }
+        { filterTerm: `promoterNeeded`, displayTerm: `Promoter Needed` },
       ],
       locationSearch: ``,
-      redirect: null
+      redirect: null,
     };
   }
 
@@ -51,7 +51,6 @@ class FeedComponent extends Component {
   getPosts = () => {
     API.getPosts()
       .then(response => {
-        console.log(response.data);
         const sortedPosts = response.data
           .filter(
             post =>
@@ -67,25 +66,20 @@ class FeedComponent extends Component {
   getUser = () => {
     if (navigator.onLine) {
       axios.get("/api/user/").then(response => {
-        console.log(response.data);
         if (response.data.user) {
-          console.log(
-            "Get User: There is a user saved in the server session: "
-          );
           this.setState({
             username: response.data.user.username,
-            id: response.data.user._id
+            id: response.data.user._id,
           });
           localForage.setItem(`userKey`, {
             loggedIn: true,
             username: response.data.user.username,
-            id: response.data.user._id
+            id: response.data.user._id,
           });
         } else {
-          console.log("Get user: no user");
           this.setState({
             username: null,
-            id: null
+            id: null,
           });
         }
       });
@@ -94,14 +88,12 @@ class FeedComponent extends Component {
         .getItem(`userKey`)
         .then(value => {
           if (value) {
-            console.log(`userKey value:`);
-            console.log(value);
           }
           if (value && value.loggedIn) {
             this.setState({
               loggedIn: value.loggedIn,
               username: value.username,
-              id: value.id
+              id: value.id,
             });
           }
         })
@@ -121,20 +113,21 @@ class FeedComponent extends Component {
         <Row>
           <Col xl={4}>
             <div className="d-none d-xl-block">
-              <SideFeedComponent  />
+              <SideFeedComponent />
             </div>
           </Col>
           <Col xl={8}>
             <Jumbotron fluid>
               <Container className="maincontain">
-                <button className="btn btn-secondary rounded-pill"
+                <button
+                  className="btn btn-secondary rounded-pill"
                   onClick={() => {
                     this.setState({ redirect: `/post` });
                   }}
-                  >
-                 New Post
+                >
+                  New Post
                 </button>
-                  <hr></hr>
+                <hr></hr>
                 <h5 style={{ marginTop: 60 }}>Filter:</h5>
                 <form
                   id="location-search"
@@ -151,25 +144,31 @@ class FeedComponent extends Component {
                 >
                   <label
                     style={{
-                      marginRight: 10
+                      marginRight: 10,
                     }}
                     htmlFor="post-location"
                   >
                     Search Location:
                   </label>
-                  <input className="rounded-pill mr-1"
+                  <input
+                    className="rounded-pill mr-1"
                     type="text"
                     placeholder="Enter a city"
                     onChange={event => {
                       this.setState({ locationSearch: event.target.value });
                     }}
                   />
-                  <button type="submit" className= "btn btn-sm btn-secondary rounded">Search</button>
+                  <button
+                    type="submit"
+                    className="btn btn-sm btn-secondary rounded"
+                  >
+                    Search
+                  </button>
                 </form>
                 <form id="select-post-type" className="mb-5 mt-2">
                   <label
                     style={{
-                      marginRight: 40
+                      marginRight: 40,
                     }}
                     htmlFor="post-types"
                   >
