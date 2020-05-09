@@ -1,30 +1,31 @@
+
 .title {
-  text-align: left;
-  font-size: 24px;
+    text-align: left;
+    font-size: 24px;  
 }
-.pic {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 50%;
+.pic{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
 }
-.username {
-  text-align: center;
-  font-size: 26px;
+.username{
+    text-align: center;
+    font-size: 26px;
 }
-.shade {
-  margin: auto;
-  background-color: rgb(194, 172, 132);
-  padding: 20px;
-  border-radius: 20px;
+.shade{
+    margin: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
 }
-.info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 10px;
+.info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
 }
 
-.info ul li {
-  list-style-type: none;
+.info ul li{
+    list-style-type: none;
 }

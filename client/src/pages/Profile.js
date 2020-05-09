@@ -140,7 +140,7 @@ class Profile extends Component {
             </div>
           </Col>
           <Col xl={8}>
-            <Jumbotron className="maincontain" fluid>
+            <Jumbotron fluid>
               <Container className="maincontain">
                 <div>
                   <ProfileComponent

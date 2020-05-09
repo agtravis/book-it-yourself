@@ -2,7 +2,6 @@
   position: fixed;
   overflow-y: scroll;
   height: 100vh;
-  background-color: rgb(194, 172, 132);
 }
 
 .sidebar::-webkit-scrollbar {
