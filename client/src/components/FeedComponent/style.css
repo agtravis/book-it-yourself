@@ -1,4 +1,6 @@
 .maincontain {
-   padding-top: 100px;
-  }
-  
+  padding-top: 100px;
+}
+select {
+  height: 25px;
+}

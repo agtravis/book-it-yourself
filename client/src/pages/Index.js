@@ -3,8 +3,7 @@ import { Row, Col, Container, Jumbotron, Image, Badge } from "react-bootstrap";
 import axios from "axios";
 import Nav from "../components/Nav";
 import SideFeedComponent from "../components/SideFeedComponent";
-import logo from '../assets/images/logo.PNG';
-
+import logo from "../assets/images/logo.PNG";
 
 class Home extends Component {
   constructor(props) {
@@ -40,30 +39,31 @@ class Home extends Component {
   };
   render() {
     return (
-      <div>
+      <div style={{ paddingBottom: 170 }}>
         <Nav updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
-        <Row>
-          <Col xl={4}>
-            <div className="d-none d-xl-block">
-              <SideFeedComponent />
-            </div>
-          </Col>
-          <Col xl={8}>
-            <div>
-            <Jumbotron fluid>
-              <Container>
-                <h1>
-                  <Badge variant="dark">Book-it-Yourself</Badge>
-                </h1>
-                <h3>
-                  helps to connect with artists and promoters
-                </h3>
-                <Image src={logo} fluid />
-              </Container>
-            </Jumbotron>
-            </div>
-          </Col>
-        </Row>
+
+        <Jumbotron style={{}} fluid>
+          <Container>
+            <h1 style={{ textAlign: "center" }}>
+              <Badge variant="dark">Book-it-Yourself</Badge>
+            </h1>
+            <h3 style={{ textAlign: "center" }}>
+              helps to connect with artists and promoters
+            </h3>
+            <Image
+              style={{
+                textAlign: "center",
+                display: "block",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "auto",
+                width: 500,
+              }}
+              src={logo}
+              fluid
+            />
+          </Container>
+        </Jumbotron>
       </div>
     );
   }

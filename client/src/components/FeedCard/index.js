@@ -3,13 +3,15 @@ import Card from "react-bootstrap/Card";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import API from "../../utils/API";
 import { Redirect } from "react-router-dom";
+import "./style.css";
+
 
 class FeedCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       redirect: null,
-      id: ``,
+      id: ``
     };
   }
 
@@ -22,8 +24,8 @@ class FeedCard extends Component {
           to={{
             pathname: redir,
             state: {
-              userID: this.state.id,
-            },
+              userID: this.state.id
+            }
           }}
         />
       );
@@ -33,16 +35,20 @@ class FeedCard extends Component {
     const endDate = new Date(this.props.endDate);
 
     return (
-      <Jumbotron>
-        <Card style={{ width: "auto" }}>
+        <Card className= "w-75 mb-3 mx-auto">
+        <div class="row no-gutters">
+        <div class="col-md-4">
+        <img src="..." class="card-img" alt="..." />
+        </div>
+        <div class="col-md-8">
           <Card.Body>
             <h1>{this.props.title}</h1>
             {this.props.name ? (
-              <button
+              <button className="btn btn-secondary btn-sm rounded"
                 onClick={() => {
                   this.setState({
                     redirect: `/userdetails`,
-                    id: this.props.author,
+                    id: this.props.author
                   });
                 }}
               >
@@ -50,7 +56,7 @@ class FeedCard extends Component {
               </button>
             ) : null}
             {this.props.delete ? (
-              <button
+              <button className="btn btn-secondary btn-sm rounded mb-1"
                 onClick={() =>
                   this.props.deletePost(this.props.id, this.props.author)
                 }
@@ -60,7 +66,7 @@ class FeedCard extends Component {
             ) : null}
             {this.props.delete && this.props.complete !== `negative` ? (
               <div>
-                <button
+                <button className="btn btn-secondary btn-sm rounded"
                   onClick={() =>
                     this.props.togglePostStatus(
                       this.props.id,
@@ -76,20 +82,19 @@ class FeedCard extends Component {
             <p>Location: {this.props.location}.</p>
             <p>
               When:{" "}
-              {`${
-                startDate.getMonth() + 1
-              }/${startDate.getDate()}/${startDate.getFullYear()}`}
+              {`${startDate.getMonth() +
+                1}/${startDate.getDate()}/${startDate.getFullYear()}`}
               {this.props.endDate !== ``
-                ? ` until ${`${
-                    endDate.getMonth() + 1
-                  }/${endDate.getDate()}/${endDate.getFullYear()}`}`
+                ? ` until ${`${endDate.getMonth() +
+                    1}/${endDate.getDate()}/${endDate.getFullYear()}`}`
                 : null}
               .
             </p>
             <p>Description: {this.props.description}</p>
           </Card.Body>
+          </div>
+          </div>
         </Card>
-      </Jumbotron>
     );
   }
 }

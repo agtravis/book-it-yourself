@@ -23,7 +23,7 @@ export default {
     return axios.put(`/api/user/${id}`, userData);
   },
   updateUserNewPost(id, postId) {
-    return axios.put(`/api/user/post/${id}`, postId);
+    return axios.put(`/api/user/post/${id}`, { roles: postId });
   },
   updateRemoveUserPost(id, postId) {
     return axios.put(`/api/user/pull/${id}`, postId);
