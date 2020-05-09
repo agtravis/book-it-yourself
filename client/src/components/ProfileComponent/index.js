@@ -5,6 +5,7 @@ import image from "../../assets/images/userTest.png";
 import { Link, Redirect } from "react-router-dom";
 import FeedCard from "../FeedCard";
 import API from "../../utils/API";
+import axios from "axios";
 
 class ProfileComponent extends Component {
   constructor(props) {
@@ -21,7 +22,17 @@ class ProfileComponent extends Component {
       newTelephone: ``,
       newStatus: ``,
       newRole: [],
+      imageSrc: image,
     };
+  }
+
+  componentDidMount() {
+    axios
+      .get(`https://randomuser.me/api/`)
+      .then(result => {
+        this.setState({ imageSrc: result.data.results[0].picture.large });
+      })
+      .catch(err => console.error(err));
   }
 
   toggleEdit = (event, field) => {
@@ -77,7 +88,12 @@ class ProfileComponent extends Component {
       <div>
         <h3 className="title">Personal Info</h3>
         <hr></hr>
-        <Image className="pic" src={image} alt="profile pic" />
+        <Image
+          className="pic"
+          src={this.state.imageSrc}
+          alt="profile pic"
+          style={{ width: `200px` }}
+        />
         <br></br>
         <p className="username">
           {this.props.userId ? `Welcome, ` : null}
