@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Jumbotron, Container } from "react-bootstrap";
+import { Row, Col, Jumbotron } from "react-bootstrap";
 import Nav from "../components/Nav";
 import axios from "axios";
 import ProfileComponent from "../components/ProfileComponent";
@@ -26,12 +26,9 @@ class Profile extends Component {
   };
 
   getUser = () => {
-    console.log(this.props.location.state.userID);
     axios
       .get(`/api/user/${this.props.location.state.userID}`)
       .then(response => {
-        console.log("Get user response: ");
-        console.log(response.data);
         this.setState({
           user: {
             id: response.data._id,
@@ -61,21 +58,19 @@ class Profile extends Component {
           </Col>
           <Col xl={8}>
             <Jumbotron fluid>
-              
-                {/* {this.state.user.username !== undefined ? ( */}
-                <div>
-                  <ProfileComponent
-                    username={this.state.user.username}
-                    location={this.state.user.location}
-                    email={this.state.user.email}
-                    telephone={this.state.user.telephone}
-                    status={this.state.user.status}
-                    role={this.state.user.role}
-                    posts={this.state.user.posts}
-                  />
-                </div>
-                {/* ) : null} */}
-             
+              {/* {this.state.user.username !== undefined ? ( */}
+              <div>
+                <ProfileComponent
+                  username={this.state.user.username}
+                  location={this.state.user.location}
+                  email={this.state.user.email}
+                  telephone={this.state.user.telephone}
+                  status={this.state.user.status}
+                  role={this.state.user.role}
+                  posts={this.state.user.posts}
+                />
+              </div>
+              {/* ) : null} */}
             </Jumbotron>
           </Col>
         </Row>

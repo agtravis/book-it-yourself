@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { Form, Button, Row, Col, Jumbotron, Container } from "react-bootstrap";
-import SideFeedComponent from "../SideFeedComponent";
 import Nav from "../Nav";
 import "./style.css";
 
@@ -43,7 +42,7 @@ class Signup extends Component {
     }
   };
 
-  validate = (userExists) => {
+  validate = userExists => {
     let usernameError = "";
     let passwordError = "";
     let emailError = "";
@@ -100,16 +99,14 @@ class Signup extends Component {
   handleSubmit = event => {
     event.preventDefault();
     let userExists = false;
-    axios
-      .get("/api/users/", {})
-      .then(response => {
-        for (let i = 0; i < response.data.length; ++i) {
-          if (this.state.username === response.data[i].username) {
-            // eslint-disable-next-line no-unused-expressions
-            userExists = true;
-          }
+    axios.get("/api/users/", {}).then(response => {
+      for (let i = 0; i < response.data.length; ++i) {
+        if (this.state.username === response.data[i].username) {
+          // eslint-disable-next-line no-unused-expressions
+          userExists = true;
         }
-        if (this.validate(userExists) && !userExists) {
+      }
+      if (this.validate(userExists) && !userExists) {
         axios
           .post("/api/user/", {
             username: this.state.username.toLowerCase(),
@@ -120,7 +117,6 @@ class Signup extends Component {
             role: this.state.role,
           })
           .then(response => {
-            console.log(response);
             if (!response.data.errmsg) {
               this.setState({
                 loggedIn: true,
@@ -129,12 +125,11 @@ class Signup extends Component {
             }
           })
           .catch(error => {
-            console.log(error);
+            console.error(error);
           });
-        }
       }
-    )
-  }
+    });
+  };
   render() {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
@@ -145,14 +140,14 @@ class Signup extends Component {
         <Nav />
         <Row>
           <Col xl={12}>
-              <h5 className="text-center">Signup</h5>
+            <h5 className="text-center">Signup</h5>
             <Jumbotron className="maincontain">
-              <Container >
+              <Container>
                 <Form>
                   <Form.Row>
                     <Form.Group as={Col} controlId="formGridEmail">
                       <Form.Label>Username</Form.Label>
-                      <Form.Control 
+                      <Form.Control
                         type="text"
                         id="username"
                         name="username"
@@ -195,46 +190,52 @@ class Signup extends Component {
                   <Form.Row>
                     <Form.Group as={Col}>
                       <Form.Label>City</Form.Label>
-                      <Form.Control 
+                      <Form.Control
                         type="text"
                         id="location"
                         name="location"
                         value={this.state.location}
-                        onChange={this.handleChange}/>
+                        onChange={this.handleChange}
+                      />
                     </Form.Group>
 
                     <Form.Group as={Col}>
                       <Form.Label>Phone</Form.Label>
-                      <Form.Control 
+                      <Form.Control
                         type="text"
                         id="telephone"
                         name="telephone"
                         value={this.state.telephone}
-                        onChange={this.handleChange}/>
+                        onChange={this.handleChange}
+                      />
                     </Form.Group>
                   </Form.Row>
 
                   <Form.Group>
-                  <Form.Check
-                    inline
-                    type="checkbox"
-                    value="artist"
-                    label="Artist"
-                    onChange={event => this.handleCheck(event, `artist`)}
-                  />
-                  <Form.Check
-                    inline
-                    type="checkbox"
-                    value="promoter"
-                    label="Promoter"
-                    onChange={event => this.handleCheck(event, `promoter`)}
-                  />
-                  <div style={{ fontSize: 12, color: "red" }}>
-                    {this.state.roleError}
-                  </div>
+                    <Form.Check
+                      inline
+                      type="checkbox"
+                      value="artist"
+                      label="Artist"
+                      onChange={event => this.handleCheck(event, `artist`)}
+                    />
+                    <Form.Check
+                      inline
+                      type="checkbox"
+                      value="promoter"
+                      label="Promoter"
+                      onChange={event => this.handleCheck(event, `promoter`)}
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.roleError}
+                    </div>
                   </Form.Group>
 
-                  <Button variant="dark" type="submit" onClick={this.handleSubmit}>
+                  <Button
+                    variant="dark"
+                    type="submit"
+                    onClick={this.handleSubmit}
+                  >
                     Sign Up
                   </Button>
                 </Form>

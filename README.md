@@ -5,7 +5,7 @@
 ![BIYUML](https://user-images.githubusercontent.com/56744605/81463819-67fa2480-9171-11ea-94e2-08c4b4ab895c.png)
 
 
-![Homepage](./public/assets/images/screenshots/UML.png)
+
 
 Check out the repo [here](https://github.com/agtravis/book-it-yourself), and see the app in operation [here](https://book-it-yourself.herokuapp.com/).
 
@@ -27,9 +27,10 @@ This app runs in the browser - see [Setup](#setup) below for instructions on how
 ![Screenshot (155)](https://user-images.githubusercontent.com/56744605/81464318-5c106180-9175-11ea-9461-a2a24e4cd1af.png)
 ![Screenshot (156)](https://user-images.githubusercontent.com/56744605/81464321-5fa3e880-9175-11ea-97e4-8bc7a36725d6.png)
 
-![Homepage](./public/assets/images/screenshots/homepage.PNG)
 
 ## Technologies
+
+This app was built with React.
 
 ### Back-end package.json dependencies:
 
@@ -141,10 +142,23 @@ Ensures there are no lingering posts to get duplicated.
 
 ## Setup
 
+If the user just wants to use the app, all they have to do is sign up for an account!
+
+If the user has forked the repo and wants to see the code and potentially make changes to it, they should run `npm -i` or `npm install` in the terminal at the server level. This will automatically run the package.json dependencies at both back and front end levels. Then if the user wants they can run `npm run seed` to populate the database with a few users and posts.
+
 ## Features
+
+This Progressive Web Application has offline abilities, is responsive and features encrypted user passwords.
+
+Maps.......
+
+Chat.......
 
 ## Status & Future Developement
 
+..........
+
 ## Contact
 
-Created by [@agtravis](https://agtravis.github.io/portfolio) | [@ddhoang21](https://ddhoang21.github.io/My-Portfolio/) | [@resousa](https:///) | [@remyguys](https:///) | [@Issouf03](https:///) | [@franzcfelix](https://github.com/FrantzCFelix)
+Created by [@agtravis](https://agtravis.github.io/portfolio) | [@ddhoang21](https://ddhoang21.github.io/My-Portfolio/) | [@FrantzCFelix](https://github.com/FrantzCFelix) | [@Issouf03](https:///) | [@remyguts](https:///)| [@resousa](https:///)
+
