@@ -68,7 +68,6 @@ class MakePost extends Component {
               id: postDb.data._id,
             })
               .then(userDB => {
-                console.log(userDB);
                 this.setState({
                   type: ``,
                   title: ``,
@@ -114,9 +113,7 @@ class MakePost extends Component {
             localForage
               .setItem(`postKey`, postArr)
               .then(value => {
-                console.log(`localForage success - post stored offline!`);
                 this.setState({ offlineSuccess: true });
-                console.log(value);
               })
               .catch(err => console.error(err));
           })
@@ -128,11 +125,7 @@ class MakePost extends Component {
   getUser = () => {
     if (navigator.onLine) {
       axios.get("/api/user/").then(response => {
-        console.log(response.data);
         if (response.data.user) {
-          console.log(
-            "Get User: There is a user saved in the server session: "
-          );
           this.setState({
             loggedIn: true,
             username: response.data.user.username,
@@ -141,7 +134,6 @@ class MakePost extends Component {
             name: response.data.user.username,
           });
         } else {
-          console.log("Get user: no user");
           this.setState({
             loggedIn: false,
             username: null,
@@ -153,10 +145,6 @@ class MakePost extends Component {
       localForage
         .getItem(`userKey`)
         .then(value => {
-          if (value) {
-            console.log(`userKey value:`);
-            console.log(value);
-          }
           if (value && value.loggedIn) {
             this.setState({
               loggedIn: value.loggedIn,
@@ -174,7 +162,7 @@ class MakePost extends Component {
   render() {
     return (
       <div>
-        <Nav /*updateUser={this.updateUser} loggedIn={this.state.loggedIn}*/ />
+        <Nav />
         <Row>
           <Col xl={4}>
             <div className="d-none d-xl-block">

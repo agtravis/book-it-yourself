@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Container, Jumbotron, Image, Badge } from "react-bootstrap";
+import { Container, Jumbotron, Image, Badge } from "react-bootstrap";
 import axios from "axios";
 import Nav from "../components/Nav";
 import "./style.css";
@@ -21,7 +21,6 @@ class Home extends Component {
 
   getUser = () => {
     axios.get("/api/user/").then(response => {
-      console.log(response.data);
       if (response.data.user) {
         this.setState({
           loggedIn: true,

@@ -24,7 +24,6 @@ class Main extends React.Component {
 
   getUser = () => {
     axios.get("/api/user/").then(response => {
-      console.log(response.data);
       if (response.data.user) {
         this.setState({
           loggedIn: true,

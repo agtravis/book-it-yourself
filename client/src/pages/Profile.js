@@ -29,7 +29,6 @@ class Profile extends Component {
           id: data.data._id,
         })
           .then(data => {
-            console.log(data);
             this.getUser();
           })
           .catch(err => console.error(err));
@@ -46,7 +45,6 @@ class Profile extends Component {
     }
     API.updatePost(id, { complete: newStatus })
       .then(data => {
-        console.log(data);
         this.getUser();
       })
       .catch(err => console.error(err));
@@ -62,7 +60,6 @@ class Profile extends Component {
     }
     API.updateUser(id, { [property]: value })
       .then(data => {
-        console.log(data);
         this.getUser();
       })
       .catch(err => console.error(err));
@@ -71,7 +68,6 @@ class Profile extends Component {
   editRole = (id, role) => {
     API.updateUser(id, { role: role })
       .then(data => {
-        console.log(data);
         this.getUser();
       })
       .catch(err => console.error(err));
@@ -80,8 +76,6 @@ class Profile extends Component {
   getUser = () => {
     if (navigator.onLine) {
       axios.get("/api/user/").then(response => {
-        console.log("Get user response: ");
-        console.log(response.data);
         if (response.data.user) {
           API.getUser(response.data.user._id)
             .then(user => {
@@ -99,9 +93,6 @@ class Profile extends Component {
               });
             })
             .catch(err => console.error(err));
-          console.log(
-            "Get User: There is a user saved in the server session: "
-          );
 
           this.setState({
             loggedIn: true,
@@ -109,7 +100,6 @@ class Profile extends Component {
             id: response.data.user._id,
           });
         } else {
-          console.log("Get user: no user");
           this.setState({
             loggedIn: false,
             username: null,
@@ -122,8 +112,6 @@ class Profile extends Component {
         .getItem(`userKey`)
         .then(value => {
           if (value) {
-            console.log(`userKey value:`);
-            console.log(value);
           }
           if (value && value.loggedIn) {
             this.setState({
