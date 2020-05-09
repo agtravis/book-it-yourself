@@ -127,21 +127,15 @@ class FeedComponent extends Component {
           <Col xl={8}>
             <Jumbotron fluid>
               <Container className="maincontain">
-                <h1>Posts</h1>{" "}
-                <hr></hr>
                 <button className="btn btn-secondary rounded-pill"
-                  // style={{
-                  //   paddingLeft: 5,
-                  //   color: "blue",
-                  //   textDecoration: "underline blue"
-                  // }}
                   onClick={() => {
                     this.setState({ redirect: `/post` });
                   }}
-                >
-                  Create Post
+                  >
+                 New Post
                 </button>
-                <h3 style={{ marginTop: 60 }}>Filter:</h3>
+                  <hr></hr>
+                <h5 style={{ marginTop: 60 }}>Filter:</h5>
                 <form
                   id="location-search"
                   onSubmit={event => {
@@ -165,7 +159,7 @@ class FeedComponent extends Component {
                   </label>
                   <input className="rounded-pill mr-1"
                     type="text"
-                    placeholder="Search for a location"
+                    placeholder="Enter a city"
                     onChange={event => {
                       this.setState({ locationSearch: event.target.value });
                     }}

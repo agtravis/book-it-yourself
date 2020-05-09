@@ -208,12 +208,10 @@ class MakePost extends Component {
                           })
                         }
                       >
-                        <option>Select</option>
-                        <option value={`artistNeeded`}>need an artist</option>
-                        <option value={`promoterNeeded`}>
-                          need a promoter
-                        </option>
-                        <option value={`showNeeded`}>need a show</option>
+                        <option>Looking for :</option>
+                        <option value={`artistNeeded`}>artist</option>
+                        <option value={`promoterNeeded`}>promoter</option>
+                        <option value={`showNeeded`}>show</option>
                       </Form.Control>
                     </Form.Group>
                     <InputGroup>

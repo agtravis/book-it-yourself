@@ -74,11 +74,10 @@ class LoginForm extends Component {
         <Nav />
         <Row>
           <Col xl={12}>
-            
+                  <h5 className="text-center">Login</h5>
             <Jumbotron className="maincontain">
               <Container>
                 <Form>
-                  <h5>Log In:</h5>
                   <Form.Row>
                     <Form.Group>
                       <Form.Label>

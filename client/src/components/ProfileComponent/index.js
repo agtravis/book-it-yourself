@@ -86,14 +86,13 @@ class ProfileComponent extends Component {
     }
     return (
       <div>
-        <h2 className="title">Personal Info</h2>
-        <hr></hr>
         <Image
           className="pic"
           src={this.state.imageSrc}
           alt="profile pic"
           style={{ width: `200px` }}
-        />
+          />
+          <hr></hr>
         <br></br>
         <p className="username">
           {this.props.userId ? `Welcome, ` : null}
@@ -353,15 +352,14 @@ class ProfileComponent extends Component {
         </div>
 
         <hr></hr>
-        <h2 className="title">Posts</h2>
         {this.props.userId ? (
-          <Link
-            onClick={() => {
-              this.setState({ redirect: `/post` });
-            }}
-          >
-            Write a post
-          </Link>
+           <button className="btn btn-secondary rounded-pill"
+           onClick={() => {
+             this.setState({ redirect: `/post` });
+           }}
+         >
+           New Post
+         </button>
         ) : null}
         {this.props.posts !== undefined &&
         this.props.posts.length > 0 &&
