@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Jumbotron, Image, Badge } from "react-bootstrap";
+import { Container, Jumbotron, Image, Badge, Row } from "react-bootstrap";
 import axios from "axios";
 import Nav from "../components/Nav";
 import "./style.css";
