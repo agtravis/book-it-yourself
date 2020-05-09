@@ -13,8 +13,8 @@ class EventCalendar extends Component {
   render() {
     return (
       <div>
-        <Jumbotron>
-          <h5 style={{ textAlign: "center" }}>Upcoming Events</h5>
+        <Jumbotron className="caltron">
+          <h5 className="caltron" style={{ textAlign: "center" }}>Upcoming Events</h5>
           <Calendar onChange={this.onChange} value={this.state.date} />
         </Jumbotron>
       </div>

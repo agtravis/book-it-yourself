@@ -1,4 +1,48 @@
 .maincontain {
+<<<<<<< HEAD
+  margin: 0;
+  background-color: rgb(206, 185, 147);
+}
+.homecontain {
+  margin-top: 100px;
+  background-image: url("../assets/images/bookit.jpg");
+  background-size: cover;
+  width: 900px;
+  height: 800px;
+}
+.mainbg {
+  background-color: rgb(194, 172, 132);
+}
+.searchcontain {
+  background-image: url("../assets/images/bookit.jpg");
+  background-size: cover;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  width: 900px;
+}
+.searchbg {
+  background-color: rgb(194, 172, 132);
+  padding-bottom: 300px;
+  padding-top: 250px;
+}
+.searchheader {
+  margin-bottom: 100px;
+}
+.searchreshead {
+  background-color: rgb(194, 172, 132);
+  padding-top: 60px;
+  margin-top: 40px;
+}
+.mobilemaptron {
+  background-color: rgb(206, 185, 147);
+  font-weight: bolder;
+  padding-top: 60px;
+}
+.mobilecaltron {
+  background-color: rgb(206, 185, 147);
+  font-weight: bolder;
+  padding-top: 60px;
+=======
     margin: 0;
   }
 .homecontain {
@@ -10,4 +54,5 @@
 }
 .mainbg {
     background-color: rgb(194, 172, 132);
+>>>>>>> e2b1f1f381cba39c093fcea83d033494c00dad87
 }
