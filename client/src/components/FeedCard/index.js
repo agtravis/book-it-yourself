@@ -19,7 +19,7 @@ class FeedCard extends Component {
   componentDidMount() {
     axios
       .get(
-        `http://api.giphy.com/v1/gifs/search?api_key=krsGO7xfBLF7bCmtRs7tpOLC0UjdzxcH&q=${this.props.location}`
+        `https://api.giphy.com/v1/gifs/search?api_key=krsGO7xfBLF7bCmtRs7tpOLC0UjdzxcH&q=${this.props.location}`
       )
       .then(data => {
         const num = Math.floor(Math.random() * 20);
@@ -52,7 +52,9 @@ class FeedCard extends Component {
       <Card className="w-75 mb-3 mx-auto">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img src={this.state.imgSrc} class="card-img" alt="..." />
+            {this.state.imgSrc ? (
+              <img src={this.state.imgSrc} class="card-img" alt="..." />
+            ) : null}
           </div>
           <div class="col-md-8">
             <Card.Body>
