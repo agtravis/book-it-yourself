@@ -185,7 +185,7 @@ class NavigationBar extends Component {
       return (
         <Navbar
           collapseOnSelect
-          // className="fixed-top"
+          className="fixed-top"
           expand="lg"
           bg="dark"
           variant="dark"

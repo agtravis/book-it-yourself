@@ -73,9 +73,9 @@ class LoginForm extends Component {
       <div>
         <Nav />
         <Row>
-          <Col xl={12}>
-                  <h5 className="text-center">Login</h5>
+          <Col xl={12}>      
             <Jumbotron className="maincontain">
+            <h5 className="text-center">Login</h5>
               <Container>
                 <Form>
                   <Form.Row>
