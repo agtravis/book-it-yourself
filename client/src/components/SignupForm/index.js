@@ -234,14 +234,15 @@ class Signup extends Component {
                       onChange={event => this.handleCheck(event, `artist`)}
                     />
                   </Badge>
-                  <Badge variant="dark"></Badge>
-                  <Form.Check
-                    inline
-                    type="checkbox"
-                    value="promoter"
-                    label="Promoter"
-                    onChange={event => this.handleCheck(event, `promoter`)}
-                  />
+                  <Badge variant="dark">
+                    <Form.Check
+                      inline
+                      type="checkbox"
+                      value="promoter"
+                      label="Promoter"
+                      onChange={event => this.handleCheck(event, `promoter`)}
+                    />
+                  </Badge>
                   <div style={{ fontSize: 12, color: "red" }}>
                     {this.state.roleError}
                   </div>
