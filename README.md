@@ -75,7 +75,7 @@ When a user makes a post, the code first checks to see if the browser is online:
  if (navigator.onLine) {
 ```
 
-If it is, it will perform a regular database `POST` using `mongoose` through the model schema for our `MongoDB` database. Once the post is confirmed, the user ID is then used to `PUT` the user collection and `$push` the post `._id` to the array of posts stored in the user collection (to enable a `population` when called upon). Similarly, when the user deletes their post, and equivalent `$pull` `PUT` is made to remove it, but leave the other posts intact.
+If it is, it will perform a regular database `POST` using `mongoose` through the model schema for our `MongoDB` database. Once the post is confirmed, the user ID is then used to `PUT` the user collection and `$push` the post `._id` to the array of posts stored in the user collection (to enable a `population` when called upon). Similarly, when the user deletes their post, an equivalent `$pull` - `PUT` is made to remove it, but leave the other posts intact.
 
 If the browser is offline, an object is created to be `POST`ed later, and then here's how the code looks:
 
