@@ -53,7 +53,7 @@ class Search extends Component {
         />
         <InputGroup.Append>
           <Button
-            variant="dark"
+            variant="outline-info"
             size="sm"
             onClick={() => {
               if (window.location.pathname === `/search`) {
