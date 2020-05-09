@@ -46,8 +46,9 @@ class Home extends Component {
               <h1 style={{ textAlign: "center" }}>
                 <Badge variant="dark">Book-it-Yourself</Badge>
               </h1>
-              
-              <Image className="logo"
+
+              <Image
+                className="logo"
                 style={{
                   textAlign: "center",
                   display: "block",

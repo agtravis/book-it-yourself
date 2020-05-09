@@ -1,4 +1,5 @@
 .maincontain {
+<<<<<<< HEAD
   margin: 0;
   background-color: rgb(206, 185, 147);
 }
@@ -41,4 +42,17 @@
   background-color: rgb(206, 185, 147);
   font-weight: bolder;
   padding-top: 60px;
+=======
+    margin: 0;
+  }
+.homecontain {
+    margin-top: 100px;
+    background-image: url("../assets/images/bookit.jpg");
+    background-size: cover;
+    width: 900px;
+    height: 800px;
+}
+.mainbg {
+    background-color: rgb(194, 172, 132);
+>>>>>>> e2b1f1f381cba39c093fcea83d033494c00dad87
 }
