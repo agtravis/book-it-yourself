@@ -1,9 +1,13 @@
 .react-calendar {
-    width: 375px;
-    height: 375px;
-    max-width: 100%;
-    background: rgb(146, 146, 146);
-    border: 2px solid #a0a096;
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 3.00em;
-  }
+  width: 375px;
+  height: 375px;
+  max-width: 100%;
+  background: rgb(146, 146, 146);
+  border: 2px solid #a0a096;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 3em;
+}
+.caltron {
+  background-color: rgb(206, 185, 147);
+  font-weight: bolder;
+}
