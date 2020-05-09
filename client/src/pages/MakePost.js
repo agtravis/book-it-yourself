@@ -182,7 +182,7 @@ class MakePost extends Component {
             </div>
           </Col>
           <Col xl={8}>
-            <Jumbotron>
+            <Jumbotron className="maincontain">
               <Container>
                 <Form onSubmit={event => this.handleSubmit(event)}>
                   <Form.Row>

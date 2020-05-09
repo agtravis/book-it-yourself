@@ -8,7 +8,7 @@ class MobileSearch extends Component {
     return (
       <div>
         <Nav />
-        <Jumbotron fluid>
+        <Jumbotron className="maincontain" fluid>
           <Col xs={11} className="justify-content-center">
             <Search setSearchTerm={this.props.setSearchTerm} />
           </Col>

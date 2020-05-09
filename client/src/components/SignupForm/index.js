@@ -4,6 +4,7 @@ import axios from "axios";
 import { Form, Button, Row, Col, Jumbotron, Container } from "react-bootstrap";
 import SideFeedComponent from "../SideFeedComponent";
 import Nav from "../Nav";
+import "./style.css";
 
 class Signup extends Component {
   constructor() {
@@ -143,15 +144,11 @@ class Signup extends Component {
       <div>
         <Nav />
         <Row>
-          <Col xl={4}>
-            <div className="d-none d-xl-block">
-              <SideFeedComponent />
-            </div>
-          </Col>
-          <Col xl={8}>
-            <Jumbotron>
-              <Container>
+          <Col xl={12}>
+            <Jumbotron className="maincontain">
+              <Container >
                 <Form>
+                <h5>Signup:</h5>
                   <Form.Row>
                     <Form.Group as={Col} controlId="formGridEmail">
                       <Form.Label>Username</Form.Label>
