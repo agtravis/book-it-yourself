@@ -149,168 +149,207 @@ class ProfileComponent extends Component {
             </div>
           )}
 
-          <div className="info">
-            <span
-              onClick={event => {
-                this.toggleEdit(event, `Email`);
-              }}
-            >
-              Email:
-            </span>
-            {this.state.editModeEmail ? (
-              <input
-                id="Email"
-                placeholder="press ESC to cancel"
-                onBlur={event => {
+          {this.props.userId ? (
+            <div className="info">
+              <span
+                onClick={event => {
                   this.toggleEdit(event, `Email`);
                 }}
-                onChange={event => this.changeState(event, `Email`)}
-                onKeyUp={event => {
-                  if (event.keyCode === 27) {
+              >
+                Email:
+              </span>
+              {this.state.editModeEmail ? (
+                <input
+                  id="Email"
+                  placeholder="press ESC to cancel"
+                  onBlur={event => {
                     this.toggleEdit(event, `Email`);
-                  }
-                  if (event.keyCode === 13) {
-                    this.editField(event, `Email`);
-                  }
-                }}
-              />
-            ) : (
-              <p
-                onClick={event => {
-                  this.toggleEdit(event, `Email`);
-                }}
-              >
-                {this.props.email}
-              </p>
-            )}
-          </div>
-
-          <div className="info">
-            <span
-              onClick={event => {
-                this.toggleEdit(event, `Phone`);
-              }}
-            >
-              Phone:
-            </span>
-            {this.state.editModePhone ? (
-              <input
-                id="Phone"
-                placeholder="press ESC to cancel"
-                onBlur={event => {
-                  this.toggleEdit(event, `Phone`);
-                }}
-                onChange={event => this.changeState(event, `Phone`)}
-                onKeyUp={event => {
-                  if (event.keyCode === 27) {
-                    this.toggleEdit(event, `Phone`);
-                  }
-                  if (event.keyCode === 13) {
-                    this.editField(event, `Phone`);
-                  }
-                }}
-              />
-            ) : (
-              <p
-                onClick={event => {
-                  this.toggleEdit(event, `Phone`);
-                }}
-              >
-                {this.props.telephone}
-              </p>
-            )}
-          </div>
-
-          <div className="info">
-            <span
-              onClick={event => {
-                this.toggleEdit(event, `Status`);
-              }}
-            >
-              Status:
-            </span>
-            {this.state.editModeStatus ? (
-              <input
-                id="Status"
-                placeholder="press ESC to cancel"
-                onBlur={event => {
-                  this.toggleEdit(event, `Status`);
-                }}
-                onChange={event => this.changeState(event, `Status`)}
-                onKeyUp={event => {
-                  if (event.keyCode === 27) {
-                    this.toggleEdit(event, `Status`);
-                  }
-                  if (event.keyCode === 13) {
-                    this.editField(event, `Status`);
-                  }
-                }}
-              />
-            ) : (
-              <p
-                onClick={event => {
-                  this.toggleEdit(event, `Status`);
-                }}
-              >
-                {this.props.status}
-              </p>
-            )}
-          </div>
-          <div className="info">
-            <span
-              onClick={event => {
-                this.toggleEdit(event, `Role`);
-              }}
-            >
-              Role :
-            </span>
-            {this.state.editModeRole ? (
-              <>
-                <Form.Group>
-                  <Form.Check
-                    inline
-                    type="checkbox"
-                    value="artist"
-                    label="Artist"
-                    onChange={event => this.handleCheck(event, `artist`)}
-                  />
-                  <Form.Check
-                    inline
-                    type="checkbox"
-                    value="promoter"
-                    label="Promoter"
-                    onChange={event => this.handleCheck(event, `promoter`)}
-                  />
-                  <div style={{ fontSize: 12, color: "red" }}>
-                    {this.state.roleError}
-                  </div>
-                </Form.Group>
-                <Button
-                  variant="dark"
-                  type="submit"
+                  }}
+                  onChange={event => this.changeState(event, `Email`)}
+                  onKeyUp={event => {
+                    if (event.keyCode === 27) {
+                      this.toggleEdit(event, `Email`);
+                    }
+                    if (event.keyCode === 13) {
+                      this.editField(event, `Email`);
+                    }
+                  }}
+                />
+              ) : (
+                <p
                   onClick={event => {
-                    this.handleSubmit(event);
+                    this.toggleEdit(event, `Email`);
                   }}
                 >
-                  Submit Roles
-                </Button>{" "}
-              </>
-            ) : (
-              <>
-                {this.props.role !== undefined ? (
-                  <ul
+                  {this.props.email}
+                </p>
+              )}
+            </div>
+          ) : (
+            <div className="info">
+              <span>Email :</span>
+              <p>{this.props.email}</p>
+            </div>
+          )}
+
+          {this.props.userId ? (
+            <div className="info">
+              <span
+                onClick={event => {
+                  this.toggleEdit(event, `Phone`);
+                }}
+              >
+                Phone:
+              </span>
+              {this.state.editModePhone ? (
+                <input
+                  id="Phone"
+                  placeholder="press ESC to cancel"
+                  onBlur={event => {
+                    this.toggleEdit(event, `Phone`);
+                  }}
+                  onChange={event => this.changeState(event, `Phone`)}
+                  onKeyUp={event => {
+                    if (event.keyCode === 27) {
+                      this.toggleEdit(event, `Phone`);
+                    }
+                    if (event.keyCode === 13) {
+                      this.editField(event, `Phone`);
+                    }
+                  }}
+                />
+              ) : (
+                <p
+                  onClick={event => {
+                    this.toggleEdit(event, `Phone`);
+                  }}
+                >
+                  {this.props.telephone}
+                </p>
+              )}
+            </div>
+          ) : (
+            <div className="info">
+              <span>Phone :</span>
+              <p>{this.props.telephone}</p>
+            </div>
+          )}
+
+          {this.props.userId ? (
+            <div className="info">
+              <span
+                onClick={event => {
+                  this.toggleEdit(event, `Status`);
+                }}
+              >
+                Status:
+              </span>
+              {this.state.editModeStatus ? (
+                <input
+                  id="Status"
+                  placeholder="press ESC to cancel"
+                  onBlur={event => {
+                    this.toggleEdit(event, `Status`);
+                  }}
+                  onChange={event => this.changeState(event, `Status`)}
+                  onKeyUp={event => {
+                    if (event.keyCode === 27) {
+                      this.toggleEdit(event, `Status`);
+                    }
+                    if (event.keyCode === 13) {
+                      this.editField(event, `Status`);
+                    }
+                  }}
+                />
+              ) : (
+                <p
+                  onClick={event => {
+                    this.toggleEdit(event, `Status`);
+                  }}
+                >
+                  {this.props.status}
+                </p>
+              )}
+            </div>
+          ) : (
+            <div className="info">
+              <span>Status :</span>
+              <p>{this.props.status}</p>
+            </div>
+          )}
+
+          {this.props.userId ? (
+            <div className="info">
+              <span
+                onClick={event => {
+                  this.toggleEdit(event, `Role`);
+                }}
+              >
+                Role :
+              </span>
+              {this.state.editModeRole ? (
+                <>
+                  <Form.Group>
+                    <Form.Check
+                      inline
+                      type="checkbox"
+                      value="artist"
+                      label="Artist"
+                      onChange={event => this.handleCheck(event, `artist`)}
+                    />
+                    <Form.Check
+                      inline
+                      type="checkbox"
+                      value="promoter"
+                      label="Promoter"
+                      onChange={event => this.handleCheck(event, `promoter`)}
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.roleError}
+                    </div>
+                  </Form.Group>
+                  <Button
+                    variant="dark"
+                    type="submit"
                     onClick={event => {
-                      this.toggleEdit(event, `Role`);
+                      this.handleSubmit(event);
                     }}
                   >
-                    {this.props.role.map(role => (
-                      <li>{role}</li>
-                    ))}
-                  </ul>
-                ) : null}
-              </>
-            )}
-          </div>
+                    Submit Roles
+                  </Button>{" "}
+                </>
+              ) : (
+                <>
+                  {this.props.role !== undefined ? (
+                    <ul
+                      onClick={event => {
+                        this.toggleEdit(event, `Role`);
+                      }}
+                    >
+                      {this.props.role.map(role => (
+                        <li>{role}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </>
+              )}
+            </div>
+          ) : (
+            <div className="info">
+              <span>Roles :</span>
+              {this.props.role !== undefined ? (
+                <ul
+                  onClick={event => {
+                    this.toggleEdit(event, `Role`);
+                  }}
+                >
+                  {this.props.role.map(role => (
+                    <li>{role}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          )}
         </div>
 
         <hr></hr>
@@ -324,20 +363,40 @@ class ProfileComponent extends Component {
             Write a post
           </Link>
         ) : null}
-          {this.props.posts !== undefined &&
+        {this.props.posts !== undefined &&
+        this.props.posts.length > 0 &&
+        this.props.userId ? (
+          this.props.posts.map((post, index) => {
+            // props if user in session profile
+            return (
+              <FeedCard
+                key={index}
+                id={post._id}
+                author={post.author}
+                deletePost={this.props.deletePost}
+                togglePostStatus={this.props.togglePostStatus}
+                delete={true}
+                complete={post.complete ? `closed` : `open`}
+                title={post.title}
+                location={post.location}
+                startDate={post.startDate}
+                endDate={post.endDate}
+                description={post.description}
+              />
+            );
+          })
+        ) : this.props.posts !== undefined &&
           this.props.posts.length > 0 &&
-          this.props.userId ? (
-            this.props.posts.map((post, index) => {
-              // props if user in session profile
+          !this.props.userId ? (
+          this.props.posts
+            .sort((a, b) => (b.startDate > a.startDate ? 1 : -1))
+            .map((post, index) => {
+              // props for generic profile
               return (
                 <FeedCard
                   key={index}
-                  id={post._id}
-                  author={post.author}
-                  deletePost={this.props.deletePost}
-                  togglePostStatus={this.props.togglePostStatus}
-                  delete={true}
-                  complete={post.complete ? `closed` : `open`}
+                  delete={false}
+                  complete={`negative`}
                   title={post.title}
                   location={post.location}
                   startDate={post.startDate}
@@ -346,29 +405,9 @@ class ProfileComponent extends Component {
                 />
               );
             })
-          ) : this.props.posts !== undefined &&
-            this.props.posts.length > 0 &&
-            !this.props.userId ? (
-            this.props.posts
-              .sort((a, b) => (b.startDate > a.startDate ? 1 : -1))
-              .map((post, index) => {
-                // props for generic profile
-                return (
-                  <FeedCard
-                    key={index}
-                    delete={false}
-                    complete={`negative`}
-                    title={post.title}
-                    location={post.location}
-                    startDate={post.startDate}
-                    endDate={post.endDate}
-                    description={post.description}
-                  />
-                );
-              })
-          ) : (
-            <p>No posts yet!</p>
-          )}
+        ) : (
+          <p>No posts yet!</p>
+        )}
       </div>
     );
   }
