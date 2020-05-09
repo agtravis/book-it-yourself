@@ -6,7 +6,7 @@ function Map() {
   return (
     <Jumbotron>
       <div>
-        <h5>Event Locator</h5>
+        <h5 style={{ textAlign: "center" }}>Event Locator</h5>
         <img
           src={MapTest}
           style={{ maxWidth: 375 }}

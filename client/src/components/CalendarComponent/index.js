@@ -14,7 +14,7 @@ class EventCalendar extends Component {
     return (
       <div>
         <Jumbotron>
-          <h5>Upcoming Events</h5>
+          <h5 style={{ textAlign: "center" }}>Upcoming Events</h5>
           <Calendar onChange={this.onChange} value={this.state.date} />
         </Jumbotron>
       </div>
