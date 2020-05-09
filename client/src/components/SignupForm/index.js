@@ -145,10 +145,10 @@ class Signup extends Component {
         <Nav />
         <Row>
           <Col xl={12}>
+              <h5 className="text-center">Signup</h5>
             <Jumbotron className="maincontain">
               <Container >
                 <Form>
-                <h5>Signup:</h5>
                   <Form.Row>
                     <Form.Group as={Col} controlId="formGridEmail">
                       <Form.Label>Username</Form.Label>
