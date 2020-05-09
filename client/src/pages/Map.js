@@ -7,9 +7,9 @@ function Map() {
   return (
     <div>
       <Nav />
-      <Jumbotron fluid>
+      <Jumbotron className="maincontain" fluid>
         <div>
-          <h5>Event Locator</h5>
+          <h5>Event Locator:</h5>
           <img
             src={MapTest}
             style={{ maxWidth: 375 }}
