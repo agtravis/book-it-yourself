@@ -6,15 +6,7 @@ import "./style.css"
 function Footer() {
   return (
     <Navbar className="footer" bg="dark" fixed="bottom">
-      <Navbar.Brand>
-        <img
-          src={Logo}
-          width="40"
-          height="25"
-          className="d-inline-block align-top"
-          alt="logo"
-        />
-      </Navbar.Brand>
+      <a className="copy">&copy; Book-it-Yourself</a>
     </Navbar>
   );
 }
