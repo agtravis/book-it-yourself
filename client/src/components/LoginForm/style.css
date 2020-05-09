@@ -1,4 +1,14 @@
 .logcontain {
-    margin-top: 120px;
-  }
-  
+  background-image: url(../../assets/images/heart.jpg);
+  background-size: cover;
+  font-weight: bolder;
+  height: 700px;
+  font-size: 18pt;
+  width: 850px;
+}
+.loginbg {
+  background-color: rgb(228, 228, 228);
+  margin-top: 60px;
+  padding-top: 30px;
+  padding-bottom: 60px;
+}

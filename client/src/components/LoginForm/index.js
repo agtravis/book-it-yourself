@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Form, Button, Row, Col, Jumbotron, Container } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  Jumbotron,
+  Container,
+  Badge,
+} from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "./style.css";
@@ -66,55 +74,53 @@ class LoginForm extends Component {
       return <Redirect to={this.state.redirect} />;
     }
     return (
-      <div>
+      <div className="loginbg">
         <Nav />
-        <Row>
-          <Col xl={12}>
-            <Jumbotron className="logcontain">
-              <Container>
-                <Form>
-                <Form.Row>
+        <Row className="justify-content-md-center">
+          <Jumbotron className="logcontain">
+            <Container>
+              <Form>
                 <Form.Group>
-                <h5 className="text-center">Login:</h5>
+                  <h2 className="header">
+                    <Badge variant="dark">Log In:</Badge>
+                  </h2>
                 </Form.Group>
+                <Form.Row>
+                  <Form.Group>
+                  <Badge variant="dark">Username</Badge>
+                    <Form.Control
+                      type="text"
+                      id="username"
+                      name="username"
+                      value={this.state.username}
+                      onChange={this.handleChange}
+                    />
+                  </Form.Group>
                 </Form.Row>
-                  <Form.Row>
-                    <Form.Group>
-                      <Form.Label>Username</Form.Label>
-                      <Form.Control
-                        type="text"
-                        id="username"
-                        name="username"
-                        value={this.state.username}
-                        onChange={this.handleChange}
-                      />
-                    </Form.Group>
-                    </Form.Row>
-                    <Form.Row>
-                    <Form.Group>
-                      <Form.Label>Password</Form.Label>
-                      <Form.Control
-                        type="password"
-                        name="password"
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                      />
-                      <div style={{ fontSize: 10, color: "red" }}>
-                        {this.state.loginError}
-                      </div>
-                    </Form.Group>
-                  </Form.Row>
-                  <Button
-                    variant="dark"
-                    type="submit"
-                    onClick={this.handleSubmit}
-                  >
-                    Submit
-                  </Button>
-                </Form>
-              </Container>
-            </Jumbotron>
-          </Col>
+                <Form.Row>
+                  <Form.Group>
+                    <Badge variant="dark">Password</Badge>
+                    <Form.Control
+                      type="password"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                    />
+                    <div style={{ fontSize: 10, color: "red" }}>
+                      {this.state.loginError}
+                    </div>
+                  </Form.Group>
+                </Form.Row>
+                <Button
+                  variant="dark"
+                  type="submit"
+                  onClick={this.handleSubmit}
+                >
+                  Submit
+                </Button>
+              </Form>
+            </Container>
+          </Jumbotron>
         </Row>
       </div>
     );
