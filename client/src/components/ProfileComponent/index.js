@@ -86,7 +86,7 @@ class ProfileComponent extends Component {
     }
     return (
       <div>
-        <h3 className="title">Personal Info</h3>
+        <h2 className="title">Personal Info</h2>
         <hr></hr>
         <Image
           className="pic"
@@ -314,7 +314,7 @@ class ProfileComponent extends Component {
         </div>
 
         <hr></hr>
-        <h3 className="title">Posts</h3>
+        <h2 className="title">Posts</h2>
         {this.props.userId ? (
           <Link
             onClick={() => {
@@ -324,7 +324,6 @@ class ProfileComponent extends Component {
             Write a post
           </Link>
         ) : null}
-        <div className="shade w-75">
           {this.props.posts !== undefined &&
           this.props.posts.length > 0 &&
           this.props.userId ? (
@@ -370,7 +369,6 @@ class ProfileComponent extends Component {
           ) : (
             <p>No posts yet!</p>
           )}
-        </div>
       </div>
     );
   }

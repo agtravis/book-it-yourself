@@ -25,3 +25,7 @@
     align-items: center;
     padding-bottom: 10px;
 }
+
+.info ul li{
+    list-style-type: none;
+}

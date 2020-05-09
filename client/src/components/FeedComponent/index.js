@@ -7,6 +7,7 @@ import axios from "axios";
 import localForage from "localforage";
 import API from "../../utils/API";
 import { Link, Redirect } from "react-router-dom";
+import "./style.css";
 
 class FeedComponent extends Component {
   constructor(props) {
@@ -19,10 +20,10 @@ class FeedComponent extends Component {
       postTypes: [
         { filterTerm: `artistNeeded`, displayTerm: `Artist Needed` },
         { filterTerm: `showNeeded`, displayTerm: `Show Needed` },
-        { filterTerm: `promoterNeeded`, displayTerm: `Promoter Needed` },
+        { filterTerm: `promoterNeeded`, displayTerm: `Promoter Needed` }
       ],
       locationSearch: ``,
-      redirect: null,
+      redirect: null
     };
   }
 
@@ -73,18 +74,18 @@ class FeedComponent extends Component {
           );
           this.setState({
             username: response.data.user.username,
-            id: response.data.user._id,
+            id: response.data.user._id
           });
           localForage.setItem(`userKey`, {
             loggedIn: true,
             username: response.data.user.username,
-            id: response.data.user._id,
+            id: response.data.user._id
           });
         } else {
           console.log("Get user: no user");
           this.setState({
             username: null,
-            id: null,
+            id: null
           });
         }
       });
@@ -100,7 +101,7 @@ class FeedComponent extends Component {
             this.setState({
               loggedIn: value.loggedIn,
               username: value.username,
-              id: value.id,
+              id: value.id
             });
           }
         })
@@ -127,18 +128,19 @@ class FeedComponent extends Component {
             <Jumbotron fluid>
               <Container>
                 <h1>Posts</h1>{" "}
-                <Link
-                  style={{
-                    paddingLeft: 5,
-                    color: "blue",
-                    textDecoration: "underline blue",
-                  }}
+                <hr></hr>
+                <button className="btn btn-secondary rounded-pill"
+                  // style={{
+                  //   paddingLeft: 5,
+                  //   color: "blue",
+                  //   textDecoration: "underline blue"
+                  // }}
                   onClick={() => {
                     this.setState({ redirect: `/post` });
                   }}
                 >
-                  Make a post
-                </Link>
+                  Create Post
+                </button>
                 <h3 style={{ marginTop: 60 }}>Filter:</h3>
                 <form
                   id="location-search"
@@ -155,31 +157,29 @@ class FeedComponent extends Component {
                 >
                   <label
                     style={{
-                      paddingLeft: 5,
-                      marginRight: 10,
+                      marginRight: 10
                     }}
                     htmlFor="post-location"
                   >
-                    For where are you searching?
+                    Search Location:
                   </label>
-                  <input
+                  <input className="rounded-pill mr-1"
                     type="text"
                     placeholder="Search for a location"
                     onChange={event => {
                       this.setState({ locationSearch: event.target.value });
                     }}
                   />
-                  <button type="submit">Search</button>
+                  <button type="submit" className= "btn btn-sm btn-secondary rounded">Search</button>
                 </form>
-                <form id="select-post-type">
+                <form id="select-post-type" className="mb-5 mt-2">
                   <label
                     style={{
-                      paddingLeft: 5,
-                      marginRight: 10,
+                      marginRight: 40
                     }}
                     htmlFor="post-types"
                   >
-                    What kind of post?
+                    Search Type:
                   </label>
                   <select
                     id="post-type"
