@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import { Form, Button, Row, Col, Jumbotron, Container } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  Jumbotron,
+  Container,
+  Badge,
+} from "react-bootstrap";
 import Nav from "../Nav";
 import "./style.css";
 
@@ -136,82 +144,92 @@ class Signup extends Component {
     }
 
     return (
-      <div>
+      <div className="signupbg">
         <Nav />
-        <Row>
-          <Col xl={12}>
-            <h5 className="text-center">Signup</h5>
-            <Jumbotron className="maincontain">
-              <Container>
-                <Form>
-                  <Form.Row>
-                    <Form.Group as={Col} controlId="formGridEmail">
-                      <Form.Label>Username</Form.Label>
-                      <Form.Control
-                        type="text"
-                        id="username"
-                        name="username"
-                        value={this.state.username}
-                        onChange={this.handleChange}
-                      />
-                      <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.usernameError}
-                      </div>
-                    </Form.Group>
 
-                    <Form.Group as={Col}>
-                      <Form.Label>Password</Form.Label>
-                      <Form.Control
-                        type="password"
-                        name="password"
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                      />
-                      <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.passwordError}
-                      </div>
-                    </Form.Group>
-                  </Form.Row>
-
-                  <Form.Group>
-                    <Form.Label>Email Address</Form.Label>
+        <Row className="justify-content-md-center">
+          <Container className="signbadge">
+           
+          </Container>
+        </Row>
+        <Row className="justify-content-md-center">
+          <Jumbotron className="signcontain">
+            <Container>
+              <Form>
+              <Form.Group>
+              <h2 className="header">
+              <Badge variant="dark">Sign Up:</Badge>
+            </h2>
+            </Form.Group>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="formGridEmail">
+                    <Badge variant="dark">Username</Badge>
                     <Form.Control
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={this.state.email}
+                      type="text"
+                      id="username"
+                      name="username"
+                      value={this.state.username}
                       onChange={this.handleChange}
                     />
                     <div style={{ fontSize: 12, color: "red" }}>
-                      {this.state.emailError}
+                      {this.state.usernameError}
                     </div>
                   </Form.Group>
 
-                  <Form.Row>
-                    <Form.Group as={Col}>
-                      <Form.Label>City</Form.Label>
-                      <Form.Control
-                        type="text"
-                        id="location"
-                        name="location"
-                        value={this.state.location}
-                        onChange={this.handleChange}
-                      />
-                    </Form.Group>
+                  <Form.Group as={Col}>
+                    <Badge variant="dark">Password</Badge>
+                    <Form.Control
+                      type="password"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                    />
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.passwordError}
+                    </div>
+                  </Form.Group>
+                </Form.Row>
 
-                    <Form.Group as={Col}>
-                      <Form.Label>Phone</Form.Label>
-                      <Form.Control
-                        type="text"
-                        id="telephone"
-                        name="telephone"
-                        value={this.state.telephone}
-                        onChange={this.handleChange}
-                      />
-                    </Form.Group>
-                  </Form.Row>
+                <Form.Group>
+                  <Badge variant="dark">Email Address</Badge>
+                  <Form.Control
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                  />
+                  <div style={{ fontSize: 12, color: "red" }}>
+                    {this.state.emailError}
+                  </div>
+                </Form.Group>
 
-                  <Form.Group>
+                <Form.Row>
+                  <Form.Group as={Col}>
+                    <Badge variant="dark">City</Badge>
+                    <Form.Control
+                      type="text"
+                      id="location"
+                      name="location"
+                      value={this.state.location}
+                      onChange={this.handleChange}
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col}>
+                    <Badge variant="dark">Phone</Badge>
+                    <Form.Control
+                      type="text"
+                      id="telephone"
+                      name="telephone"
+                      value={this.state.telephone}
+                      onChange={this.handleChange}
+                    />
+                  </Form.Group>
+                </Form.Row>
+
+                <Form.Group>
+                  <Badge variant="dark">
                     <Form.Check
                       inline
                       type="checkbox"
@@ -219,6 +237,8 @@ class Signup extends Component {
                       label="Artist"
                       onChange={event => this.handleCheck(event, `artist`)}
                     />
+                  </Badge>
+                  <Badge variant="dark">
                     <Form.Check
                       inline
                       type="checkbox"
@@ -226,22 +246,22 @@ class Signup extends Component {
                       label="Promoter"
                       onChange={event => this.handleCheck(event, `promoter`)}
                     />
-                    <div style={{ fontSize: 12, color: "red" }}>
-                      {this.state.roleError}
-                    </div>
-                  </Form.Group>
+                  </Badge>
+                  <div style={{ fontSize: 12, color: "red" }}>
+                    {this.state.roleError}
+                  </div>
+                </Form.Group>
 
-                  <Button
-                    variant="dark"
-                    type="submit"
-                    onClick={this.handleSubmit}
-                  >
-                    Sign Up
-                  </Button>
-                </Form>
-              </Container>
-            </Jumbotron>
-          </Col>
+                <Button
+                  variant="dark"
+                  type="submit"
+                  onClick={this.handleSubmit}
+                >
+                  Submit
+                </Button>
+              </Form>
+            </Container>
+          </Jumbotron>
         </Row>
       </div>
     );

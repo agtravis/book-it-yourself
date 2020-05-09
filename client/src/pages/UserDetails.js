@@ -49,7 +49,6 @@ class Profile extends Component {
     return (
       <div>
         <Nav />
-
         <Row>
           <Col xl={4}>
             <div className="d-none d-xl-block">
@@ -57,7 +56,7 @@ class Profile extends Component {
             </div>
           </Col>
           <Col xl={8}>
-            <Jumbotron fluid>
+            <Jumbotron className="maincontain" fluid>
               {/* {this.state.user.username !== undefined ? ( */}
               <div>
                 <ProfileComponent

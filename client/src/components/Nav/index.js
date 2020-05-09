@@ -175,7 +175,13 @@ class NavigationBar extends Component {
       );
     } else {
       return (
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar
+          collapseOnSelect
+          className="fixed-top"
+          expand="lg"
+          bg="dark"
+          variant="dark"
+        >
           <Navbar.Brand href="/">
             <img
               src={Logo}
