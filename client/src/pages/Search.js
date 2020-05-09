@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Row, Col, Jumbotron } from "react-bootstrap";
+import { Row, Col, Jumbotron, Badge, ListGroup } from "react-bootstrap";
 import Nav from "../components/Nav";
 import API from "../utils/API";
 import SideFeedComponent from "../components/SideFeedComponent";
@@ -68,33 +68,25 @@ class Search extends Component {
             </div>
           </Col>
           <Col xl={8}>
-            <Jumbotron className="maincontain" fluid>
-              <p
-                style={{
-                  textAlign: "center",
-                  fontWeight: "bolder",
-                  fontSize: 40,
-                }}
-              >
-                Users
-              </p>
-              <br></br>
-              {this.state.users.length > 0
-                ? this.state.users.map(user => (
-                    <button
-                      style={{
-                        margin: 20,
-                        fontSize: 20,
-                      }}
-                      id={user._id}
-                      onClick={event => {
-                        this.handleUserChoice(event.target.id);
-                      }}
-                    >
-                      {user.username}
-                    </button>
-                  ))
-                : null}
+            <Jumbotron className="searchreshead" fluid>
+              <Badge variant="dark">
+                <h2>Search Results</h2>
+              </Badge>
+              <ListGroup>
+                {this.state.users.length > 0
+                  ? this.state.users.map(user => (
+                      <ListGroup.Item
+                        variant="dark"
+                        action
+                        onClick={event => {
+                          this.handleUserChoice(event.target.id);
+                        }}
+                      >
+                        <a>{user.username}</a>
+                      </ListGroup.Item>
+                    ))
+                  : null}
+              </ListGroup>
             </Jumbotron>
           </Col>
         </Row>

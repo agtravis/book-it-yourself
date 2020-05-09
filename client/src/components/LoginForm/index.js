@@ -3,7 +3,6 @@ import {
   Form,
   Button,
   Row,
-  Col,
   Jumbotron,
   Container,
   Badge,
@@ -87,7 +86,7 @@ class LoginForm extends Component {
                 </Form.Group>
                 <Form.Row>
                   <Form.Group>
-                  <Badge variant="dark">Username</Badge>
+                    <Badge variant="dark">Username</Badge>
                     <Form.Control
                       type="text"
                       id="username"
