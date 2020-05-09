@@ -75,15 +75,19 @@ class Search extends Component {
               <ListGroup>
                 {this.state.users.length > 0
                   ? this.state.users.map(user => (
-                      <ListGroup.Item
-                        variant="dark"
-                        action
-                        onClick={event => {
-                          this.handleUserChoice(event.target.id);
-                        }}
-                      >
-                        <a>{user.username}</a>
-                      </ListGroup.Item>
+                    <button
+                    style={{
+                      margin: 20,
+                      fontSize: 20,
+                    }}
+                    id={user._id}
+                    onClick={event => {
+                      this.handleUserChoice(event.target.id);
+                    }}
+                  >
+                    {user.username}
+                  </button>
+
                     ))
                   : null}
               </ListGroup>

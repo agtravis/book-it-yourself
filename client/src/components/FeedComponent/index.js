@@ -153,7 +153,7 @@ class FeedComponent extends Component {
                   <input
                     className="rounded-pill mr-1"
                     type="text"
-                    placeholder="Enter a city"
+                    placeholder="   Enter a city"
                     onChange={event => {
                       this.setState({ locationSearch: event.target.value });
                     }}
