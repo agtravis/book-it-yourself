@@ -147,4 +147,4 @@ Ensures there are no lingering posts to get duplicated.
 
 ## Contact
 
-Created by [@agtravis](https://agtravis.github.io/portfolio) | [@ddhoang21](https://ddhoang21.github.io/My-Portfolio/) | [@resousa](https:///) | [@remyguys](https:///) | [@Issouf03](https:///) | [@remyguts](https:///)
+Created by [@agtravis](https://agtravis.github.io/portfolio) | [@ddhoang21](https://ddhoang21.github.io/My-Portfolio/) | [@resousa](https:///) | [@remyguys](https:///) | [@Issouf03](https:///) | [@franzcfelix](https://github.com/FrantzCFelix)
