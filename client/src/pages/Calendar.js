@@ -14,8 +14,8 @@ class EventCalendar extends Component {
     return (
       <div>
           <Nav />
-        <Jumbotron className="maincontain">
-          <h5>Upcoming Events</h5>
+        <Jumbotron className="mobilecaltron">
+          <h5 className="mobilecaltron">Upcoming Events</h5>
           <Calendar onChange={this.onChange} value={this.state.date} />
         </Jumbotron>
       </div>
