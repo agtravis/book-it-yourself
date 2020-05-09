@@ -117,7 +117,7 @@ class FeedComponent extends Component {
             </div>
           </Col>
           <Col xl={8}>
-            <Jumbotron fluid>
+            <Jumbotron className="maincontain" fluid>
               <Container className="maincontain">
                 <button
                   className="btn btn-secondary rounded-pill"
