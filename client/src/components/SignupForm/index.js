@@ -146,20 +146,21 @@ class Signup extends Component {
     return (
       <div className="signupbg">
         <Nav />
-        
+
         <Row className="justify-content-md-center">
-        
           <Container className="signbadge">
-            <h2 className="header">
-              <Badge variant="dark">Sign Up:</Badge>
-            </h2>
+           
           </Container>
-         
         </Row>
         <Row className="justify-content-md-center">
           <Jumbotron className="signcontain">
             <Container>
               <Form>
+              <Form.Group>
+              <h2 className="header">
+              <Badge variant="dark">Sign Up:</Badge>
+            </h2>
+            </Form.Group>
                 <Form.Row>
                   <Form.Group as={Col} controlId="formGridEmail">
                     <Badge variant="dark">Username</Badge>
