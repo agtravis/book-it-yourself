@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { Image, Form, Button } from "react-bootstrap";
 import "./style.css";
 import image from "../../assets/images/userTest.png";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import FeedCard from "../FeedCard";
-import API from "../../utils/API";
 import axios from "axios";
 
 class ProfileComponent extends Component {
@@ -91,8 +90,8 @@ class ProfileComponent extends Component {
           src={this.state.imageSrc}
           alt="profile pic"
           style={{ width: `200px` }}
-          />
-          <hr></hr>
+        />
+        <hr></hr>
         <br></br>
         <p className="username">
           {this.props.userId ? `Welcome, ` : null}
@@ -353,13 +352,14 @@ class ProfileComponent extends Component {
 
         <hr></hr>
         {this.props.userId ? (
-           <button className="btn btn-secondary rounded-pill"
-           onClick={() => {
-             this.setState({ redirect: `/post` });
-           }}
-         >
-           New Post
-         </button>
+          <button
+            className="btn btn-secondary rounded-pill"
+            onClick={() => {
+              this.setState({ redirect: `/post` });
+            }}
+          >
+            New Post
+          </button>
         ) : null}
         {this.props.posts !== undefined &&
         this.props.posts.length > 0 &&

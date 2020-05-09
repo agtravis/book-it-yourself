@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import Button from "react-bootstrap/Button";class Search extends Component {
+import Button from "react-bootstrap/Button";
+class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,7 +57,6 @@ import Button from "react-bootstrap/Button";class Search extends Component {
             size="sm"
             onClick={() => {
               if (window.location.pathname === `/search`) {
-                console.log(`matches`);
                 this.props.setSearchTerm(this.state.searchTerm);
               } else {
                 this.setState({ redirect: `/search` });

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import Card from "react-bootstrap/Card";
-import Jumbotron from "react-bootstrap/Jumbotron";
-import API from "../../utils/API";
+import { Card } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "./style.css";
@@ -23,7 +21,6 @@ class FeedCard extends Component {
       )
       .then(data => {
         const num = Math.floor(Math.random() * 20);
-        console.log(data.data.data[0].images.fixed_width.url);
         this.setState({ imgSrc: data.data.data[num].images.fixed_width.url });
       })
       .catch(err => console.error(err));

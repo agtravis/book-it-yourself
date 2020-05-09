@@ -30,14 +30,12 @@ class Search extends Component {
     if (search) {
       API.searchUser(search)
         .then(response => {
-          console.log(response.data);
           this.setState({ users: response.data });
         })
         .catch(err => console.error(err));
     } else {
       API.searchUser(this.props.location.state.searchTerm)
         .then(response => {
-          console.log(response.data);
           this.setState({ users: response.data });
         })
         .catch(err => console.error(err));
@@ -45,7 +43,6 @@ class Search extends Component {
   };
 
   render() {
-    // console.log(this.props.location.pathname);
     if (this.state.redirect) {
       const redir = this.state.redirect;
       this.setState({ redirect: null });
