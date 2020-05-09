@@ -52,7 +52,9 @@ class FeedCard extends Component {
       <Card className="w-75 mb-3 mx-auto">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img src={this.state.imgSrc} class="card-img" alt="..." />
+            {this.state.imgSrc ? (
+              <img src={this.state.imgSrc} class="card-img" alt="..." />
+            ) : null}
           </div>
           <div class="col-md-8">
             <Card.Body>
