@@ -79,11 +79,12 @@ class Search extends Component {
                   fontSize: 40,
                 }}
               >
-                Search Page
+                Users
               </p>
+              <br></br>
               {this.state.users.length > 0
                 ? this.state.users.map(user => (
-                    <p
+                    <button
                       style={{
                         margin: 20,
                         fontSize: 20,
@@ -94,7 +95,7 @@ class Search extends Component {
                       }}
                     >
                       {user.username}
-                    </p>
+                    </button>
                   ))
                 : null}
             </Jumbotron>
