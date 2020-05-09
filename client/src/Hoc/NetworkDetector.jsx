@@ -44,8 +44,6 @@ export default function (ComposedComponent) {
       localForage
         .getItem(`postKey`)
         .then(value => {
-          console.log(`postKey value`);
-          console.log(value);
           if (value) {
             localForage
               .iterate((value, key, iterationNumber) => {
@@ -53,20 +51,16 @@ export default function (ComposedComponent) {
                   for (const post of value) {
                     API.addPost(post.post).then(postDb => {
                       API.updateUserNewPost(post.user, { id: postDb.data._id })
-                        .then(userDb => {
-                          console.log(userDb);
-                        })
+                        .then(userDb => {})
                         .catch(err => console.error(err));
                     });
                   }
                 }
               })
               .then(() => {
-                console.log(`iteration complete`);
                 localForage
                   .removeItem(`postKey`)
                   .then(() => {
-                    console.log(`offline storage emptied`);
                     this.setState({ transmitting: false });
                   })
                   .catch(err => console.error(err));

@@ -3,7 +3,6 @@ import Footer from "./components/Footer";
 import React from "react";
 import axios from "axios";
 import localForage from "localforage";
-import API from "./utils/API";
 import Login from "./components/LoginForm";
 import Main from "./pages/Main";
 import Index from "./pages/Index";
@@ -36,9 +35,7 @@ class App extends React.Component {
 
   getUser = () => {
     axios.get("/api/user/").then(response => {
-      console.log(response.data);
       if (response.data.user) {
-        console.log("Get User: There is a user saved in the server session: ");
         this.setState({
           loggedIn: true,
           username: response.data.user.username,
@@ -50,7 +47,6 @@ class App extends React.Component {
           id: response.data.user._id,
         });
       } else {
-        console.log("Get user: no user");
         this.setState({
           loggedIn: false,
           username: null,
