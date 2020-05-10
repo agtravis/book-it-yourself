@@ -25,18 +25,18 @@ This app runs in the browser - see [Setup](#setup) below for instructions on how
 
 ## About
 
-Book-it-yourself is an app that connects artists and promoters across the globe. The inspiration for our project came from the 90's publication Book Your Own Fuc*in Life. This publication was instrumental in the 90's to help connect bands and promoters across the world. Unfortunately with the rise in technology in the 2000's the publication went away, and it in turn made it harder for artists to connect with other artists and promoters... Until now! With Book-it-Yourself artists and promoters around the globe have the ability to all be connected on one app. Users can search for and connect with other individuals, explore posts all around the globe based on location or type of post. The time has come for artists to take back the ability to Book Your Own Fuc*in Life!!!
+Book-it-yourself is an app that connects artists and promoters across the globe. The inspiration for our project came from the 90's publication Book Your Own Fuc-in Life. This publication was instrumental in the 90's to help connect bands and promoters across the world. Unfortunately with the rise in technology in the 2000's the publication went away, and it in turn made it harder for artists to connect with other artists and promoters... Until now! With Book-it-Yourself artists and promoters around the globe have the ability to all be connected on one app. Users can search for and connect with other individuals, explore posts all around the globe based on location or type of post. The time has come for artists to take back the ability to Book Your Own Fuc-in Life!!!
 
 ## Screenshots
 
 
-![Screenshot (154)](https://github.com/agtravis/book-it-yourself/blob/master/client/src/assets/images/indexcap.PNG?raw=true)
-Above is the main log in screen on desktop. The styling is based off of the old Publication Book Your Own Fuc*in Life. 
-![Screenshot (155)](https://github.com/agtravis/book-it-yourself/blob/master/client/src/assets/images/indexmcap.PNG?raw=true)
+![Screenshot (154)](https://github.com/agtravis/book-it-yourself/blob/master/client/src/assets/images/indexcap.PNG?raw=true)\
+Above is the main log in screen on desktop. The styling is based off of the old Publication Book Your Own Fuc-in Life. 
+![Screenshot (155)](https://github.com/agtravis/book-it-yourself/blob/master/client/src/assets/images/indexmcap.PNG?raw=true)\
 Above is the log in screen on mobile. One key functionality about the App that will be explained more in this Readme is the ability for the app to be a downloadable web app, as mobile is the preferred use of application 
-![Screenshot (156)](https://github.com/agtravis/book-it-yourself/blob/master/client/src/assets/images/feedcap.PNG?raw=true)
+![Screenshot (156)](https://github.com/agtravis/book-it-yourself/blob/master/client/src/assets/images/feedcap.PNG?raw=true)\
 Above is an example of layout responsiveness with an Ipad on feed. 
-![Screenshot (157)](https://github.com/agtravis/book-it-yourself/blob/master/client/src/assets/images/profilecap.PNG?raw=true)
+![Screenshot (157)](https://github.com/agtravis/book-it-yourself/blob/master/client/src/assets/images/profilecap.PNG?raw=true)\
 Example of user profile above. 
 
 
