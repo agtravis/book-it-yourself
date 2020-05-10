@@ -12,7 +12,7 @@ Check out the repo [here](https://github.com/agtravis/book-it-yourself), and see
 This app runs in the browser - see [Setup](#setup) below for instructions on how to use.
 
 ## Table of contents
-
+- [About](#about)
 - [Screenshots](#screenshots)
 - [Technologies](#technologies)
 - [Code Examples](#code-examples)
@@ -21,13 +21,23 @@ This app runs in the browser - see [Setup](#setup) below for instructions on how
 - [Status](#status)
 - [Contact](#contact)
 
+
+
+## About
+
+Book-it-yourself is an app that connects artists and promoters across the globe. The inspiration for our project came from the 90's publication Book Your Own Fuc*in Life. This publication was instrumental in the 90's to help connect bands and promoters across the world. Unfortunately with the rise in technology in the 2000's the publication went away, and it in turn made it harder for artists to connect with other artists and promoters... Until now! With Book-it-Yourself artists and promoters around the globe have the ability to all be connected on one app. Users can search for and connect with other individuals, explore posts all around the globe based on location or type of post. The time has come for artists to take back the ability to Book Your Own Fuc*in Life!!!
+
 ## Screenshots
 
 
-![Screenshot (154)](https://user-images.githubusercontent.com/56744605/81464314-57e44400-9175-11ea-82a1-4b9b1cacb3e0.png)
-![Screenshot (155)](https://user-images.githubusercontent.com/56744605/81464318-5c106180-9175-11ea-9461-a2a24e4cd1af.png)
-![Screenshot (156)](https://user-images.githubusercontent.com/56744605/81464321-5fa3e880-9175-11ea-97e4-8bc7a36725d6.png)
-
+![Screenshot (154)](https://github.com/agtravis/book-it-yourself/blob/master/client/src/assets/images/indexcap.PNG?raw=true)
+Above is the main log in screen on desktop. The styling is based off of the old Publication Book Your Own Fuc*in Life. 
+![Screenshot (155)](https://github.com/agtravis/book-it-yourself/blob/master/client/src/assets/images/indexmcap.PNG?raw=true)
+Above is the log in screen on mobile. One key functionality about the App that will be explained more in this Readme is the ability for the app to be a downloadable web app, as mobile is the preferred use of application 
+![Screenshot (156)](https://github.com/agtravis/book-it-yourself/blob/master/client/src/assets/images/feedcap.PNG?raw=true)
+Above is an example of layout responsiveness with an Ipad on feed. 
+![Screenshot (157)](https://github.com/agtravis/book-it-yourself/blob/master/client/src/assets/images/profilecap.PNG?raw=true)
+Example of user profile above. 
 
 
 ## Technologies
@@ -142,6 +152,73 @@ localForage.removeItem(`postKey`);
 
 Ensures there are no lingering posts to get duplicated.
 
+
+### ServiceWorker 
+
+React comes with a built in service worker. It was really important for our application to take full advantage of this as the intended purpose for this app is to be a downloadable mobile web app. 
+
+```js 
+function checkValidServiceWorker(swUrl, config) {
+  fetch(swUrl, {
+    headers: { 'Service-Worker': 'script' },
+  })
+    .then(response => {
+      const contentType = response.headers.get('content-type');
+      if (
+        response.status === 404 ||
+        (contentType != null && contentType.indexOf('javascript') === -1)
+      ) {
+        navigator.serviceWorker.ready.then(registration => {
+          registration.unregister().then(() => {
+            window.location.reload();
+          });
+        });
+      } else {
+        registerValidSW(swUrl, config);
+      }
+    })
+```
+First the service worker checks to see if it is registered or unregistered. If it is registered it will continue, otherwise it will end with an reload of the page.   
+
+```js 
+function registerValidSW(swUrl, config) {
+  navigator.serviceWorker
+    .register(swUrl)
+    .then(registration => {
+      registration.onupdatefound = () => {
+        const installingWorker = registration.installing;
+        if (installingWorker == null) {
+          return;
+        }
+        installingWorker.onstatechange = () => {
+          if (installingWorker.state === 'installed') {
+            if (navigator.serviceWorker.controller) {
+              console.log(
+                'New content is available and will be used when all ' +
+                  'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
+              );
+              if (config && config.onUpdate) {
+                config.onUpdate(registration);
+              }
+            } else {
+              console.log('Content is cached for offline use.')
+              if (config && config.onSuccess) {
+                config.onSuccess(registration);
+              }
+            }
+          }
+        };
+      };
+    })
+    .catch(error => {
+      console.error('Error during service worker registration:', error);
+    });
+}
+```
+
+Now we have registered the service worker which has updated the precached content. The previous service worker will continue to run until all tabs are close. When all content has been precached the app has the ability to work for offline use. 
+
+
 ## Setup
 
 If the user just wants to use the app, all they have to do is sign up for an account!
@@ -162,5 +239,5 @@ Chat.......
 
 ## Contact
 
-Created by [@agtravis](https://agtravis.github.io/portfolio) | [@ddhoang21](https://ddhoang21.github.io/My-Portfolio/) | [@FrantzCFelix](https://github.com/FrantzCFelix) | [@Issouf03](https:///) | [@remyguts](https:///)| [@resousa](https:///)
+Created by [@agtravis](https://agtravis.github.io/portfolio) | [@ddhoang21](https://ddhoang21.github.io/My-Portfolio/) | [@FrantzCFelix](https://github.com/FrantzCFelix) | [@Issouf03](https:///) | [@remyguts](https:///)| [@resousa](https://github.com/resousa/)
 
