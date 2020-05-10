@@ -42,7 +42,12 @@ Example of user profile above.
 
 ## Technologies
 
-This app was built with React.
+This app was built with : 
+
+- [MongoDB](https://www.mongodb.com/)
+- [Express](https://expressjs.com/)
+- [React](https://reactjs.org/)
+- [Node](https://nodejs.org/en/)
 
 ### Back-end package.json dependencies:
 
@@ -229,13 +234,54 @@ If the user has forked the repo and wants to see the code and potentially make c
 
 This Progressive Web Application has offline abilities, is responsive and features encrypted user passwords.
 
+### Passport
+
+Before mongoose saves a document in the database, we want to hash the password with bcrypt, using the hashPassword method defined below in userSchema.methods. 
+
+```js
+const bcrypt = require(`bcryptjs`);
+
+userSchema.methods = {
+  checkPassword: function (inputPassword) {
+    return bcrypt.compareSync(inputPassword, this.password);
+  },
+  hashPassword: plainTextPassword => {
+    return bcrypt.hashSync(plainTextPassword, 10);
+  },
+};
+```
+The first argument is the password to hash, and the second parameter is the salt length to generate. Next, we use a pre-hook on the ‘save’ method for the user schema.
+
+```js
+userSchema.pre(`save`, function (next) {
+  if (!this.password) {
+    console.log(`=======NO PASSWORD PROVIDED=======`);
+    next();
+  } else {
+    console.log(`hashPassword in pre save`);
+
+    this.password = this.hashPassword(this.password);
+    next();
+  }
+});
+```
+This is serial middleware, so the next() function is needed to move on to the next middleware method.
+
+When a user logs in, passport will put the user object into req.session.passport.user. Then on future requests, the user won't need to log in again for the life of the session. The passport session is initialized in the server just as so.
+
+```js
+const passport = require('./passport');
+
+app.use(passport.initialize())
+app.use(passport.session()) // calls serializeUser and deserializeUser
+```
+These lines of code run on every request. serializeUser stores the user id to req.session.passport.user = {id:’..’}. While deserializeUser will check to see if this user is saved in the database, and if it is found it assigns it to the request as req.user = {user object}.
+
+## Status & Future Development
+
 Maps.......
 
 Chat.......
-
-## Status & Future Developement
-
-..........
 
 ## Contact
 
